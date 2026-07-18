@@ -4,8 +4,8 @@
 
 | ID      | 상태        | 작업                                 | AUTO_MERGE | 완료 조건                                             |
 | ------- | ----------- | ------------------------------------ | ---------- | ----------------------------------------------------- |
-| APK-000 | IN_PROGRESS | 프로젝트 및 자동화 기반 부트스트랩   | false      | main 초기 커밋과 로컬 check/build 성공                |
-| APK-001 | OPEN        | 자동화 파이프라인 검증용 상태 페이지 | true       | CI, Preview, squash merge, production smoke 전체 성공 |
+| APK-000 | DONE        | 프로젝트 및 자동화 기반 부트스트랩   | false      | main 초기 커밋과 로컬 check/build 성공                |
+| APK-001 | IN_PROGRESS | 자동화 파이프라인 검증용 상태 페이지 | true       | CI, Preview, squash merge, production smoke 전체 성공 |
 | APK-002 | BLOCKED     | 초보자용 AI API 비용 계산기          | true       | APK-001 production smoke 성공 후 eligible             |
 | APK-003 | BLOCKED     | 모델 가격·특성 비교                  | true       | APK-002 production smoke 성공 후 eligible             |
 | APK-004 | BLOCKED     | 목적 기반 모델 선택 도우미           | true       | APK-003 production smoke 성공 후 eligible             |

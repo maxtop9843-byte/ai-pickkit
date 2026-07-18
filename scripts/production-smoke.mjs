@@ -1,0 +1,41 @@
+const origin = process.env.PRODUCTION_URL ?? "https://aipickkit.com";
+const attempts = Number(process.env.SMOKE_ATTEMPTS ?? 18);
+const delayMs = Number(process.env.SMOKE_DELAY_MS ?? 10000);
+const checks = [
+  { path: "/", contains: 'data-smoke="home"' },
+  {
+    path: "/robots.txt",
+    contains: "Sitemap: https://aipickkit.com/sitemap.xml",
+  },
+  { path: "/sitemap.xml", contains: "https://aipickkit.com" },
+];
+const wait = (milliseconds) =>
+  new Promise((resolve) => setTimeout(resolve, milliseconds));
+async function verify() {
+  for (const check of checks) {
+    const response = await fetch(`${origin}${check.path}`, {
+      redirect: "follow",
+      headers: { "user-agent": "AI-PickKit-Production-Smoke/1.0" },
+    });
+    const body = await response.text();
+    if (!response.ok)
+      throw new Error(`${check.path} returned HTTP ${response.status}`);
+    if (!body.includes(check.contains))
+      throw new Error(
+        `${check.path} is missing ${JSON.stringify(check.contains)}`,
+      );
+  }
+}
+let lastError;
+for (let attempt = 1; attempt <= attempts; attempt += 1) {
+  try {
+    await verify();
+    console.log(`Production smoke passed for ${origin} on attempt ${attempt}.`);
+    process.exit(0);
+  } catch (error) {
+    lastError = error;
+    console.error(`Attempt ${attempt}/${attempts} failed: ${error.message}`);
+    if (attempt < attempts) await wait(delayMs);
+  }
+}
+throw lastError;
