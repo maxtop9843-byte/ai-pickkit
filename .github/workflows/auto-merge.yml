@@ -1,0 +1,41 @@
+name: Safe Auto Merge
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+  check_suite:
+    types: [completed]
+  deployment_status:
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+  deployments: read
+concurrency:
+  group: safe-auto-merge
+  cancel-in-progress: false
+jobs:
+  merge-eligible:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify exact opt-in and same-SHA checks, then squash
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const { data: pulls } = await github.rest.pulls.list({ owner, repo, state: "open", base: "main", per_page: 50 });
+            for (const candidate of pulls) {
+              if (candidate.draft || candidate.head.repo?.full_name !== `${owner}/${repo}` || !/^AUTO_MERGE: true$/m.test(candidate.body ?? "")) continue;
+              const pr = (await github.rest.pulls.get({ owner, repo, pull_number: candidate.number })).data;
+              if (pr.mergeable !== true || pr.mergeable_state === "dirty") continue;
+              const checkRuns = (await github.rest.checks.listForRef({ owner, repo, ref: pr.head.sha, per_page: 100 })).data.check_runs;
+              const quality = checkRuns.find((check) => check.name === "quality");
+              const statuses = (await github.rest.repos.getCombinedStatusForRef({ owner, repo, ref: pr.head.sha })).data.statuses;
+              const vercel = statuses.find((status) => status.context === "Vercel");
+              if (quality?.conclusion !== "success" || vercel?.state !== "success") continue;
+              const reviews = (await github.rest.pulls.listReviews({ owner, repo, pull_number: candidate.number, per_page: 100 })).data;
+              const latestByReviewer = new Map();
+              for (const review of reviews) if (review.user) latestByReviewer.set(review.user.id, review.state);
+              if ([...latestByReviewer.values()].includes("CHANGES_REQUESTED")) continue;
+              await github.rest.pulls.merge({ owner, repo, pull_number: candidate.number, merge_method: "squash", commit_title: `${candidate.title} (#${candidate.number})` });
+            }
