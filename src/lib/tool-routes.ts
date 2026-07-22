@@ -1,8 +1,9 @@
 export type ToolRoute = {
-  id: "calculator" | "prompt" | "models" | "selector";
+  id: "calculator" | "prompt" | "savings" | "models" | "selector";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
+    | "/batch-cache-simulator"
     | "/models"
     | "/model-selector";
   navLabel: string;
@@ -29,6 +30,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "프롬프트 토큰·비용 추정기",
     description:
       "텍스트를 붙여넣고 예상 토큰 범위와 선택한 AI 모델별 요청 1회·월간 API 비용을 비교하세요.",
+  },
+  {
+    id: "savings",
+    href: "/batch-cache-simulator",
+    navLabel: "비용 절감",
+    eyebrow: "EFFICIENCY LEDGER",
+    title: "Batch·캐싱 절감 시뮬레이터",
+    description:
+      "반복 입력·캐시 적중·비실시간 요청 비중을 조정하고 기본 비용과 Batch·캐싱 최적화 시나리오를 비교하세요.",
   },
   {
     id: "models",
