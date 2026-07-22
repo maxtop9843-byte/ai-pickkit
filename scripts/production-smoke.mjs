@@ -7,10 +7,28 @@ const checks = [
   { path: "/", contains: 'data-smoke="model-comparison"' },
   { path: "/", contains: 'data-smoke="model-selector"' },
   {
+    path: "/api-cost-calculator",
+    contains: 'data-smoke="api-cost-calculator-page"',
+  },
+  { path: "/api-cost-calculator", contains: 'id="calculator"' },
+  { path: "/models", contains: 'data-smoke="models-page"' },
+  { path: "/models", contains: 'data-smoke="model-comparison"' },
+  { path: "/model-selector", contains: 'data-smoke="model-selector-page"' },
+  { path: "/model-selector", contains: 'data-smoke="model-selector"' },
+  {
     path: "/robots.txt",
     contains: "Sitemap: https://aipickkit.com/sitemap.xml",
   },
   { path: "/sitemap.xml", contains: "https://aipickkit.com" },
+  {
+    path: "/sitemap.xml",
+    contains: "https://aipickkit.com/api-cost-calculator",
+  },
+  { path: "/sitemap.xml", contains: "https://aipickkit.com/models" },
+  {
+    path: "/sitemap.xml",
+    contains: "https://aipickkit.com/model-selector",
+  },
 ];
 const wait = (milliseconds) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
