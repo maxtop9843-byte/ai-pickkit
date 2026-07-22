@@ -5,6 +5,7 @@ import {
   blendedPrice,
   catalogModels,
   CATALOG_VERIFIED_AT,
+  providerSources,
   type ModelTier,
   type Provider,
 } from "@/lib/model-catalog";
@@ -222,18 +223,11 @@ export default function ModelComparison() {
         </p>
         <p>
           마지막 확인 {CATALOG_VERIFIED_AT} ·{" "}
-          {Array.from(
-            new Set(catalogModels.map((model) => model.provider)),
-          ).map((name) => {
-            const model = catalogModels.find((item) => item.provider === name)!;
+          {providers.slice(1).map((name) => {
+            const source = providerSources[name as Provider];
             return (
-              <a
-                href={model.source}
-                target="_blank"
-                rel="noreferrer"
-                key={name}
-              >
-                {name} 공식 가격 ↗
+              <a href={source.url} target="_blank" rel="noreferrer" key={name}>
+                {source.label} ↗
               </a>
             );
           })}
