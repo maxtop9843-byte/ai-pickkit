@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CostCalculator from "@/components/cost-calculator";
 import ModelComparison from "@/components/model-comparison";
+import ModelSelector from "@/components/model-selector";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <nav aria-label="주요 메뉴">
           <a href="#calculator">비용 계산기</a>
           <a href="#models">모델 비교</a>
+          <a href="#selector">모델 추천</a>
         </nav>
         <a className="header-cta" href="#calculator">
           바로 계산하기
@@ -47,6 +49,8 @@ export default function Home() {
       <CostCalculator />
 
       <ModelComparison />
+
+      <ModelSelector />
 
       <section className="explain-section" aria-labelledby="explain-title">
         <p className="section-kicker">HOW THE NUMBER WORKS</p>

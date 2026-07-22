@@ -5,6 +5,7 @@ const checks = [
   { path: "/", contains: 'data-smoke="home"' },
   { path: "/", contains: 'id="calculator"' },
   { path: "/", contains: 'data-smoke="model-comparison"' },
+  { path: "/", contains: 'data-smoke="model-selector"' },
   {
     path: "/robots.txt",
     contains: "Sitemap: https://aipickkit.com/sitemap.xml",
