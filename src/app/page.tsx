@@ -38,6 +38,25 @@ export default function Home() {
 
       <ModelSelector />
 
+      <section
+        className="prompt-tool-band"
+        aria-labelledby="prompt-tool-band-title"
+      >
+        <div>
+          <p className="section-kicker">NEW · PROMPT METER</p>
+          <h2 id="prompt-tool-band-title">
+            이미 작성한 프롬프트도 바로 계산하세요
+          </h2>
+        </div>
+        <p>
+          텍스트를 붙여넣으면 언어 구성을 반영한 토큰 범위와 모델별 요청·월간
+          비용을 보여드립니다. 입력 내용은 브라우저 밖으로 보내지 않습니다.
+        </p>
+        <Link href="/prompt-token-calculator">
+          프롬프트 비용 추정 <span aria-hidden="true">→</span>
+        </Link>
+      </section>
+
       <section className="explain-section" aria-labelledby="explain-title">
         <p className="section-kicker">HOW THE NUMBER WORKS</p>
         <h2 id="explain-title">계산 결과, 이렇게 읽으세요</h2>
