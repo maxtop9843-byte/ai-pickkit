@@ -27,6 +27,14 @@ const checks = [
     path: "/prompt-token-calculator",
     contains: 'data-smoke="prompt-cost-estimator"',
   },
+  {
+    path: "/batch-cache-simulator",
+    contains: 'data-smoke="batch-cache-simulator-page"',
+  },
+  {
+    path: "/batch-cache-simulator",
+    contains: 'data-smoke="savings-simulator"',
+  },
   { path: "/models", contains: 'data-smoke="models-page"' },
   { path: "/models", contains: 'data-smoke="model-comparison"' },
   { path: "/model-selector", contains: 'data-smoke="model-selector-page"' },
@@ -44,6 +52,10 @@ const checks = [
   {
     path: "/sitemap.xml",
     contains: "https://aipickkit.com/prompt-token-calculator",
+  },
+  {
+    path: "/sitemap.xml",
+    contains: "https://aipickkit.com/batch-cache-simulator",
   },
   {
     path: "/sitemap.xml",

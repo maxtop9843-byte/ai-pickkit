@@ -52,9 +52,10 @@ export default function Home() {
           텍스트를 붙여넣으면 언어 구성을 반영한 토큰 범위와 모델별 요청·월간
           비용을 보여드립니다. 입력 내용은 브라우저 밖으로 보내지 않습니다.
         </p>
-        <Link href="/prompt-token-calculator">
-          프롬프트 비용 추정 <span aria-hidden="true">→</span>
-        </Link>
+        <div className="prompt-tool-actions">
+          <Link href="/prompt-token-calculator">프롬프트 비용 추정 →</Link>
+          <Link href="/batch-cache-simulator">Batch·캐싱 절감 비교 →</Link>
+        </div>
       </section>
 
       <section className="explain-section" aria-labelledby="explain-title">
