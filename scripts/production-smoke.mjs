@@ -4,6 +4,7 @@ const delayMs = Number(process.env.SMOKE_DELAY_MS ?? 10000);
 const checks = [
   { path: "/", contains: 'data-smoke="home"' },
   { path: "/", contains: 'id="calculator"' },
+  { path: "/", contains: 'data-smoke="model-comparison"' },
   {
     path: "/robots.txt",
     contains: "Sitemap: https://aipickkit.com/sitemap.xml",
