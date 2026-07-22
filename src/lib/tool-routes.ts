@@ -1,6 +1,10 @@
 export type ToolRoute = {
-  id: "calculator" | "models" | "selector";
-  href: "/api-cost-calculator" | "/models" | "/model-selector";
+  id: "calculator" | "prompt" | "models" | "selector";
+  href:
+    | "/api-cost-calculator"
+    | "/prompt-token-calculator"
+    | "/models"
+    | "/model-selector";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -16,6 +20,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "AI API 비용 계산기",
     description:
       "토큰을 몰라도 사용자 수와 질문 횟수만으로 모델별 요청·하루·월간 API 비용을 계산하세요.",
+  },
+  {
+    id: "prompt",
+    href: "/prompt-token-calculator",
+    navLabel: "프롬프트 비용",
+    eyebrow: "PROMPT METER",
+    title: "프롬프트 토큰·비용 추정기",
+    description:
+      "텍스트를 붙여넣고 예상 토큰 범위와 선택한 AI 모델별 요청 1회·월간 API 비용을 비교하세요.",
   },
   {
     id: "models",

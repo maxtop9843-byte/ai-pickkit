@@ -19,6 +19,14 @@ const checks = [
     path: "/api-cost-calculator?preset=coding&users=321&requests=7&input=9000&output=2500",
     contains: 'value="321"',
   },
+  {
+    path: "/prompt-token-calculator",
+    contains: 'data-smoke="prompt-token-calculator-page"',
+  },
+  {
+    path: "/prompt-token-calculator",
+    contains: 'data-smoke="prompt-cost-estimator"',
+  },
   { path: "/models", contains: 'data-smoke="models-page"' },
   { path: "/models", contains: 'data-smoke="model-comparison"' },
   { path: "/model-selector", contains: 'data-smoke="model-selector-page"' },
@@ -33,6 +41,10 @@ const checks = [
     contains: "https://aipickkit.com/api-cost-calculator",
   },
   { path: "/sitemap.xml", contains: "https://aipickkit.com/models" },
+  {
+    path: "/sitemap.xml",
+    contains: "https://aipickkit.com/prompt-token-calculator",
+  },
   {
     path: "/sitemap.xml",
     contains: "https://aipickkit.com/model-selector",
