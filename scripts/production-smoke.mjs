@@ -3,6 +3,7 @@ const attempts = Number(process.env.SMOKE_ATTEMPTS ?? 18);
 const delayMs = Number(process.env.SMOKE_DELAY_MS ?? 10000);
 const checks = [
   { path: "/", contains: 'data-smoke="home"' },
+  { path: "/", contains: 'id="calculator"' },
   {
     path: "/robots.txt",
     contains: "Sitemap: https://aipickkit.com/sitemap.xml",
