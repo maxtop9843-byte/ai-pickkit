@@ -83,6 +83,86 @@ export type CostInput = {
   outputTokens: number;
 };
 
+export type CalculatorState = CostInput & {
+  presetId: string;
+};
+
+export const DEFAULT_CALCULATOR_STATE: CalculatorState = {
+  presetId: "support",
+  usersPerDay: 100,
+  requestsPerUser: 5,
+  inputTokens: 450,
+  outputTokens: 220,
+};
+
+export const CALCULATOR_LIMITS = {
+  usersPerDay: 10_000_000,
+  requestsPerUser: 10_000,
+  inputTokens: 10_000_000,
+  outputTokens: 10_000_000,
+} as const;
+
+function parseBoundedInteger(
+  value: string | null,
+  fallback: number,
+  maximum: number,
+) {
+  if (value === null || !/^\d+$/.test(value)) return fallback;
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed <= maximum ? parsed : fallback;
+}
+
+export function parseCalculatorState(search: string | URLSearchParams) {
+  const params =
+    typeof search === "string" ? new URLSearchParams(search) : search;
+  const preset =
+    workloadPresets.find((item) => item.id === params.get("preset")) ??
+    workloadPresets[0];
+
+  return {
+    presetId: preset.id,
+    usersPerDay: parseBoundedInteger(
+      params.get("users"),
+      DEFAULT_CALCULATOR_STATE.usersPerDay,
+      CALCULATOR_LIMITS.usersPerDay,
+    ),
+    requestsPerUser: parseBoundedInteger(
+      params.get("requests"),
+      DEFAULT_CALCULATOR_STATE.requestsPerUser,
+      CALCULATOR_LIMITS.requestsPerUser,
+    ),
+    inputTokens: parseBoundedInteger(
+      params.get("input"),
+      preset.inputTokens,
+      CALCULATOR_LIMITS.inputTokens,
+    ),
+    outputTokens: parseBoundedInteger(
+      params.get("output"),
+      preset.outputTokens,
+      CALCULATOR_LIMITS.outputTokens,
+    ),
+  } satisfies CalculatorState;
+}
+
+export function serializeCalculatorState(state: CalculatorState) {
+  return new URLSearchParams({
+    preset: state.presetId,
+    users: String(state.usersPerDay),
+    requests: String(state.requestsPerUser),
+    input: String(state.inputTokens),
+    output: String(state.outputTokens),
+  });
+}
+
+export function createCalculatorShareUrl(
+  state: CalculatorState,
+  origin = "https://aipickkit.com",
+) {
+  const url = new URL("/api-cost-calculator", origin);
+  url.search = serializeCalculatorState(state).toString();
+  return url.toString();
+}
+
 export function calculateCost(input: CostInput, model: CatalogModel) {
   const requestsPerDay = input.usersPerDay * input.requestsPerUser;
   const requestCost =

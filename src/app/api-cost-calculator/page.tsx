@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CostCalculator from "@/components/cost-calculator";
 import ToolPage from "@/components/tool-page";
+import { parseCalculatorState } from "@/lib/cost-calculator";
 import { getToolRoute } from "@/lib/tool-routes";
 
 const route = getToolRoute("calculator");
@@ -16,10 +17,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ApiCostCalculatorPage() {
+export default async function ApiCostCalculatorPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const rawParams = await searchParams;
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(rawParams)) {
+    const firstValue = Array.isArray(value) ? value[0] : value;
+    if (firstValue !== undefined) params.set(key, firstValue);
+  }
+  const initialState = parseCalculatorState(params);
+
   return (
     <ToolPage route={route} smoke="api-cost-calculator-page">
-      <CostCalculator />
+      <CostCalculator
+        initialState={initialState}
+        syncUrl
+        showAdvancedInitially={params.has("input") || params.has("output")}
+      />
     </ToolPage>
   );
 }

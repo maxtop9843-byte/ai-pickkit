@@ -11,6 +11,14 @@ const checks = [
     contains: 'data-smoke="api-cost-calculator-page"',
   },
   { path: "/api-cost-calculator", contains: 'id="calculator"' },
+  {
+    path: "/api-cost-calculator",
+    contains: 'data-smoke="calculator-share-controls"',
+  },
+  {
+    path: "/api-cost-calculator?preset=coding&users=321&requests=7&input=9000&output=2500",
+    contains: 'value="321"',
+  },
   { path: "/models", contains: 'data-smoke="models-page"' },
   { path: "/models", contains: 'data-smoke="model-comparison"' },
   { path: "/model-selector", contains: 'data-smoke="model-selector-page"' },

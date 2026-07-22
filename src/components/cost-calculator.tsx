@@ -2,8 +2,13 @@
 
 import { useMemo, useState } from "react";
 import {
+  CALCULATOR_LIMITS,
   calculateCost,
+  createCalculatorShareUrl,
+  DEFAULT_CALCULATOR_STATE,
   modelPrices,
+  serializeCalculatorState,
+  type CalculatorState,
   VERIFIED_AT,
   workloadPresets,
 } from "@/lib/cost-calculator";
@@ -28,6 +33,7 @@ function NumericField({
   suffix,
   hint,
   min = 0,
+  max = Number.MAX_SAFE_INTEGER,
 }: {
   id: string;
   label: string;
@@ -36,6 +42,7 @@ function NumericField({
   suffix: string;
   hint?: string;
   min?: number;
+  max?: number;
 }) {
   return (
     <label className="numeric-field" htmlFor={id}>
@@ -45,11 +52,18 @@ function NumericField({
           id={id}
           type="number"
           min={min}
+          max={max}
           step="1"
           value={value}
-          onChange={(event) =>
-            onChange(Math.max(min, Number(event.target.value) || 0))
-          }
+          onChange={(event) => {
+            const parsed = Number(event.target.value);
+            onChange(
+              Math.min(
+                max,
+                Math.max(min, Number.isFinite(parsed) ? Math.trunc(parsed) : 0),
+              ),
+            );
+          }}
         />
         <span>{suffix}</span>
       </span>
@@ -58,13 +72,39 @@ function NumericField({
   );
 }
 
-export default function CostCalculator() {
-  const [presetId, setPresetId] = useState("support");
-  const [usersPerDay, setUsersPerDay] = useState(100);
-  const [requestsPerUser, setRequestsPerUser] = useState(5);
-  const [inputTokens, setInputTokens] = useState(450);
-  const [outputTokens, setOutputTokens] = useState(220);
-  const [advanced, setAdvanced] = useState(false);
+export default function CostCalculator({
+  initialState = DEFAULT_CALCULATOR_STATE,
+  syncUrl = false,
+  showAdvancedInitially = false,
+}: {
+  initialState?: CalculatorState;
+  syncUrl?: boolean;
+  showAdvancedInitially?: boolean;
+}) {
+  const [calculatorState, setCalculatorState] = useState(initialState);
+  const [advanced, setAdvanced] = useState(showAdvancedInitially);
+  const [shareStatus, setShareStatus] = useState("");
+  const { presetId, usersPerDay, requestsPerUser, inputTokens, outputTokens } =
+    calculatorState;
+
+  const replaceCalculatorUrl = (nextState: CalculatorState | null) => {
+    if (!syncUrl || typeof window === "undefined") return;
+    const query = nextState
+      ? `?${serializeCalculatorState(nextState).toString()}`
+      : "";
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${query}${window.location.hash}`,
+    );
+  };
+
+  const updateState = (patch: Partial<CalculatorState>) => {
+    const nextState = { ...calculatorState, ...patch };
+    setCalculatorState(nextState);
+    replaceCalculatorUrl(nextState);
+    setShareStatus("");
+  };
 
   const results = useMemo(
     () =>
@@ -81,9 +121,62 @@ export default function CostCalculator() {
   const selectPreset = (id: string) => {
     const preset = workloadPresets.find((item) => item.id === id);
     if (!preset) return;
-    setPresetId(id);
-    setInputTokens(preset.inputTokens);
-    setOutputTokens(preset.outputTokens);
+    updateState({
+      presetId: id,
+      inputTokens: preset.inputTokens,
+      outputTokens: preset.outputTokens,
+    });
+  };
+
+  const shareUrl = createCalculatorShareUrl(calculatorState);
+
+  const copyShareUrl = async (
+    successMessage = "계산 결과 링크를 복사했어요.",
+  ) => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = shareUrl;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.append(textarea);
+        textarea.select();
+        const copied = document.execCommand("copy");
+        textarea.remove();
+        if (!copied) throw new Error("Copy command failed");
+      }
+      setShareStatus(successMessage);
+    } catch {
+      setShareStatus("복사하지 못했어요. 브라우저 권한을 확인해 주세요.");
+    }
+  };
+
+  const shareResult = async () => {
+    if (!navigator.share) {
+      await copyShareUrl("공유 링크를 복사했어요.");
+      return;
+    }
+
+    try {
+      await navigator.share({
+        title: "AI PickKit API 비용 계산 결과",
+        text: `월 예상 비용 ${money(recommended.cost.monthly)}`,
+        url: shareUrl,
+      });
+      setShareStatus("공유 메뉴로 계산 결과를 보냈어요.");
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      await copyShareUrl("공유 링크를 복사했어요.");
+    }
+  };
+
+  const resetCalculator = () => {
+    setCalculatorState(DEFAULT_CALCULATOR_STATE);
+    setAdvanced(false);
+    setShareStatus("기본값으로 초기화했어요.");
+    replaceCalculatorUrl(null);
   };
 
   const recommended = results[1];
@@ -139,15 +232,17 @@ export default function CostCalculator() {
                 id="users"
                 label="하루 사용자"
                 value={usersPerDay}
-                onChange={setUsersPerDay}
+                onChange={(value) => updateState({ usersPerDay: value })}
                 suffix="명"
+                max={CALCULATOR_LIMITS.usersPerDay}
               />
               <NumericField
                 id="requests"
                 label="1명당 질문"
                 value={requestsPerUser}
-                onChange={setRequestsPerUser}
+                onChange={(value) => updateState({ requestsPerUser: value })}
                 suffix="회"
+                max={CALCULATOR_LIMITS.requestsPerUser}
               />
             </div>
             <p className="volume-note">
@@ -176,16 +271,18 @@ export default function CostCalculator() {
                 id="input-tokens"
                 label="질문·맥락 길이"
                 value={inputTokens}
-                onChange={setInputTokens}
+                onChange={(value) => updateState({ inputTokens: value })}
                 suffix="토큰"
                 hint="한글은 내용에 따라 토큰 수가 크게 달라질 수 있어요."
+                max={CALCULATOR_LIMITS.inputTokens}
               />
               <NumericField
                 id="output-tokens"
                 label="답변 길이"
                 value={outputTokens}
-                onChange={setOutputTokens}
+                onChange={(value) => updateState({ outputTokens: value })}
                 suffix="토큰"
+                max={CALCULATOR_LIMITS.outputTokens}
               />
             </div>
           ) : null}
@@ -234,6 +331,25 @@ export default function CostCalculator() {
             실제 청구액에는 도구 호출, 검색, 이미지, 환율, 세금이 추가될 수
             있습니다.
           </p>
+          <div
+            className="result-actions"
+            data-smoke="calculator-share-controls"
+          >
+            <div>
+              <button type="button" onClick={() => void copyShareUrl()}>
+                링크 복사
+              </button>
+              <button type="button" onClick={() => void shareResult()}>
+                결과 공유
+              </button>
+              <button type="button" onClick={resetCalculator}>
+                초기화
+              </button>
+            </div>
+            <p role="status" aria-live="polite">
+              {shareStatus || "현재 입력값이 공유 링크에 함께 저장됩니다."}
+            </p>
+          </div>
         </aside>
       </div>
 
