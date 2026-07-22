@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { calculateCost, modelPrices } from "./cost-calculator";
+import { getCatalogModel } from "./model-catalog";
 
 describe("API cost calculator", () => {
   it("calculates request, daily, and 30-day costs", () => {
@@ -47,5 +48,16 @@ describe("API cost calculator", () => {
 
     expect(result.monthly).toBe(0);
     expect(result.perUserMonthly).toBe(0);
+  });
+
+  it("derives calculator prices and evidence from the canonical catalog", () => {
+    for (const model of modelPrices) {
+      const canonical = getCatalogModel(model.id);
+      expect(model.inputPerMillion).toBe(canonical.inputPerMillion);
+      expect(model.outputPerMillion).toBe(canonical.outputPerMillion);
+      expect(model.cachedInputPerMillion).toBe(canonical.cachedInputPerMillion);
+      expect(model.source).toBe(canonical.source);
+      expect(model.verifiedAt).toBe(canonical.verifiedAt);
+    }
   });
 });

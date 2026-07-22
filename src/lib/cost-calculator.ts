@@ -6,20 +6,18 @@ export type WorkloadPreset = {
   outputTokens: number;
 };
 
-export type ModelPrice = {
-  id: string;
-  name: string;
-  provider: string;
-  tier: "low" | "balanced" | "quality";
-  tierLabel: string;
-  note: string;
-  inputPerMillion: number;
-  cachedInputPerMillion: number;
-  outputPerMillion: number;
-  source: string;
+import {
+  CATALOG_VERIFIED_AT,
+  getCatalogModel,
+  type CatalogModel,
+} from "./model-catalog";
+
+export type CalculatorModel = CatalogModel & {
+  calculatorTier: "low" | "balanced" | "quality";
+  calculatorTierLabel: string;
 };
 
-export const VERIFIED_AT = "2026-07-22";
+export const VERIFIED_AT = CATALOG_VERIFIED_AT;
 
 export const workloadPresets: WorkloadPreset[] = [
   {
@@ -52,44 +50,31 @@ export const workloadPresets: WorkloadPreset[] = [
   },
 ];
 
-export const modelPrices: ModelPrice[] = [
+const calculatorChoices = [
   {
     id: "claude-haiku-4-5",
-    name: "Claude Haiku 4.5",
-    provider: "Anthropic",
-    tier: "low",
-    tierLabel: "저비용",
-    note: "빠른 분류·요약과 대량 처리",
-    inputPerMillion: 1,
-    cachedInputPerMillion: 0.1,
-    outputPerMillion: 5,
-    source: "https://platform.claude.com/docs/en/about-claude/pricing",
+    calculatorTier: "low",
+    calculatorTierLabel: "저비용",
   },
   {
     id: "claude-sonnet-5",
-    name: "Claude Sonnet 5",
-    provider: "Anthropic",
-    tier: "balanced",
-    tierLabel: "균형형",
-    note: "일반 서비스와 코딩에 고른 선택",
-    inputPerMillion: 2,
-    cachedInputPerMillion: 0.2,
-    outputPerMillion: 10,
-    source: "https://platform.claude.com/docs/en/about-claude/pricing",
+    calculatorTier: "balanced",
+    calculatorTierLabel: "균형형",
   },
   {
     id: "claude-opus-4-8",
-    name: "Claude Opus 4.8",
-    provider: "Anthropic",
-    tier: "quality",
-    tierLabel: "고품질",
-    note: "복잡하고 정확도가 중요한 작업",
-    inputPerMillion: 5,
-    cachedInputPerMillion: 0.5,
-    outputPerMillion: 25,
-    source: "https://platform.claude.com/docs/en/about-claude/pricing",
+    calculatorTier: "quality",
+    calculatorTierLabel: "고품질",
   },
-];
+] as const;
+
+export const modelPrices: CalculatorModel[] = calculatorChoices.map(
+  ({ id, calculatorTier, calculatorTierLabel }) => ({
+    ...getCatalogModel(id),
+    calculatorTier,
+    calculatorTierLabel,
+  }),
+);
 
 export type CostInput = {
   usersPerDay: number;
@@ -98,7 +83,7 @@ export type CostInput = {
   outputTokens: number;
 };
 
-export function calculateCost(input: CostInput, model: ModelPrice) {
+export function calculateCost(input: CostInput, model: CatalogModel) {
   const requestsPerDay = input.usersPerDay * input.requestsPerUser;
   const requestCost =
     (input.inputTokens * model.inputPerMillion +
@@ -108,7 +93,9 @@ export function calculateCost(input: CostInput, model: ModelPrice) {
   const monthly = daily * 30;
   const cachedMonthly =
     ((input.inputTokens * 0.3 * model.inputPerMillion +
-      input.inputTokens * 0.7 * model.cachedInputPerMillion +
+      input.inputTokens *
+        0.7 *
+        (model.cachedInputPerMillion ?? model.inputPerMillion) +
       input.outputTokens * model.outputPerMillion) /
       1_000_000) *
     requestsPerDay *
@@ -120,7 +107,7 @@ export function calculateCost(input: CostInput, model: ModelPrice) {
     daily,
     monthly,
     perUserMonthly: input.usersPerDay > 0 ? monthly / input.usersPerDay : 0,
-    batchMonthly: monthly * 0.5,
+    batchMonthly: model.batch ? monthly * 0.5 : monthly,
     cachedMonthly,
   };
 }

@@ -249,18 +249,18 @@ export default function CostCalculator() {
           {results.map(({ model, cost }) => (
             <article
               className={
-                model.tier === "balanced"
+                model.calculatorTier === "balanced"
                   ? "model-row recommended"
                   : "model-row"
               }
               key={model.id}
             >
-              <div className={`tier-marker ${model.tier}`}>
-                <span>{model.tierLabel}</span>
+              <div className={`tier-marker ${model.calculatorTier}`}>
+                <span>{model.calculatorTierLabel}</span>
               </div>
               <div className="model-name">
                 <strong>{model.name}</strong>
-                <span>{model.note}</span>
+                <span>{model.bestFor}</span>
               </div>
               <div className="token-price">
                 <span>입력 / 출력</span>
