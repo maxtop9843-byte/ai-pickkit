@@ -9,8 +9,8 @@
 | APK-002 | DONE    | 초보자용 AI API 비용 계산기          | true       | APK-001 production smoke 성공 후 eligible                              |
 | APK-003 | DONE    | 모델 가격·특성 비교                  | true       | APK-002 production smoke 성공 후 eligible                              |
 | APK-004 | DONE    | 목적 기반 모델 선택 도우미           | true       | APK-003 production smoke 성공 후 eligible                              |
-| APK-005 | OPEN    | 공식 출처 기반 모델 카탈로그 단일화  | true       | 가격·특성·출처·검증일을 단일 데이터 계층에서 사용하고 검증 테스트 통과 |
-| APK-006 | BLOCKED | 도구별 독립 URL과 탐색 구조          | true       | 계산기·비교·선택 도우미 전용 경로, 내비게이션, canonical, sitemap 완성 |
+| APK-005 | DONE    | 공식 출처 기반 모델 카탈로그 단일화  | true       | 가격·특성·출처·검증일을 단일 데이터 계층에서 사용하고 검증 테스트 통과 |
+| APK-006 | OPEN    | 도구별 독립 URL과 탐색 구조          | true       | 계산기·비교·선택 도우미 전용 경로, 내비게이션, canonical, sitemap 완성 |
 | APK-007 | BLOCKED | 공유 가능한 계산 결과와 URL 상태     | true       | 입력값을 URL로 재현하고 복사·공유·초기화 및 잘못된 파라미터 처리 완료  |
 | APK-008 | BLOCKED | 프롬프트 토큰·비용 추정기            | true       | 붙여넣은 텍스트의 토큰 범위와 선택 모델별 요청·월간 예상 비용 제공     |
 | APK-009 | BLOCKED | Batch·캐싱 절감 시뮬레이터           | true       | 기본 비용과 최적화 시나리오를 비교하고 절감액·가정·제약을 명시         |
