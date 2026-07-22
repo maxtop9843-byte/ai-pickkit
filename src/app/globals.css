@@ -1199,6 +1199,41 @@ footer p {
 footer > span {
   text-align: right;
 }
+.tool-page-intro {
+  width: min(1180px, calc(100% - 40px));
+  margin: 68px auto 70px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid var(--border);
+}
+.tool-page-intro > div {
+  display: flex;
+  gap: 9px;
+  margin-bottom: 42px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.tool-page-intro > div a {
+  color: var(--brand-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+.tool-page-intro h1 {
+  max-width: 850px;
+  font-size: clamp(42px, 6vw, 68px);
+}
+.tool-page-intro > p:last-child {
+  max-width: 720px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.75;
+  word-break: keep-all;
+}
+.tool-page .calculator-shell,
+.tool-page .compare-shell,
+.tool-page .selector-shell {
+  margin-bottom: 90px;
+}
 @media (max-width: 800px) {
   .site-header {
     grid-template-columns: 1fr auto;
@@ -1208,6 +1243,9 @@ footer > span {
   }
   .hero {
     margin: 70px auto 90px;
+  }
+  .tool-page-intro {
+    margin-top: 45px;
   }
   .trust-line {
     flex-wrap: wrap;
