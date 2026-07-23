@@ -11,7 +11,7 @@ const usd = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
   minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
+  maximumFractionDigits: 3,
 });
 
 export default function ImageCostCalculator() {
@@ -38,15 +38,22 @@ export default function ImageCostCalculator() {
         <div className={styles.heading}>
           <p>WORKLOAD</p>
           <h2>이미지 생성량을 입력하세요</h2>
-          <span>이미지 출력 비용만 계산하며 입력 토큰·편집 입력 비용은 제외합니다.</span>
+          <span>
+            이미지 출력 비용만 계산하며 입력 토큰·편집 입력 비용은
+            제외합니다.
+          </span>
         </div>
 
         <label className={styles.field}>
           <span>모델·품질·해상도</span>
-          <select value={optionId} onChange={(event) => setOptionId(event.target.value)}>
+          <select
+            value={optionId}
+            onChange={(event) => setOptionId(event.target.value)}
+          >
             {imagePriceOptions.map((item) => (
               <option key={item.id} value={item.id}>
-                {item.provider} · {item.model} · {item.label} ({item.resolution})
+                {item.provider} · {item.model} · {item.label} (
+                {item.resolution})
               </option>
             ))}
           </select>
@@ -60,7 +67,9 @@ export default function ImageCostCalculator() {
               inputMode="numeric"
               type="number"
               value={imagesPerDay}
-              onChange={(event) => setImagesPerDay(Number(event.target.value))}
+              onChange={(event) =>
+                setImagesPerDay(Number(event.target.value))
+              }
             />
           </label>
           <label className={styles.field}>
@@ -71,14 +80,18 @@ export default function ImageCostCalculator() {
               inputMode="numeric"
               type="number"
               value={daysPerMonth}
-              onChange={(event) => setDaysPerMonth(Number(event.target.value))}
+              onChange={(event) =>
+                setDaysPerMonth(Number(event.target.value))
+              }
             />
           </label>
         </div>
 
         <div className={styles.selection}>
           <strong>{option.model}</strong>
-          <span>{option.label} · {option.resolution}</span>
+          <span>
+            {option.label} · {option.resolution}
+          </span>
           <p>{option.note}</p>
         </div>
       </div>
@@ -90,12 +103,22 @@ export default function ImageCostCalculator() {
           <strong>{usd.format(result.monthlyUsd)}</strong>
         </div>
         <dl>
-          <div><dt>이미지 1장</dt><dd>{usd.format(option.pricePerImageUsd)}</dd></div>
-          <div><dt>하루 비용</dt><dd>{usd.format(result.dailyUsd)}</dd></div>
-          <div><dt>월 생성량</dt><dd>{result.imagesPerMonth.toLocaleString("ko-KR")}장</dd></div>
+          <div>
+            <dt>이미지 1장</dt>
+            <dd>{usd.format(option.pricePerImageUsd)}</dd>
+          </div>
+          <div>
+            <dt>하루 비용</dt>
+            <dd>{usd.format(result.dailyUsd)}</dd>
+          </div>
+          <div>
+            <dt>월 생성량</dt>
+            <dd>{result.imagesPerMonth.toLocaleString("ko-KR")}장</dd>
+          </div>
         </dl>
         <p className={styles.caveat}>
-          실제 청구액은 프롬프트·입력 이미지·Batch 여부·환율·세금에 따라 달라질 수 있습니다.
+          실제 청구액은 프롬프트·입력 이미지·Batch 여부·환율·세금에 따라
+          달라질 수 있습니다.
         </p>
         <a href={option.sourceUrl} target="_blank" rel="noreferrer">
           공식 가격 확인 · {option.verifiedAt}
