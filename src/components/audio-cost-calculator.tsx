@@ -43,7 +43,8 @@ export default function AudioCostCalculator() {
     setAmountPerDay(nextMode === "stt" ? 60 : 10000);
   }
 
-  const amountLabel = mode === "stt" ? "하루 처리 오디오(분)" : "하루 합성 문자 수";
+  const amountLabel =
+    mode === "stt" ? "하루 처리 오디오(분)" : "하루 합성 문자 수";
   const monthlyUnit = mode === "stt" ? "분" : "자";
 
   return (
@@ -53,13 +54,19 @@ export default function AudioCostCalculator() {
           <p>VOICE WORKLOAD</p>
           <h2>음성 사용량을 입력하세요</h2>
           <span>
-            음성 인식은 처리 분량, TTS는 공백을 포함한 문자 수 기준으로 계산합니다.
+            음성 인식은 처리 분량, TTS는 공백을 포함한 문자 수 기준으로
+            계산합니다.
           </span>
         </div>
 
         <label className={styles.field}>
           <span>작업 유형</span>
-          <select value={mode} onChange={(event) => changeMode(event.target.value as AudioMode)}>
+          <select
+            value={mode}
+            onChange={(event) =>
+              changeMode(event.target.value as AudioMode)
+            }
+          >
             <option value="stt">음성 인식 (STT)</option>
             <option value="tts">텍스트 음성 변환 (TTS)</option>
           </select>
@@ -67,7 +74,10 @@ export default function AudioCostCalculator() {
 
         <label className={styles.field}>
           <span>모델</span>
-          <select value={option.id} onChange={(event) => setOptionId(event.target.value)}>
+          <select
+            value={option.id}
+            onChange={(event) => setOptionId(event.target.value)}
+          >
             {options.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.provider} · {item.model}
@@ -79,7 +89,10 @@ export default function AudioCostCalculator() {
         <div className={styles.row}>
           <label className={styles.field}>
             <span>언어</span>
-            <select value={language} onChange={(event) => setLanguage(event.target.value)}>
+            <select
+              value={language}
+              onChange={(event) => setLanguage(event.target.value)}
+            >
               {Object.entries(languageNotes).map(([value, label]) => (
                 <option key={value} value={value}>
                   {label}
@@ -94,7 +107,9 @@ export default function AudioCostCalculator() {
               inputMode="numeric"
               type="number"
               value={amountPerDay}
-              onChange={(event) => setAmountPerDay(Number(event.target.value))}
+              onChange={(event) =>
+                setAmountPerDay(Number(event.target.value))
+              }
             />
           </label>
         </div>
@@ -107,14 +122,17 @@ export default function AudioCostCalculator() {
             inputMode="numeric"
             type="number"
             value={daysPerMonth}
-            onChange={(event) => setDaysPerMonth(Number(event.target.value))}
+            onChange={(event) =>
+              setDaysPerMonth(Number(event.target.value))
+            }
           />
         </label>
 
         <div className={styles.selection}>
           <strong>{option.model}</strong>
           <span>
-            {languageNotes[language]} · {option.unitLabel} {usd.format(option.pricePerUnitUsd)}
+            {languageNotes[language]} · {option.unitLabel}{" "}
+            {usd.format(option.pricePerUnitUsd)}
           </span>
           <p>{option.note}</p>
         </div>
@@ -144,8 +162,8 @@ export default function AudioCostCalculator() {
           </div>
         </dl>
         <p className={styles.caveat}>
-          언어 선택은 사용 시나리오 기록용입니다. 표시 단가는 언어별 차등을 적용하지 않으며,
-          무료 구간·다중 채널·SSML·세금은 제외합니다.
+          언어 선택은 사용 시나리오 기록용입니다. 표시 단가는 언어별 차등을
+          적용하지 않으며, 무료 구간·다중 채널·SSML·세금은 제외합니다.
         </p>
         <a href={option.sourceUrl} target="_blank" rel="noreferrer">
           공식 가격 확인 · {option.verifiedAt}
