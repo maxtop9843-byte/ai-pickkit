@@ -10,6 +10,10 @@ const checks = [
     path: "/api-cost-calculator",
     contains: 'data-smoke="api-cost-calculator-page"',
   },
+  {
+    path: "/api-cost-calculator",
+    contains: 'data-smoke="service-usage-presets"',
+  },
   { path: "/api-cost-calculator", contains: 'id="calculator"' },
   {
     path: "/api-cost-calculator",
@@ -18,6 +22,10 @@ const checks = [
   {
     path: "/api-cost-calculator?preset=coding&users=321&requests=7&input=9000&output=2500",
     contains: 'value="321"',
+  },
+  {
+    path: "/api-cost-calculator?preset=vision",
+    contains: 'value="60"',
   },
   {
     path: "/prompt-token-calculator",
