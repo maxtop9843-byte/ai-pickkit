@@ -1,10 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  calculateImageCost,
-  imagePriceOptions,
-} from "@/lib/image-cost";
+import { calculateImageCost, imagePriceOptions } from "@/lib/image-cost";
 import styles from "./image-cost-calculator.module.css";
 
 const usd = new Intl.NumberFormat("en-US", {
@@ -52,8 +49,7 @@ export default function ImageCostCalculator() {
           >
             {imagePriceOptions.map((item) => (
               <option key={item.id} value={item.id}>
-                {item.provider} · {item.model} · {item.label} (
-                {item.resolution})
+                {item.provider} · {item.model} · {item.label} ({item.resolution})
               </option>
             ))}
           </select>
