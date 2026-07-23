@@ -7,7 +7,8 @@ export type ToolRoute = {
     | "selector"
     | "images"
     | "audio"
-    | "rag";
+    | "rag"
+    | "fineTuning";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -16,7 +17,8 @@ export type ToolRoute = {
     | "/model-selector"
     | "/image-generation-cost-calculator"
     | "/audio-cost-calculator"
-    | "/rag-cost-calculator";
+    | "/rag-cost-calculator"
+    | "/fine-tuning-cost-calculator";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -95,6 +97,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "임베딩·RAG 비용 계산기",
     description:
       "문서량·청크 크기·중첩률·질의량·재색인 주기를 입력하고 월간 임베딩 비용과 예상 청크 수를 계산하세요.",
+  },
+  {
+    id: "fineTuning",
+    href: "/fine-tuning-cost-calculator",
+    navLabel: "파인튜닝 비용",
+    eyebrow: "FINE-TUNING COST WORKBENCH",
+    title: "파인튜닝 비용 계산기",
+    description:
+      "학습 데이터·에폭·월간 요청량을 입력하고 일회성 모델 학습비와 월간 추론 비용을 함께 계산하세요.",
   },
 ];
 
