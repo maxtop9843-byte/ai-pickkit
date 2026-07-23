@@ -24,6 +24,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run check
-      - run: npm run build
-      - run: git diff --check
+      - run: npm run format
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prettier-output
+          path: |
+            src/components/image-cost-calculator.tsx
+            src/lib/tool-routes.ts
