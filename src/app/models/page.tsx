@@ -24,7 +24,7 @@ export default function ModelsPage() {
     <ToolPage route={route} smoke="models-page">
       <ModelComparison />
       <section className="explain-section" aria-labelledby="guide-index-title">
-        <p className="section-kicker">PRICE GUIDE INDEX</p>
+        <p className="section-kicker">MODEL PRICE GUIDE INDEX</p>
         <h2 id="guide-index-title">공급자와 모델별 가격 가이드</h2>
         <div className="prompt-tool-actions">
           {Object.entries(providerSlugs).map(([provider, slug]) => (
