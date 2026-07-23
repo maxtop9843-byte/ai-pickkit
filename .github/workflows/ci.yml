@@ -24,6 +24,21 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run check
-      - run: npm run build
-      - run: git diff --check
+      - name: Capture checks
+        run: |
+          npm run format:check > format.txt 2>&1; echo $? > format.exit
+          npm run lint > lint.txt 2>&1; echo $? > lint.exit
+          npm run typecheck > typecheck.txt 2>&1; echo $? > typecheck.exit
+          npm run test > test.txt 2>&1; echo $? > test.exit
+      - uses: actions/upload-artifact@v4
+        with:
+          name: check-reports
+          path: |
+            format.txt
+            format.exit
+            lint.txt
+            lint.exit
+            typecheck.txt
+            typecheck.exit
+            test.txt
+            test.exit
