@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CostCalculator from "@/components/cost-calculator";
+import ServiceUsagePresets from "@/components/service-usage-presets";
 import ToolPage from "@/components/tool-page";
 import { parseCalculatorState } from "@/lib/cost-calculator";
 import { getToolRoute } from "@/lib/tool-routes";
@@ -32,6 +33,7 @@ export default async function ApiCostCalculatorPage({
 
   return (
     <ToolPage route={route} smoke="api-cost-calculator-page">
+      <ServiceUsagePresets activeId={initialState.presetId} />
       <CostCalculator
         initialState={initialState}
         syncUrl

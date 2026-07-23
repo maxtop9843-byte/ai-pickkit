@@ -2,6 +2,8 @@ export type WorkloadPreset = {
   id: string;
   label: string;
   description: string;
+  usersPerDay: number;
+  requestsPerUser: number;
   inputTokens: number;
   outputTokens: number;
 };
@@ -23,30 +25,38 @@ export const workloadPresets: WorkloadPreset[] = [
   {
     id: "support",
     label: "고객 문의 챗봇",
-    description: "짧은 질문에 간결하게 답해요",
+    description: "하루 100명이 짧은 질문을 5번씩 보내는 초기 서비스",
+    usersPerDay: 100,
+    requestsPerUser: 5,
     inputTokens: 450,
     outputTokens: 220,
   },
   {
-    id: "writing",
-    label: "글쓰기 도우미",
-    description: "자료를 읽고 긴 초안을 만들어요",
-    inputTokens: 1200,
-    outputTokens: 900,
-  },
-  {
     id: "document",
-    label: "문서 분석",
-    description: "긴 문서에서 핵심을 찾아 답해요",
+    label: "문서 요약 서비스",
+    description: "하루 40명이 긴 문서 3건을 요약하는 업무 도구",
+    usersPerDay: 40,
+    requestsPerUser: 3,
     inputTokens: 6000,
     outputTokens: 700,
   },
   {
     id: "coding",
     label: "코딩 에이전트",
-    description: "코드를 읽고 여러 단계로 작업해요",
+    description: "하루 25명이 코드 작업을 12번 요청하는 개발 도구",
+    usersPerDay: 25,
+    requestsPerUser: 12,
     inputTokens: 9000,
     outputTokens: 2500,
+  },
+  {
+    id: "vision",
+    label: "이미지 분석 서비스",
+    description: "하루 60명이 이미지 4장을 분석하는 멀티모달 서비스",
+    usersPerDay: 60,
+    requestsPerUser: 4,
+    inputTokens: 1800,
+    outputTokens: 500,
   },
 ];
 
@@ -87,12 +97,14 @@ export type CalculatorState = CostInput & {
   presetId: string;
 };
 
+const defaultPreset = workloadPresets[0];
+
 export const DEFAULT_CALCULATOR_STATE: CalculatorState = {
-  presetId: "support",
-  usersPerDay: 100,
-  requestsPerUser: 5,
-  inputTokens: 450,
-  outputTokens: 220,
+  presetId: defaultPreset.id,
+  usersPerDay: defaultPreset.usersPerDay,
+  requestsPerUser: defaultPreset.requestsPerUser,
+  inputTokens: defaultPreset.inputTokens,
+  outputTokens: defaultPreset.outputTokens,
 };
 
 export const CALCULATOR_LIMITS = {
@@ -112,6 +124,16 @@ function parseBoundedInteger(
   return Number.isSafeInteger(parsed) && parsed <= maximum ? parsed : fallback;
 }
 
+export function stateFromPreset(preset: WorkloadPreset): CalculatorState {
+  return {
+    presetId: preset.id,
+    usersPerDay: preset.usersPerDay,
+    requestsPerUser: preset.requestsPerUser,
+    inputTokens: preset.inputTokens,
+    outputTokens: preset.outputTokens,
+  };
+}
+
 export function parseCalculatorState(search: string | URLSearchParams) {
   const params =
     typeof search === "string" ? new URLSearchParams(search) : search;
@@ -123,12 +145,12 @@ export function parseCalculatorState(search: string | URLSearchParams) {
     presetId: preset.id,
     usersPerDay: parseBoundedInteger(
       params.get("users"),
-      DEFAULT_CALCULATOR_STATE.usersPerDay,
+      preset.usersPerDay,
       CALCULATOR_LIMITS.usersPerDay,
     ),
     requestsPerUser: parseBoundedInteger(
       params.get("requests"),
-      DEFAULT_CALCULATOR_STATE.requestsPerUser,
+      preset.requestsPerUser,
       CALCULATOR_LIMITS.requestsPerUser,
     ),
     inputTokens: parseBoundedInteger(
