@@ -83,9 +83,9 @@ describe("API cost calculator", () => {
       expect(preset.requestsPerUser).toBeGreaterThan(0);
       expect(preset.inputTokens).toBeGreaterThan(0);
       expect(preset.outputTokens).toBeGreaterThan(0);
-      expect(parseCalculatorState(serializeCalculatorState(stateFromPreset(preset)))).toEqual(
-        stateFromPreset(preset),
-      );
+      expect(
+        parseCalculatorState(serializeCalculatorState(stateFromPreset(preset))),
+      ).toEqual(stateFromPreset(preset));
     }
   });
 

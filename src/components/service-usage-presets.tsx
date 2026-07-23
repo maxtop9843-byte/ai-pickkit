@@ -5,7 +5,11 @@ import {
   workloadPresets,
 } from "@/lib/cost-calculator";
 
-export default function ServiceUsagePresets({ activeId }: { activeId: string }) {
+export default function ServiceUsagePresets({
+  activeId,
+}: {
+  activeId: string;
+}) {
   return (
     <section
       className="calculator-shell"
@@ -34,7 +38,10 @@ export default function ServiceUsagePresets({ activeId }: { activeId: string }) 
               <strong>{preset.label}</strong>
               <span>{preset.description}</span>
               <small>
-                하루 {preset.usersPerDay.toLocaleString("ko-KR")}명 · 1명당 {preset.requestsPerUser}회 · 입력 {preset.inputTokens.toLocaleString("ko-KR")} · 출력 {preset.outputTokens.toLocaleString("ko-KR")} 토큰
+                하루 {preset.usersPerDay.toLocaleString("ko-KR")}명 · 1명당{" "}
+                {preset.requestsPerUser}회 · 입력{" "}
+                {preset.inputTokens.toLocaleString("ko-KR")} · 출력{" "}
+                {preset.outputTokens.toLocaleString("ko-KR")} 토큰
               </small>
             </Link>
           );
