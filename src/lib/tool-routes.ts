@@ -1,11 +1,12 @@
 export type ToolRoute = {
-  id: "calculator" | "prompt" | "savings" | "models" | "selector";
+  id: "calculator" | "prompt" | "savings" | "models" | "selector" | "images";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
     | "/batch-cache-simulator"
     | "/models"
-    | "/model-selector";
+    | "/model-selector"
+    | "/image-generation-cost-calculator";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -57,6 +58,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "목적 기반 AI 모델 선택 도우미",
     description:
       "용도·예산·공급자·Preview 허용 여부를 선택하고 먼저 시험할 AI 모델과 대안 후보를 확인하세요.",
+  },
+  {
+    id: "images",
+    href: "/image-generation-cost-calculator",
+    navLabel: "이미지 비용",
+    eyebrow: "IMAGE COST WORKBENCH",
+    title: "이미지 생성 비용 계산기",
+    description:
+      "공식 가격을 바탕으로 모델·품질·해상도와 하루 생성량에 따른 이미지 1장·하루·월간 예상 비용을 계산하세요.",
   },
 ];
 
