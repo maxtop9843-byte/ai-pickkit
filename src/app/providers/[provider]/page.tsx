@@ -112,9 +112,7 @@ export default async function ProviderGuidePage({
               <div className="capability-tags">
                 {model.multimodal && <span>멀티모달</span>}
                 {model.batch && <span>Batch</span>}
-                {model.cachedInputPerMillion !== undefined && (
-                  <span>캐시</span>
-                )}
+                {model.cachedInputPerMillion !== undefined && <span>캐시</span>}
               </div>
               <Link className="compare-pick" href={`/models/${model.id}`}>
                 상세 보기

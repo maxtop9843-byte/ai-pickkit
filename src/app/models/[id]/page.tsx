@@ -117,8 +117,8 @@ export default async function ModelDetailPage({
         </div>
         <div className="catalog-note">
           <p>
-            <strong>해석 기준</strong> 표시 가격은 텍스트 토큰 기준입니다.
-            검색, 이미지, 도구 호출, 세금과 환율은 별도일 수 있습니다.
+            <strong>해석 기준</strong> 표시 가격은 텍스트 토큰 기준입니다. 검색,
+            이미지, 도구 호출, 세금과 환율은 별도일 수 있습니다.
           </p>
           <p>
             <Link href={`/providers/${providerSlugs[model.provider]}`}>

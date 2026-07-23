@@ -1,8 +1,4 @@
-import {
-  catalogModels,
-  providerSources,
-  type Provider,
-} from "./model-catalog";
+import { catalogModels, providerSources, type Provider } from "./model-catalog";
 
 export const providerSlugs: Record<Provider, string> = {
   OpenAI: "openai",
