@@ -47,8 +47,7 @@ export default function RagCostCalculator() {
           <p>RAG COST WORKBENCH</p>
           <h2>문서와 검색 사용량을 입력하세요</h2>
           <span>
-            초기 색인, 반복 재색인, 사용자 질의 임베딩 비용을 분리해
-            계산합니다.
+            초기 색인, 반복 재색인, 사용자 질의 임베딩 비용을 분리해 계산합니다.
           </span>
         </div>
 
@@ -214,8 +213,8 @@ export default function RagCostCalculator() {
           </div>
         </dl>
         <p className={styles.caveat}>
-          벡터 데이터베이스 저장·검색, 생성 모델의 답변 비용, 네트워크와
-          세금은 제외합니다. 중첩률은 색인 토큰 증가분으로 근사합니다.
+          벡터 데이터베이스 저장·검색, 생성 모델의 답변 비용, 네트워크와 세금은
+          제외합니다. 중첩률은 색인 토큰 증가분으로 근사합니다.
         </p>
         <a href={option.sourceUrl} target="_blank" rel="noreferrer">
           공식 가격 확인 · {option.verifiedAt}
