@@ -19,8 +19,7 @@ export type FineTuningCostInput = {
   averageOutputTokens: number;
 };
 
-const sourceUrl =
-  "https://cloud.google.com/vertex-ai/generative-ai/pricing";
+const sourceUrl = "https://cloud.google.com/vertex-ai/generative-ai/pricing";
 
 export const fineTuningPriceOptions: FineTuningPriceOption[] = [
   {
@@ -65,8 +64,7 @@ export function calculateFineTuningCost(
   const datasetTokens = trainingExamples * averageTokensPerExample;
   const billableTrainingTokens = datasetTokens * epochs;
   const trainingUsd =
-    (billableTrainingTokens / 1_000_000) *
-    option.trainingPerMillionTokensUsd;
+    (billableTrainingTokens / 1_000_000) * option.trainingPerMillionTokensUsd;
 
   const monthlyInputTokens = monthlyRequests * averageInputTokens;
   const monthlyOutputTokens = monthlyRequests * averageOutputTokens;
