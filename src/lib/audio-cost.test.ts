@@ -3,7 +3,9 @@ import { audioPriceOptions, calculateAudioCost } from "./audio-cost";
 
 describe("audio cost", () => {
   it("calculates speech-to-text monthly cost", () => {
-    const option = audioPriceOptions.find((item) => item.id === "google-stt-v2-standard");
+    const option = audioPriceOptions.find(
+      (item) => item.id === "google-stt-v2-standard",
+    );
     expect(option).toBeDefined();
     expect(calculateAudioCost(option!, 60, 30)).toEqual({
       dailyUsd: 0.96,
@@ -13,7 +15,9 @@ describe("audio cost", () => {
   });
 
   it("calculates text-to-speech monthly cost", () => {
-    const option = audioPriceOptions.find((item) => item.id === "google-tts-neural2");
+    const option = audioPriceOptions.find(
+      (item) => item.id === "google-tts-neural2",
+    );
     expect(option).toBeDefined();
     expect(calculateAudioCost(option!, 10000, 30)).toEqual({
       dailyUsd: 0.16,
