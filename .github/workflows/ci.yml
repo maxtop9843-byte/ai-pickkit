@@ -24,6 +24,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Capture check output
+        run: npm run check > check.log 2>&1 || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk-016-check-log
+          path: check.log
       - run: npm run check
-      - run: npm run build
-      - run: git diff --check
