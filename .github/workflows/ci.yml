@@ -24,21 +24,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Capture formatter output
-        run: |
-          npm run format
-          git diff > prettier.patch
-          git diff --name-only > prettier-files.txt
-      - name: Upload formatter diagnostics
-        uses: actions/upload-artifact@v4
-        with:
-          name: prettier-diagnostics
-          path: |
-            prettier.patch
-            prettier-files.txt
-      - run: test ! -s prettier.patch
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm run test
+      - run: npm run check
       - run: npm run build
       - run: git diff --check
