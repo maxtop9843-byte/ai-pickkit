@@ -6,7 +6,8 @@ export type ToolRoute = {
     | "models"
     | "selector"
     | "images"
-    | "audio";
+    | "audio"
+    | "rag";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -14,7 +15,8 @@ export type ToolRoute = {
     | "/models"
     | "/model-selector"
     | "/image-generation-cost-calculator"
-    | "/audio-cost-calculator";
+    | "/audio-cost-calculator"
+    | "/rag-cost-calculator";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -84,6 +86,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "음성 인식·TTS 비용 계산기",
     description:
       "공식 가격을 바탕으로 음성 인식 분량과 TTS 문자 수에 따른 하루·월간 예상 비용을 비교하세요.",
+  },
+  {
+    id: "rag",
+    href: "/rag-cost-calculator",
+    navLabel: "RAG 비용",
+    eyebrow: "RAG COST WORKBENCH",
+    title: "임베딩·RAG 비용 계산기",
+    description:
+      "문서량·청크 크기·중첩률·질의량·재색인 주기를 입력하고 월간 임베딩 비용과 예상 청크 수를 계산하세요.",
   },
 ];
 
