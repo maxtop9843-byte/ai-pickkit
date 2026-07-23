@@ -39,10 +39,7 @@ export default function FineTuningCostCalculator() {
   }
 
   return (
-    <section
-      className={styles.shell}
-      data-smoke="fine-tuning-cost-calculator"
-    >
+    <section className={styles.shell} data-smoke="fine-tuning-cost-calculator">
       <div className={styles.controls}>
         <div className={styles.heading}>
           <p>FINE-TUNING COST WORKBENCH</p>
@@ -187,9 +184,9 @@ export default function FineTuningCostCalculator() {
           </div>
         </dl>
         <p className={styles.caveat}>
-          학습 토큰은 데이터셋 토큰 × 에폭으로 계산합니다. 데이터 정제,
-          평가, 저장, 재학습, 네트워크, 세금과 할인은 제외합니다. 실제 과금은
-          공급자 청구서를 확인하세요.
+          학습 토큰은 데이터셋 토큰 × 에폭으로 계산합니다. 데이터 정제, 평가,
+          저장, 재학습, 네트워크, 세금과 할인은 제외합니다. 실제 과금은 공급자
+          청구서를 확인하세요.
         </p>
         <a href={option.sourceUrl} target="_blank" rel="noreferrer">
           공식 가격 확인 · {option.verifiedAt}
