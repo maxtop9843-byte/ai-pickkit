@@ -63,9 +63,7 @@ export default function AudioCostCalculator() {
           <span>작업 유형</span>
           <select
             value={mode}
-            onChange={(event) =>
-              changeMode(event.target.value as AudioMode)
-            }
+            onChange={(event) => changeMode(event.target.value as AudioMode)}
           >
             <option value="stt">음성 인식 (STT)</option>
             <option value="tts">텍스트 음성 변환 (TTS)</option>
@@ -107,9 +105,7 @@ export default function AudioCostCalculator() {
               inputMode="numeric"
               type="number"
               value={amountPerDay}
-              onChange={(event) =>
-                setAmountPerDay(Number(event.target.value))
-              }
+              onChange={(event) => setAmountPerDay(Number(event.target.value))}
             />
           </label>
         </div>
@@ -122,9 +118,7 @@ export default function AudioCostCalculator() {
             inputMode="numeric"
             type="number"
             value={daysPerMonth}
-            onChange={(event) =>
-              setDaysPerMonth(Number(event.target.value))
-            }
+            onChange={(event) => setDaysPerMonth(Number(event.target.value))}
           />
         </label>
 
