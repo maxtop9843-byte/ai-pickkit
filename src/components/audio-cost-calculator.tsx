@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   audioPriceOptions,
   calculateAudioCost,
@@ -31,10 +31,7 @@ export default function AudioCostCalculator() {
 
   const options = audioPriceOptions.filter((item) => item.mode === mode);
   const option = options.find((item) => item.id === optionId) ?? options[0];
-  const result = useMemo(
-    () => calculateAudioCost(option, amountPerDay, daysPerMonth),
-    [amountPerDay, daysPerMonth, option],
-  );
+  const result = calculateAudioCost(option, amountPerDay, daysPerMonth);
 
   function changeMode(nextMode: AudioMode) {
     setMode(nextMode);
