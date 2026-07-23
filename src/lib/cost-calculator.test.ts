@@ -6,6 +6,8 @@ import {
   modelPrices,
   parseCalculatorState,
   serializeCalculatorState,
+  stateFromPreset,
+  workloadPresets,
 } from "./cost-calculator";
 import { getCatalogModel } from "./model-catalog";
 
@@ -68,6 +70,25 @@ describe("API cost calculator", () => {
     }
   });
 
+  it("provides four complete and editable real-service starting points", () => {
+    expect(workloadPresets.map((preset) => preset.id)).toEqual([
+      "support",
+      "document",
+      "coding",
+      "vision",
+    ]);
+
+    for (const preset of workloadPresets) {
+      expect(preset.usersPerDay).toBeGreaterThan(0);
+      expect(preset.requestsPerUser).toBeGreaterThan(0);
+      expect(preset.inputTokens).toBeGreaterThan(0);
+      expect(preset.outputTokens).toBeGreaterThan(0);
+      expect(parseCalculatorState(serializeCalculatorState(stateFromPreset(preset)))).toEqual(
+        stateFromPreset(preset),
+      );
+    }
+  });
+
   it("round-trips every calculator input through a share URL", () => {
     const state = {
       presetId: "coding",
@@ -92,15 +113,13 @@ describe("API cost calculator", () => {
     ).toEqual(DEFAULT_CALCULATOR_STATE);
   });
 
-  it("uses the selected preset token sizes when token parameters are omitted", () => {
-    expect(parseCalculatorState("preset=document&users=12&requests=3")).toEqual(
-      {
-        presetId: "document",
-        usersPerDay: 12,
-        requestsPerUser: 3,
-        inputTokens: 6000,
-        outputTokens: 700,
-      },
-    );
+  it("uses every selected preset value when explicit parameters are omitted", () => {
+    expect(parseCalculatorState("preset=document")).toEqual({
+      presetId: "document",
+      usersPerDay: 40,
+      requestsPerUser: 3,
+      inputTokens: 6000,
+      outputTokens: 700,
+    });
   });
 });
