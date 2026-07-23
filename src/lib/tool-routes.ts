@@ -1,11 +1,5 @@
 export type ToolRoute = {
-  id:
-    | "calculator"
-    | "prompt"
-    | "savings"
-    | "models"
-    | "selector"
-    | "images";
+  id: "calculator" | "prompt" | "savings" | "models" | "selector" | "images";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
