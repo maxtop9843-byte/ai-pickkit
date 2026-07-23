@@ -49,7 +49,8 @@ export default function ImageCostCalculator() {
           >
             {imagePriceOptions.map((item) => (
               <option key={item.id} value={item.id}>
-                {item.provider} · {item.model} · {item.label} ({item.resolution})
+                {item.provider} · {item.model} · {item.label} (
+                {item.resolution})
               </option>
             ))}
           </select>
