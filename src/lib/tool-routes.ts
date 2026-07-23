@@ -1,12 +1,20 @@
 export type ToolRoute = {
-  id: "calculator" | "prompt" | "savings" | "models" | "selector" | "images";
+  id:
+    | "calculator"
+    | "prompt"
+    | "savings"
+    | "models"
+    | "selector"
+    | "images"
+    | "audio";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
     | "/batch-cache-simulator"
     | "/models"
     | "/model-selector"
-    | "/image-generation-cost-calculator";
+    | "/image-generation-cost-calculator"
+    | "/audio-cost-calculator";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -67,6 +75,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "이미지 생성 비용 계산기",
     description:
       "공식 가격을 바탕으로 모델·품질·해상도와 하루 생성량에 따른 이미지 1장·하루·월간 예상 비용을 계산하세요.",
+  },
+  {
+    id: "audio",
+    href: "/audio-cost-calculator",
+    navLabel: "음성 비용",
+    eyebrow: "VOICE COST WORKBENCH",
+    title: "음성 인식·TTS 비용 계산기",
+    description:
+      "공식 가격을 바탕으로 음성 인식 분량과 TTS 문자 수에 따른 하루·월간 예상 비용을 비교하세요.",
   },
 ];
 
