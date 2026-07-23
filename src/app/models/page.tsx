@@ -37,8 +37,12 @@ export default function ModelsPage() {
           {catalogModels.map((model) => (
             <article key={model.id}>
               <span>{model.provider.slice(0, 1)}</span>
-              <h3><Link href={`/models/${model.id}`}>{model.name}</Link></h3>
-              <p>{model.tierLabel} · {model.bestFor}</p>
+              <h3>
+                <Link href={`/models/${model.id}`}>{model.name}</Link>
+              </h3>
+              <p>
+                {model.tierLabel} · {model.bestFor}
+              </p>
             </article>
           ))}
         </div>
