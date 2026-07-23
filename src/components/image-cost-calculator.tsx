@@ -36,8 +36,7 @@ export default function ImageCostCalculator() {
           <p>WORKLOAD</p>
           <h2>이미지 생성량을 입력하세요</h2>
           <span>
-            이미지 출력 비용만 계산하며 입력 토큰·편집 입력 비용은
-            제외합니다.
+            이미지 출력 비용만 계산하며 입력 토큰·편집 입력 비용은 제외합니다.
           </span>
         </div>
 
@@ -49,8 +48,8 @@ export default function ImageCostCalculator() {
           >
             {imagePriceOptions.map((item) => (
               <option key={item.id} value={item.id}>
-                {item.provider} · {item.model} · {item.label} (
-                {item.resolution})
+                {item.provider} · {item.model} · {item.label} ({item.resolution}
+                )
               </option>
             ))}
           </select>
@@ -64,9 +63,7 @@ export default function ImageCostCalculator() {
               inputMode="numeric"
               type="number"
               value={imagesPerDay}
-              onChange={(event) =>
-                setImagesPerDay(Number(event.target.value))
-              }
+              onChange={(event) => setImagesPerDay(Number(event.target.value))}
             />
           </label>
           <label className={styles.field}>
@@ -77,9 +74,7 @@ export default function ImageCostCalculator() {
               inputMode="numeric"
               type="number"
               value={daysPerMonth}
-              onChange={(event) =>
-                setDaysPerMonth(Number(event.target.value))
-              }
+              onChange={(event) => setDaysPerMonth(Number(event.target.value))}
             />
           </label>
         </div>
@@ -114,8 +109,8 @@ export default function ImageCostCalculator() {
           </div>
         </dl>
         <p className={styles.caveat}>
-          실제 청구액은 프롬프트·입력 이미지·Batch 여부·환율·세금에 따라
-          달라질 수 있습니다.
+          실제 청구액은 프롬프트·입력 이미지·Batch 여부·환율·세금에 따라 달라질
+          수 있습니다.
         </p>
         <a href={option.sourceUrl} target="_blank" rel="noreferrer">
           공식 가격 확인 · {option.verifiedAt}
