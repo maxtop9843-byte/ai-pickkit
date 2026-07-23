@@ -24,10 +24,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Capture Prettier report
-        run: npm run format:check > prettier-report.txt 2>&1 || true
-      - uses: actions/upload-artifact@v4
-        with:
-          name: prettier-report
-          path: prettier-report.txt
-      - run: npm run format:check
+      - run: npm run check
+      - run: npm run build
+      - run: git diff --check
