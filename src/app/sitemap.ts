@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { catalogModels } from "@/lib/model-catalog";
+import { providerSlugs } from "@/lib/model-guides";
 import { toolRoutes } from "@/lib/tool-routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -15,6 +17,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "weekly" as const,
       priority: 0.9,
+    })),
+    ...catalogModels.map((model) => ({
+      url: `https://aipickkit.com/models/${model.id}`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
+    ...Object.values(providerSlugs).map((provider) => ({
+      url: `https://aipickkit.com/providers/${provider}`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
     })),
   ];
 }
