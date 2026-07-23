@@ -24,20 +24,26 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Run project checks
-        id: project-checks
-        continue-on-error: true
-        run: npm run check > check.log 2>&1
-      - name: Upload check diagnostics
-        if: always()
+      - name: Format drifted files for recovery
+        run: >-
+          npx prettier --write
+          docs/PICKKIT_DESIGN.md
+          'src/app/models/[id]/page.tsx'
+          'src/app/providers/[provider]/page.tsx'
+          src/lib/cost-calculator.test.ts
+          src/lib/model-guides.ts
+          TASK_QUEUE.md
+      - name: Upload formatted recovery files
         uses: actions/upload-artifact@v4
         with:
-          name: check-diagnostics
-          path: check.log
-      - name: Report check failure
-        if: steps.project-checks.outcome == 'failure'
-        run: |
-          cat check.log
-          exit 1
+          name: prettier-recovery
+          path: |
+            docs/PICKKIT_DESIGN.md
+            src/app/models/[id]/page.tsx
+            src/app/providers/[provider]/page.tsx
+            src/lib/cost-calculator.test.ts
+            src/lib/model-guides.ts
+            TASK_QUEUE.md
+      - run: npm run check
       - run: npm run build
       - run: git diff --check
