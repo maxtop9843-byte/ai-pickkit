@@ -22,21 +22,23 @@ function isScenario(value: unknown): value is SavedCostScenario {
 
   return Boolean(
     typeof scenario.id === "string" &&
-      scenario.id.length > 0 &&
-      typeof scenario.name === "string" &&
-      scenario.name.trim().length > 0 &&
-      typeof scenario.createdAt === "string" &&
-      typeof scenario.updatedAt === "string" &&
-      input &&
-      typeof input.modelAId === "string" &&
-      typeof input.modelBId === "string" &&
-      isFiniteNonNegative(input.monthlyRequests) &&
-      isFiniteNonNegative(input.inputTokensPerRequest) &&
-      isFiniteNonNegative(input.outputTokensPerRequest),
+    scenario.id.length > 0 &&
+    typeof scenario.name === "string" &&
+    scenario.name.trim().length > 0 &&
+    typeof scenario.createdAt === "string" &&
+    typeof scenario.updatedAt === "string" &&
+    input &&
+    typeof input.modelAId === "string" &&
+    typeof input.modelBId === "string" &&
+    isFiniteNonNegative(input.monthlyRequests) &&
+    isFiniteNonNegative(input.inputTokensPerRequest) &&
+    isFiniteNonNegative(input.outputTokensPerRequest),
   );
 }
 
-export function parseSavedCostScenarios(raw: string | null): SavedCostScenario[] {
+export function parseSavedCostScenarios(
+  raw: string | null,
+): SavedCostScenario[] {
   if (!raw) return [];
 
   try {

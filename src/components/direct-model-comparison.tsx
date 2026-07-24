@@ -82,7 +82,10 @@ export default function DirectModelComparison() {
       updatedAt: now,
       input: { ...input },
     };
-    persist([scenario, ...savedScenarios].slice(0, 20), `“${name}”을 저장했습니다.`);
+    persist(
+      [scenario, ...savedScenarios].slice(0, 20),
+      `“${name}”을 저장했습니다.`,
+    );
   }
 
   function renameScenario(id: string, name: string) {
@@ -106,8 +109,15 @@ export default function DirectModelComparison() {
   }
 
   function cloneScenario(scenario: SavedCostScenario) {
-    const copy = duplicateScenario(scenario, makeId(), new Date().toISOString());
-    persist([copy, ...savedScenarios].slice(0, 20), `“${copy.name}”을 만들었습니다.`);
+    const copy = duplicateScenario(
+      scenario,
+      makeId(),
+      new Date().toISOString(),
+    );
+    persist(
+      [copy, ...savedScenarios].slice(0, 20),
+      `“${copy.name}”을 만들었습니다.`,
+    );
   }
 
   function removeScenario(scenario: SavedCostScenario) {
@@ -205,8 +215,8 @@ export default function DirectModelComparison() {
             <strong>비교 기준</strong>
             <span>동일 요청 수와 입력·출력 토큰의 표준 API 가격</span>
             <p>
-              품질과 지연 시간은 워크로드에 따라 달라집니다. 가격 우승자가 곧 성능
-              우승자는 아니므로 실제 프롬프트로 별도 평가하세요.
+              품질과 지연 시간은 워크로드에 따라 달라집니다. 가격 우승자가 곧
+              성능 우승자는 아니므로 실제 프롬프트로 별도 평가하세요.
             </p>
           </div>
         </div>
@@ -259,8 +269,9 @@ export default function DirectModelComparison() {
             </div>
           </dl>
           <p className={styles.caveat}>
-            A는 {result.modelA.bestFor}, B는 {result.modelB.bestFor}에 적합합니다.
-            동일 모델을 선택하면 기준값 확인용으로 사용할 수 있습니다.
+            A는 {result.modelA.bestFor}, B는 {result.modelB.bestFor}에
+            적합합니다. 동일 모델을 선택하면 기준값 확인용으로 사용할 수
+            있습니다.
           </p>
           <a href={result.modelA.source} target="_blank" rel="noreferrer">
             {result.modelA.provider} 공식 출처 · {result.modelA.verifiedAt}
@@ -272,12 +283,17 @@ export default function DirectModelComparison() {
         </aside>
       </section>
 
-      <section className={styles.scenarios} aria-labelledby="saved-scenarios-title">
+      <section
+        className={styles.scenarios}
+        aria-labelledby="saved-scenarios-title"
+      >
         <div className={styles.scenarioHeader}>
           <div>
             <p className={styles.kicker}>LOCAL SCENARIOS</p>
             <h2 id="saved-scenarios-title">비용 시나리오 저장</h2>
-            <span>이 브라우저에만 최대 20개를 저장합니다. 서버로 전송하지 않습니다.</span>
+            <span>
+              이 브라우저에만 최대 20개를 저장합니다. 서버로 전송하지 않습니다.
+            </span>
           </div>
           <div className={styles.saveControls}>
             <label className={styles.field}>
@@ -288,7 +304,11 @@ export default function DirectModelComparison() {
                 onChange={(event) => setScenarioName(event.target.value)}
               />
             </label>
-            <button type="button" onClick={saveCurrentScenario} disabled={!storageReady}>
+            <button
+              type="button"
+              onClick={saveCurrentScenario}
+              disabled={!storageReady}
+            >
               현재 값 저장
             </button>
           </div>
@@ -309,15 +329,19 @@ export default function DirectModelComparison() {
                   <input
                     defaultValue={scenario.name}
                     maxLength={60}
-                    onBlur={(event) => renameScenario(scenario.id, event.target.value)}
+                    onBlur={(event) =>
+                      renameScenario(scenario.id, event.target.value)
+                    }
                   />
                 </label>
                 <span>
-                  {comparisonModels.find((model) => model.id === scenario.input.modelAId)
-                    ?.name ?? scenario.input.modelAId}
+                  {comparisonModels.find(
+                    (model) => model.id === scenario.input.modelAId,
+                  )?.name ?? scenario.input.modelAId}
                   {" / "}
-                  {comparisonModels.find((model) => model.id === scenario.input.modelBId)
-                    ?.name ?? scenario.input.modelBId}
+                  {comparisonModels.find(
+                    (model) => model.id === scenario.input.modelBId,
+                  )?.name ?? scenario.input.modelBId}
                 </span>
                 <div>
                   <button type="button" onClick={() => loadScenario(scenario)}>
@@ -326,7 +350,10 @@ export default function DirectModelComparison() {
                   <button type="button" onClick={() => cloneScenario(scenario)}>
                     복제
                   </button>
-                  <button type="button" onClick={() => removeScenario(scenario)}>
+                  <button
+                    type="button"
+                    onClick={() => removeScenario(scenario)}
+                  >
                     삭제
                   </button>
                 </div>

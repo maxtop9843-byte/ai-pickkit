@@ -22,14 +22,16 @@ const scenario: SavedCostScenario = {
 
 describe("saved cost scenarios", () => {
   it("round-trips valid local scenarios", () => {
-    expect(parseSavedCostScenarios(serializeSavedCostScenarios([scenario]))).toEqual([
-      scenario,
-    ]);
+    expect(
+      parseSavedCostScenarios(serializeSavedCostScenarios([scenario])),
+    ).toEqual([scenario]);
   });
 
   it("ignores malformed or unsafe stored data", () => {
     expect(parseSavedCostScenarios("not-json")).toEqual([]);
-    expect(parseSavedCostScenarios(JSON.stringify([{ name: "broken" }]))).toEqual([]);
+    expect(
+      parseSavedCostScenarios(JSON.stringify([{ name: "broken" }])),
+    ).toEqual([]);
   });
 
   it("duplicates without sharing the input object", () => {
@@ -51,8 +53,8 @@ describe("saved cost scenarios", () => {
       id: `scenario-${index}`,
     }));
 
-    expect(parseSavedCostScenarios(serializeSavedCostScenarios(scenarios))).toHaveLength(
-      20,
-    );
+    expect(
+      parseSavedCostScenarios(serializeSavedCostScenarios(scenarios)),
+    ).toHaveLength(20);
   });
 });
