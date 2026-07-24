@@ -23,8 +23,6 @@ describe("AI PickKit project", () => {
     expect(getToolRoute("fineTuning").href).toBe(
       "/fine-tuning-cost-calculator",
     );
-    expect(getToolRoute("agentTools").href).toBe(
-      "/agent-tool-cost-calculator",
-    );
+    expect(getToolRoute("agentTools").href).toBe("/agent-tool-cost-calculator");
   });
 });
