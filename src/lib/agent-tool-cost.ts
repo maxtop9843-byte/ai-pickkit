@@ -81,9 +81,7 @@ export function calculateAgentToolCost(
   const webSearchUsd =
     monthlyTasks * webSearchCallsPerTask * WEB_SEARCH_COST_PER_CALL_USD;
   const codeExecutionUsd =
-    monthlyTasks *
-    codeSessionsPerTask *
-    CODE_INTERPRETER_COST_PER_SESSION_USD;
+    monthlyTasks * codeSessionsPerTask * CODE_INTERPRETER_COST_PER_SESSION_USD;
   const otherToolsUsd =
     monthlyTasks * otherToolCallsPerTask * otherToolCostPerCallUsd;
   const monthlyTotalUsd =
