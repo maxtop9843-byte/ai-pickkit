@@ -10,7 +10,8 @@ export type ToolRoute = {
     | "rag"
     | "fineTuning"
     | "agentTools"
-    | "providerBudget";
+    | "providerBudget"
+    | "freeCredit";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -22,7 +23,8 @@ export type ToolRoute = {
     | "/rag-cost-calculator"
     | "/fine-tuning-cost-calculator"
     | "/agent-tool-cost-calculator"
-    | "/provider-budget-comparison";
+    | "/provider-budget-comparison"
+    | "/free-credit-runway-calculator";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -128,6 +130,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "공급자 간 월간 예산 비교",
     description:
       "동일한 요청 수와 입력·출력 토큰을 OpenAI·Anthropic·Google 대표 모델에 적용해 월간 비용과 예산 초과 여부를 비교하세요.",
+  },
+  {
+    id: "freeCredit",
+    href: "/free-credit-runway-calculator",
+    navLabel: "크레딧 소진일",
+    eyebrow: "FREE CREDIT RUNWAY",
+    title: "무료 크레딧 소진 예상일 계산기",
+    description:
+      "남은 무료 크레딧과 현재 일일 사용액, 성장률을 입력하고 예상 소진일과 경고 구간을 확인하세요.",
   },
 ];
 
