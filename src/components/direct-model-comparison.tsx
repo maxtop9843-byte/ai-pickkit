@@ -45,10 +45,15 @@ export default function DirectModelComparison() {
   const result = compareModels(input);
 
   useEffect(() => {
-    setSavedScenarios(
-      parseSavedCostScenarios(localStorage.getItem(SAVED_COST_SCENARIOS_KEY)),
-    );
-    setStorageReady(true);
+    const loadSavedScenarios = () => {
+      setSavedScenarios(
+        parseSavedCostScenarios(localStorage.getItem(SAVED_COST_SCENARIOS_KEY)),
+      );
+      setStorageReady(true);
+    };
+
+    const timeoutId = window.setTimeout(loadSavedScenarios, 0);
+    return () => window.clearTimeout(timeoutId);
   }, []);
 
   function persist(scenarios: SavedCostScenario[], message: string) {
