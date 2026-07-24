@@ -12,7 +12,8 @@ export type ToolRoute = {
     | "agentTools"
     | "providerBudget"
     | "freeCredit"
-    | "compositeService";
+    | "compositeService"
+    | "directComparison";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -26,7 +27,8 @@ export type ToolRoute = {
     | "/agent-tool-cost-calculator"
     | "/provider-budget-comparison"
     | "/free-credit-runway-calculator"
-    | "/composite-service-cost-calculator";
+    | "/composite-service-cost-calculator"
+    | "/model-a-b-comparison";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -150,6 +152,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "복합 AI 서비스 원가 계산기",
     description:
       "텍스트·이미지·음성·검색을 함께 사용하는 AI 서비스의 요청당 원가, 월간 비용과 목표 마진 기준 판매가를 계산하세요.",
+  },
+  {
+    id: "directComparison",
+    href: "/model-a-b-comparison",
+    navLabel: "모델 A/B 비교",
+    eyebrow: "MODEL A / B BENCH",
+    title: "모델 A 대 B 직접 비교 도구",
+    description:
+      "두 AI 모델의 공식 가격, 컨텍스트, 기능, 추천 용도와 동일 워크로드의 월간 예상 비용을 한 화면에서 비교하세요.",
   },
 ];
 
