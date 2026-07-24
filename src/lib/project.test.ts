@@ -23,9 +23,7 @@ describe("AI PickKit project", () => {
     expect(getToolRoute("fineTuning").href).toBe(
       "/fine-tuning-cost-calculator",
     );
-    expect(getToolRoute("agentTools").href).toBe(
-      "/agent-tool-cost-calculator",
-    );
+    expect(getToolRoute("agentTools").href).toBe("/agent-tool-cost-calculator");
     expect(getToolRoute("providerBudget").href).toBe(
       "/provider-budget-comparison",
     );
@@ -35,8 +33,6 @@ describe("AI PickKit project", () => {
     expect(getToolRoute("compositeService").href).toBe(
       "/composite-service-cost-calculator",
     );
-    expect(getToolRoute("directComparison").href).toBe(
-      "/model-a-b-comparison",
-    );
+    expect(getToolRoute("directComparison").href).toBe("/model-a-b-comparison");
   });
 });
