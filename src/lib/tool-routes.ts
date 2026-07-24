@@ -9,7 +9,8 @@ export type ToolRoute = {
     | "audio"
     | "rag"
     | "fineTuning"
-    | "agentTools";
+    | "agentTools"
+    | "providerBudget";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -20,7 +21,8 @@ export type ToolRoute = {
     | "/audio-cost-calculator"
     | "/rag-cost-calculator"
     | "/fine-tuning-cost-calculator"
-    | "/agent-tool-cost-calculator";
+    | "/agent-tool-cost-calculator"
+    | "/provider-budget-comparison";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -117,6 +119,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "에이전트 도구 호출 비용 계산기",
     description:
       "모델 호출·웹 검색·코드 실행·외부 도구 호출을 합산해 에이전트 작업당·월간 예상 비용을 계산하세요.",
+  },
+  {
+    id: "providerBudget",
+    href: "/provider-budget-comparison",
+    navLabel: "공급자 예산 비교",
+    eyebrow: "PROVIDER BUDGET BENCH",
+    title: "공급자 간 월간 예산 비교",
+    description:
+      "동일한 요청 수와 입력·출력 토큰을 OpenAI·Anthropic·Google 대표 모델에 적용해 월간 비용과 예산 초과 여부를 비교하세요.",
   },
 ];
 
