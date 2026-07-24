@@ -23,6 +23,7 @@ const initialInput: FreeCreditRunwayInput = {
 
 export default function FreeCreditRunwayCalculator() {
   const [input, setInput] = useState(initialInput);
+  const [calculationStartedAt] = useState(() => Date.now());
   const result = calculateFreeCreditRunway(input);
 
   function update<K extends keyof FreeCreditRunwayInput>(
@@ -35,7 +36,7 @@ export default function FreeCreditRunwayCalculator() {
   const exhaustedAt =
     result.daysRemaining === null
       ? null
-      : new Date(Date.now() + result.daysRemaining * 86_400_000);
+      : new Date(calculationStartedAt + result.daysRemaining * 86_400_000);
 
   return (
     <section
