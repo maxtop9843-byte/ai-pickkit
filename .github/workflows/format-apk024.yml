@@ -1,0 +1,25 @@
+name: Format APK-024
+
+on:
+  push:
+    branches:
+      - agent/apk-024-saved-cost-scenarios
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prettier --write src/components/direct-model-comparison.tsx src/lib/saved-cost-scenarios.ts src/lib/saved-cost-scenarios.test.ts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk024-formatted
+          path: |
+            src/components/direct-model-comparison.tsx
+            src/lib/saved-cost-scenarios.ts
+            src/lib/saved-cost-scenarios.test.ts
