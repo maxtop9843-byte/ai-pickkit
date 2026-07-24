@@ -43,8 +43,8 @@ export default function DirectModelComparison() {
           <p>MODEL A / B BENCH</p>
           <h2>같은 워크로드에서 두 모델을 바로 비교하세요</h2>
           <span>
-            가격뿐 아니라 컨텍스트, 등급, 멀티모달·Batch 지원과 추천 용도를
-            한 화면에서 확인합니다.
+            가격뿐 아니라 컨텍스트, 등급, 멀티모달·Batch 지원과 추천 용도를 한
+            화면에서 확인합니다.
           </span>
         </div>
 
