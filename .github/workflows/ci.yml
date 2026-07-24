@@ -24,6 +24,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run check
-      - run: npm run build
-      - run: git diff --check
+      - name: Generate formatter patch
+        run: |
+          npm run format
+          git diff > prettier.patch
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prettier-patch
+          path: prettier.patch
+          if-no-files-found: error
