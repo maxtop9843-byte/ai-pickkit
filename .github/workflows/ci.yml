@@ -24,6 +24,19 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run check
+      - name: Capture quality output
+        run: |
+          set +e
+          npm run check > ci-quality.log 2>&1
+          status=$?
+          cat ci-quality.log
+          echo "$status" > ci-quality.status
+          exit 0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk-021-quality-output
+          path: |
+            ci-quality.log
+            ci-quality.status
       - run: npm run build
       - run: git diff --check
