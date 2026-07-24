@@ -130,9 +130,7 @@ export default function ProviderBudgetComparison() {
             {item.provider}: 요청당 {usd.format(item.costPerRequestUsd)} ·{" "}
             {item.withinBudget
               ? "예산 이내"
-              : `예산 초과 ${usd.format(
-                  Math.abs(item.budgetRemainingUsd),
-                )}`}
+              : `예산 초과 ${usd.format(Math.abs(item.budgetRemainingUsd))}`}
           </p>
         ))}
         <p className={styles.caveat}>
