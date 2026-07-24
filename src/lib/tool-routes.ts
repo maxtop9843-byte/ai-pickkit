@@ -11,7 +11,8 @@ export type ToolRoute = {
     | "fineTuning"
     | "agentTools"
     | "providerBudget"
-    | "freeCredit";
+    | "freeCredit"
+    | "compositeService";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -24,7 +25,8 @@ export type ToolRoute = {
     | "/fine-tuning-cost-calculator"
     | "/agent-tool-cost-calculator"
     | "/provider-budget-comparison"
-    | "/free-credit-runway-calculator";
+    | "/free-credit-runway-calculator"
+    | "/composite-service-cost-calculator";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -139,6 +141,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "무료 크레딧 소진 예상일 계산기",
     description:
       "남은 무료 크레딧과 현재 일일 사용액, 성장률을 입력하고 예상 소진일과 경고 구간을 확인하세요.",
+  },
+  {
+    id: "compositeService",
+    href: "/composite-service-cost-calculator",
+    navLabel: "복합 서비스 원가",
+    eyebrow: "COMPOSITE SERVICE LEDGER",
+    title: "복합 AI 서비스 원가 계산기",
+    description:
+      "텍스트·이미지·음성·검색을 함께 사용하는 AI 서비스의 요청당 원가, 월간 비용과 목표 마진 기준 판매가를 계산하세요.",
   },
 ];
 
