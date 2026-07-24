@@ -25,6 +25,7 @@ const initialInput: CompositeServiceCostInput = {
   targetMarginPercent: 70,
 };
 
+// prettier-ignore
 export default function CompositeServiceCostCalculator() {
   const [input, setInput] = useState(initialInput);
   const result = calculateCompositeServiceCost(input);
