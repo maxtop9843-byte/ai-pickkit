@@ -151,7 +151,9 @@ export default function CompositeServiceCostCalculator() {
 
         <div className={styles.selection}>
           <strong>기본 가격 기준</strong>
-          <span>GPT-5.6 Terra · 표준 이미지 · 실시간 음성 인식 · 웹 검색</span>
+          <span>
+            GPT-5.6 Terra · 표준 이미지 · 실시간 음성 인식 · 웹 검색
+          </span>
           <p>
             저장소, 네트워크, 결제 수수료, 세금, 재시도와 인프라 비용은 포함하지
             않습니다.
