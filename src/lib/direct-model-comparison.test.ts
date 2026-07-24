@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  compareModels,
-  comparisonModels,
-} from "./direct-model-comparison";
+import { compareModels, comparisonModels } from "./direct-model-comparison";
 
 describe("direct model comparison", () => {
   it("compares monthly cost for the same workload", () => {
