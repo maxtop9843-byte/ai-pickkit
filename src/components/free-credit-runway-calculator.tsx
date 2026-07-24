@@ -25,7 +25,10 @@ export default function FreeCreditRunwayCalculator() {
   const [input, setInput] = useState(initialInput);
   const result = calculateFreeCreditRunway(input);
 
-  function update<K extends keyof FreeCreditRunwayInput>(key: K, value: number) {
+  function update<K extends keyof FreeCreditRunwayInput>(
+    key: K,
+    value: number,
+  ) {
     setInput((current) => ({ ...current, [key]: value }));
   }
 
@@ -35,7 +38,10 @@ export default function FreeCreditRunwayCalculator() {
       : new Date(Date.now() + result.daysRemaining * 86_400_000);
 
   return (
-    <section className={styles.shell} data-smoke="free-credit-runway-calculator">
+    <section
+      className={styles.shell}
+      data-smoke="free-credit-runway-calculator"
+    >
       <div className={styles.controls}>
         <div className={styles.heading}>
           <p>FREE CREDIT RUNWAY</p>
@@ -54,7 +60,9 @@ export default function FreeCreditRunwayCalculator() {
               inputMode="decimal"
               type="number"
               value={input.balanceUsd}
-              onChange={(event) => update("balanceUsd", Number(event.target.value))}
+              onChange={(event) =>
+                update("balanceUsd", Number(event.target.value))
+              }
             />
           </label>
           <label className={styles.field}>
@@ -65,7 +73,9 @@ export default function FreeCreditRunwayCalculator() {
               inputMode="decimal"
               type="number"
               value={input.dailyUsageUsd}
-              onChange={(event) => update("dailyUsageUsd", Number(event.target.value))}
+              onChange={(event) =>
+                update("dailyUsageUsd", Number(event.target.value))
+              }
             />
           </label>
         </div>
@@ -101,16 +111,26 @@ export default function FreeCreditRunwayCalculator() {
         <div className={styles.selection}>
           <strong>계산 기준</strong>
           <span>일일 사용액이 입력한 성장률만큼 매일 증가한다고 가정</span>
-          <p>프로모션 만료일, 세금, 환율, 공급자별 사용 제한은 포함하지 않습니다.</p>
+          <p>
+            프로모션 만료일, 세금, 환율, 공급자별 사용 제한은 포함하지 않습니다.
+          </p>
         </div>
       </div>
 
       <aside className={styles.result} aria-live="polite">
         <p className={styles.kicker}>CREDIT RUNWAY</p>
         <div className={styles.primary}>
-          <span>{result.status === "safe" ? "안정" : result.status === "warning" ? "주의" : "위험"}</span>
+          <span>
+            {result.status === "safe"
+              ? "안정"
+              : result.status === "warning"
+                ? "주의"
+                : "위험"}
+          </span>
           <strong>
-            {result.daysRemaining === null ? "소진 없음" : `${result.daysRemaining}일`}
+            {result.daysRemaining === null
+              ? "소진 없음"
+              : `${result.daysRemaining}일`}
           </strong>
         </div>
         <dl>
@@ -118,7 +138,9 @@ export default function FreeCreditRunwayCalculator() {
             <dt>예상 소진일</dt>
             <dd>
               {exhaustedAt
-                ? exhaustedAt.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })
+                ? exhaustedAt.toLocaleDateString("ko-KR", {
+                    timeZone: "Asia/Seoul",
+                  })
                 : "현재 사용액이 0입니다"}
             </dd>
           </div>
