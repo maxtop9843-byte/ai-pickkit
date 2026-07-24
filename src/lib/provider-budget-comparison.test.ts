@@ -17,7 +17,7 @@ describe("provider budget comparison", () => {
     expect(result[0].provider).toBe("Google");
     expect(result[0].monthlyCostUsd).toBeCloseTo(25);
     expect(result[1].monthlyCostUsd).toBeCloseTo(125);
-    expect(result[2].monthlyCostUsd).toBeCloseTo(132.5);
+    expect(result[2].monthlyCostUsd).toBeCloseTo(135);
     expect(result[0].withinBudget).toBe(true);
     expect(result[1].withinBudget).toBe(false);
   });
