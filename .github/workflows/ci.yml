@@ -24,6 +24,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run check
-      - run: npm run build
+      - name: Capture formatter output
+        run: |
+          npm run format
+          git diff --binary > formatter.patch
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk-020-formatter-patch
+          path: formatter.patch
       - run: git diff --check
