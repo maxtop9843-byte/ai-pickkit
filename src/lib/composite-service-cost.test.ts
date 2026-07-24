@@ -22,9 +22,7 @@ describe("composite AI service cost calculator", () => {
     expect(result.searchCostPerRequestUsd).toBeCloseTo(0.01);
     expect(result.unitCostUsd).toBeCloseTo(0.0344);
     expect(result.monthlyCostUsd).toBeCloseTo(344);
-    expect(result.suggestedPricePerRequestUsd).toBeCloseTo(
-      0.1146666667,
-    );
+    expect(result.suggestedPricePerRequestUsd).toBeCloseTo(0.1146666667);
   });
 
   it("sanitizes invalid values and caps the target margin", () => {
