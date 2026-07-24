@@ -8,7 +8,8 @@ export type ToolRoute = {
     | "images"
     | "audio"
     | "rag"
-    | "fineTuning";
+    | "fineTuning"
+    | "agentTools";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -18,7 +19,8 @@ export type ToolRoute = {
     | "/image-generation-cost-calculator"
     | "/audio-cost-calculator"
     | "/rag-cost-calculator"
-    | "/fine-tuning-cost-calculator";
+    | "/fine-tuning-cost-calculator"
+    | "/agent-tool-cost-calculator";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -106,6 +108,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "파인튜닝 비용 계산기",
     description:
       "학습 데이터·에폭·월간 요청량을 입력하고 일회성 모델 학습비와 월간 추론 비용을 함께 계산하세요.",
+  },
+  {
+    id: "agentTools",
+    href: "/agent-tool-cost-calculator",
+    navLabel: "에이전트 비용",
+    eyebrow: "AGENT COST WORKBENCH",
+    title: "에이전트 도구 호출 비용 계산기",
+    description:
+      "모델 호출·웹 검색·코드 실행·외부 도구 호출을 합산해 에이전트 작업당·월간 예상 비용을 계산하세요.",
   },
 ];
 
