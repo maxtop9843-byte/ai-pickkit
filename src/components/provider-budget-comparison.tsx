@@ -110,7 +110,9 @@ export default function ProviderBudgetComparison() {
       <aside className={styles.result} aria-live="polite">
         <p className={styles.kicker}>LOWEST ESTIMATE</p>
         <div className={styles.primary}>
-          <span>{cheapest.provider} · {cheapest.model}</span>
+          <span>
+            {cheapest.provider} · {cheapest.model}
+          </span>
           <strong>{usd.format(cheapest.monthlyCostUsd)}</strong>
         </div>
         <dl>
@@ -125,7 +127,12 @@ export default function ProviderBudgetComparison() {
         </dl>
         {results.map((item) => (
           <p className={styles.caveat} key={`${item.id}-budget`}>
-            {item.provider}: 요청당 {usd.format(item.costPerRequestUsd)} · {item.withinBudget ? "예산 이내" : `예산 초과 ${usd.format(Math.abs(item.budgetRemainingUsd))}`}
+            {item.provider}: 요청당 {usd.format(item.costPerRequestUsd)} ·{" "}
+            {item.withinBudget
+              ? "예산 이내"
+              : `예산 초과 ${usd.format(
+                  Math.abs(item.budgetRemainingUsd),
+                )}`}
           </p>
         ))}
         <p className={styles.caveat}>
@@ -133,7 +140,12 @@ export default function ProviderBudgetComparison() {
           않습니다. 실제 청구 전 공식 가격을 다시 확인하세요.
         </p>
         {results.map((item) => (
-          <a href={item.sourceUrl} key={`${item.id}-source`} target="_blank" rel="noreferrer">
+          <a
+            href={item.sourceUrl}
+            key={`${item.id}-source`}
+            target="_blank"
+            rel="noreferrer"
+          >
             {item.provider} 공식 가격 · {item.verifiedAt}
           </a>
         ))}
