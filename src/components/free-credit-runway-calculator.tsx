@@ -47,7 +47,8 @@ export default function FreeCreditRunwayCalculator() {
           <p>FREE CREDIT RUNWAY</p>
           <h2>무료 크레딧이 언제 소진될지 미리 확인하세요</h2>
           <span>
-            현재 일일 사용액과 성장률을 반영해 남은 기간과 경고 구간을 계산합니다.
+            현재 일일 사용액과 성장률을 반영해 남은 기간과 경고 구간을
+            계산합니다.
           </span>
         </div>
 
@@ -154,7 +155,8 @@ export default function FreeCreditRunwayCalculator() {
           </div>
         </dl>
         <p className={styles.caveat}>
-          사용량이 급증하거나 공급자 정책이 바뀌면 실제 소진일은 달라질 수 있습니다.
+          사용량이 급증하거나 공급자 정책이 바뀌면 실제 소진일은 달라질 수
+          있습니다.
         </p>
       </aside>
     </section>
