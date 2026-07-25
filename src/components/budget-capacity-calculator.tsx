@@ -10,6 +10,12 @@ const usd = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
+const usdUnit = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 4,
+  maximumFractionDigits: 6,
+});
 const integer = new Intl.NumberFormat("ko-KR");
 
 export default function BudgetCapacityCalculator() {
@@ -122,7 +128,11 @@ export default function BudgetCapacityCalculator() {
               </div>
               <div>
                 <dt>요청당 예상 비용</dt>
-                <dd>{usd.format(result.recommended.costPerRequestUsd)}</dd>
+                <dd>{usdUnit.format(result.recommended.costPerRequestUsd)}</dd>
+              </div>
+              <div>
+                <dt>월 예산</dt>
+                <dd>{usd.format(result.monthlyBudgetUsd)}</dd>
               </div>
               <div>
                 <dt>모델 등급</dt>
