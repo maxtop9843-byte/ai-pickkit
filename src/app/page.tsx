@@ -15,9 +15,7 @@ const featuredToolIds = new Set([
   "rag",
 ]);
 
-const featuredTools = toolRoutes.filter((tool) =>
-  featuredToolIds.has(tool.id),
-);
+const featuredTools = toolRoutes.filter((tool) => featuredToolIds.has(tool.id));
 
 export default function Home() {
   return (
@@ -63,8 +61,8 @@ export default function Home() {
             <h2 id="home-tools-title">지금 필요한 작업부터 고르세요</h2>
           </div>
           <p>
-            계산, 비교, 추천, 예산 계획까지 대표 도구를 바로 열 수 있습니다. 아래
-            계산기는 첫 번째 시작점일 뿐입니다.
+            계산, 비교, 추천, 예산 계획까지 대표 도구를 바로 열 수 있습니다.
+            아래 계산기는 첫 번째 시작점일 뿐입니다.
           </p>
         </div>
         <div className="home-tool-grid">
@@ -85,7 +83,9 @@ export default function Home() {
         </div>
         <div className="home-tool-directory-footer">
           <p>Pickkit에는 현재 {toolRoutes.length}개의 독립 도구가 있습니다.</p>
-          <Link href="/api-cost-calculator">가장 쉬운 계산기부터 시작하기 →</Link>
+          <Link href="/api-cost-calculator">
+            가장 쉬운 계산기부터 시작하기 →
+          </Link>
         </div>
       </section>
 
