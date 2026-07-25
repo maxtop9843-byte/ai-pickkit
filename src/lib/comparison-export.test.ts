@@ -41,8 +41,8 @@ describe("comparison export", () => {
   });
 
   it("uses a stable date-based filename", () => {
-    expect(
-      comparisonExportFilename("json", "2026-07-25T13:00:00.000Z"),
-    ).toBe("pickkit-model-comparison-2026-07-25.json");
+    expect(comparisonExportFilename("json", "2026-07-25T13:00:00.000Z")).toBe(
+      "pickkit-model-comparison-2026-07-25.json",
+    );
   });
 });
