@@ -166,6 +166,130 @@
   font-weight: 720;
 }
 
+.scenarios {
+  margin-top: 24px;
+  padding: 28px 32px;
+  border: 1px solid #cad5d0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.scenarioHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+  gap: 28px;
+  align-items: end;
+}
+
+.scenarioHeader h2 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: -0.03em;
+}
+
+.scenarioHeader span {
+  display: block;
+  margin-top: 8px;
+  color: #66716c;
+  font-size: 13px;
+}
+
+.saveControls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.saveControls .field {
+  margin: 0;
+}
+
+.saveControls button,
+.scenarioList button {
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid #bfd0c9;
+  border-radius: 9px;
+  background: #f7faf8;
+  color: #14382d;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.saveControls button {
+  border-color: #0a7355;
+  background: #0a7355;
+  color: #fff;
+}
+
+.saveControls button:focus-visible,
+.scenarioList button:focus-visible,
+.scenarioList input:focus-visible {
+  outline: 3px solid rgba(22, 163, 122, 0.2);
+  outline-offset: 2px;
+}
+
+.saveControls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.storageMessage {
+  min-height: 20px;
+  margin: 14px 0 0;
+  color: #0a7355;
+  font-size: 12px;
+}
+
+.emptyScenario {
+  margin: 18px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid #e1e7e4;
+  color: #66716c;
+  font-size: 13px;
+}
+
+.scenarioList {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid #e1e7e4;
+  list-style: none;
+}
+
+.scenarioList li {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(220px, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf1ef;
+}
+
+.scenarioList input {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 1px solid #d7dfdb;
+  border-radius: 8px;
+  background: #fbfcfb;
+  font-weight: 700;
+}
+
+.scenarioList > li > span {
+  overflow-wrap: anywhere;
+  color: #66716c;
+  font-size: 12px;
+}
+
+.scenarioList li > div {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 760px) {
   .shell {
     grid-template-columns: 1fr;
@@ -184,5 +308,20 @@
 
   .primary {
     margin-top: 32px;
+  }
+
+  .scenarios {
+    padding: 24px 20px;
+  }
+
+  .scenarioHeader,
+  .saveControls,
+  .scenarioList li {
+    grid-template-columns: 1fr;
+  }
+
+  .scenarioList li > div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
