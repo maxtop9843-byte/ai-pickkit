@@ -24,9 +24,9 @@ describe("comparison export", () => {
     expect(data.result.cheaperModel).toBe("Claude Sonnet 5");
     expect(data.result.monthlySavingsUsd).toBe(350);
     expect(data.sources).toHaveLength(2);
-    expect(data.sources.every((source) => source.url.startsWith("https://"))).toBe(
-      true,
-    );
+    expect(
+      data.sources.every((source) => source.url.startsWith("https://")),
+    ).toBe(true);
   });
 
   it("serializes reusable JSON and spreadsheet-friendly CSV", () => {
