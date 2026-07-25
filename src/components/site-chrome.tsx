@@ -1,6 +1,18 @@
 import Link from "next/link";
 import { toolRoutes } from "@/lib/tool-routes";
 
+const primaryToolIds = new Set([
+  "calculator",
+  "savings",
+  "models",
+  "selector",
+  "directComparison",
+]);
+
+const primaryToolRoutes = toolRoutes.filter((route) =>
+  primaryToolIds.has(route.id),
+);
+
 export function SiteHeader() {
   return (
     <header className="site-header">
@@ -11,11 +23,12 @@ export function SiteHeader() {
         <span>AI PickKit</span>
       </Link>
       <nav aria-label="주요 메뉴">
-        {toolRoutes.map((route) => (
+        {primaryToolRoutes.map((route) => (
           <Link href={route.href} key={route.id}>
             {route.navLabel}
           </Link>
         ))}
+        <Link href="/">모든 도구</Link>
       </nav>
       <Link className="header-cta" href="/api-cost-calculator">
         바로 계산하기
