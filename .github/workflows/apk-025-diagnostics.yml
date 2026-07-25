@@ -24,14 +24,23 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Format
-        run: npm run format:check
-      - name: Lint
-        if: always()
-        run: npm run lint
-      - name: Typecheck
-        if: always()
-        run: npm run typecheck
-      - name: Test
-        if: always()
-        run: npm run test
+      - name: Capture Prettier patch
+        run: |
+          npx prettier --write \
+            .github/workflows/apk-025-diagnostics.yml \
+            src/app/model-a-b-comparison/page.tsx \
+            src/components/comparison-export-panel.module.css \
+            src/components/comparison-export-panel.tsx \
+            src/lib/comparison-export.test.ts \
+            src/lib/comparison-export.ts
+          git diff > prettier.patch
+      - name: Capture test log
+        run: npm run test > test.log 2>&1 || true
+      - name: Upload diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-025-diagnostics
+          path: |
+            prettier.patch
+            test.log
+          if-no-files-found: error
