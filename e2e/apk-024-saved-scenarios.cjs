@@ -11,7 +11,9 @@ async function verifyViewport(browser, name, viewport) {
   const errors = [];
 
   page.on("console", (message) => {
-    if (message.type() === "error") errors.push(message.text());
+    if (message.type() === "error") {
+      errors.push(message.text());
+    }
   });
   page.on("pageerror", (error) => errors.push(error.message));
 
@@ -29,9 +31,9 @@ async function verifyViewport(browser, name, viewport) {
   await page.getByText("“모바일 API 예산”을 저장했습니다.").waitFor();
 
   await page.reload({ waitUntil: "networkidle" });
-  await page.getByDisplayValue("모바일 API 예산").waitFor();
+  const savedNameInput = page.locator('input[value="모바일 API 예산"]');
+  await savedNameInput.waitFor();
 
-  const savedNameInput = page.getByDisplayValue("모바일 API 예산");
   await savedNameInput.fill("모바일 API 예산 v2");
   await savedNameInput.press("Tab");
   await page.getByText("시나리오 이름을 변경했습니다.").waitFor();
