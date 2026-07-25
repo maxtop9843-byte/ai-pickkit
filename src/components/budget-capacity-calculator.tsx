@@ -33,8 +33,8 @@ export default function BudgetCapacityCalculator() {
             <p>BUDGET CAPACITY PLANNER</p>
             <h2>월 예산으로 가능한 요청량과 사용자 수를 역산하세요</h2>
             <span>
-              동일한 워크로드를 각 모델의 공식 표준 API 가격에 적용해 예산 안에서
-              처리 가능한 규모를 비교합니다.
+              동일한 워크로드를 각 모델의 공식 표준 API 가격에 적용해 예산
+              안에서 처리 가능한 규모를 비교합니다.
             </span>
           </div>
 
@@ -96,8 +96,8 @@ export default function BudgetCapacityCalculator() {
             <strong>계산 기준</strong>
             <span>표준 API 입력·출력 가격, 캐시·Batch 할인 미적용</span>
             <p>
-              실제 비용은 프롬프트 길이, 재시도, 캐시 적중률과 도구 호출에 따라 달라질
-              수 있습니다. 아래 값은 예산 계획용 상한 추정치입니다.
+              실제 비용은 프롬프트 길이, 재시도, 캐시 적중률과 도구 호출에 따라
+              달라질 수 있습니다. 아래 값은 예산 계획용 상한 추정치입니다.
             </p>
           </div>
         </div>
@@ -131,8 +131,9 @@ export default function BudgetCapacityCalculator() {
             </dl>
           ) : null}
           <p className={styles.caveat}>
-            추천은 품질 순위가 아니라 입력한 예산에서 가장 많은 사용자를 처리하는
-            모델입니다. 품질과 지연 시간은 실제 프롬프트로 별도 검증하세요.
+            추천은 품질 순위가 아니라 입력한 예산에서 가장 많은 사용자를
+            처리하는 모델입니다. 품질과 지연 시간은 실제 프롬프트로 별도
+            검증하세요.
           </p>
           {result.recommended ? (
             <a
