@@ -81,7 +81,10 @@ async function verifyViewport(browser, name, viewport) {
     );
   if (viewport.width < 768) {
     for (const target of touchTargets) {
-      assert.ok(target.height >= 44, `${name}: ${target.text} is below 44px`);
+      assert.ok(
+        target.height >= 44,
+        `${name}: ${target.text} is below 44px`,
+      );
     }
   }
 
