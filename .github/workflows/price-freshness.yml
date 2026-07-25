@@ -1,0 +1,45 @@
+name: Price Freshness Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/lib/model-catalog.ts"
+      - "src/lib/price-freshness.ts"
+      - "scripts/check-price-freshness.ts"
+      - ".github/workflows/price-freshness.yml"
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: price-freshness-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Generate price freshness report
+        run: npm run check:prices
+      - name: Publish job summary
+        if: always()
+        run: cat reports/price-freshness/*.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload freshness report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: price-freshness-report
+          path: reports/price-freshness/*.md
+          if-no-files-found: error
+          retention-days: 30
