@@ -72,5 +72,7 @@ console.log(report.markdown);
 console.log(`\nReport written to ${outputPath}`);
 
 if (report.candidates.length > 0) {
-  console.log(`Found ${report.candidates.length} price freshness candidate(s).`);
+  console.log(
+    `Found ${report.candidates.length} price freshness candidate(s).`,
+  );
 }

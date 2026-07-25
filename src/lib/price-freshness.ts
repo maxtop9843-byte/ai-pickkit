@@ -55,7 +55,9 @@ export function buildPriceFreshnessReport({
   now,
   staleAfterDays = 14,
 }: FreshnessReportInput): FreshnessReport {
-  const checksByProvider = new Map(sourceChecks.map((check) => [check.provider, check]));
+  const checksByProvider = new Map(
+    sourceChecks.map((check) => [check.provider, check]),
+  );
   const candidates: FreshnessCandidate[] = [];
 
   for (const model of models) {
@@ -65,7 +67,8 @@ export function buildPriceFreshnessReport({
     const check = checksByProvider.get(model.provider);
 
     if (!Number.isFinite(ageDays)) reasons.push("검증일 형식 오류");
-    else if (ageDays > staleAfterDays) reasons.push(`검증 후 ${ageDays}일 경과`);
+    else if (ageDays > staleAfterDays)
+      reasons.push(`검증 후 ${ageDays}일 경과`);
 
     if (!check) reasons.push("출처 확인 결과 없음");
     else if (!check.ok) {

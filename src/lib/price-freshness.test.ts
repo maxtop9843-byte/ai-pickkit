@@ -2,13 +2,15 @@ import { describe, expect, it } from "vitest";
 import { catalogModels, providerSources } from "./model-catalog";
 import { buildPriceFreshnessReport } from "./price-freshness";
 
-const sourceChecks = Object.entries(providerSources).map(([provider, source]) => ({
-  provider: provider as keyof typeof providerSources,
-  url: source.url,
-  ok: true,
-  status: 200,
-  checkedAt: "2026-07-26T00:00:00.000Z",
-}));
+const sourceChecks = Object.entries(providerSources).map(
+  ([provider, source]) => ({
+    provider: provider as keyof typeof providerSources,
+    url: source.url,
+    ok: true,
+    status: 200,
+    checkedAt: "2026-07-26T00:00:00.000Z",
+  }),
+);
 
 describe("buildPriceFreshnessReport", () => {
   it("marks models as candidates when the verification age exceeds the threshold", () => {
@@ -44,7 +46,9 @@ describe("buildPriceFreshnessReport", () => {
     expect(report.candidates).toHaveLength(
       catalogModels.filter((model) => model.provider === "Google").length,
     );
-    expect(report.candidates.every((candidate) => candidate.provider === "Google")).toBe(true);
+    expect(
+      report.candidates.every((candidate) => candidate.provider === "Google"),
+    ).toBe(true);
     expect(report.markdown).toContain("출처 HTTP 503");
   });
 
