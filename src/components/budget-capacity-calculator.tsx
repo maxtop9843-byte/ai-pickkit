@@ -46,7 +46,7 @@ export default function BudgetCapacityCalculator() {
 
           <div className={styles.row}>
             <label className={styles.field}>
-              <span>월 예산 (USD)</span>
+              <span>월 예산 (USD, 미화)</span>
               <input
                 min="0"
                 inputMode="decimal"
