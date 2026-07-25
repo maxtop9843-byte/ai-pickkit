@@ -27,6 +27,10 @@ export type ComparisonExport = {
   }>;
 };
 
+function roundedUsd(value: number) {
+  return Math.round((value + Number.EPSILON) * 1_000_000) / 1_000_000;
+}
+
 export function buildComparisonExport(
   input: DirectComparisonInput,
   exportedAt = new Date().toISOString(),
@@ -47,16 +51,16 @@ export function buildComparisonExport(
         id: result.modelA.id,
         provider: result.modelA.provider,
         name: result.modelA.name,
-        monthlyCostUsd: result.monthlyCostAUsd,
+        monthlyCostUsd: roundedUsd(result.monthlyCostAUsd),
       },
       modelB: {
         id: result.modelB.id,
         provider: result.modelB.provider,
         name: result.modelB.name,
-        monthlyCostUsd: result.monthlyCostBUsd,
+        monthlyCostUsd: roundedUsd(result.monthlyCostBUsd),
       },
       cheaperModel: result.cheaperModel?.name ?? null,
-      monthlySavingsUsd: result.monthlySavingsUsd,
+      monthlySavingsUsd: roundedUsd(result.monthlySavingsUsd),
     },
     sources: [result.modelA, result.modelB].map((model) => ({
       provider: model.provider,
