@@ -15,7 +15,9 @@ const featuredToolIds = new Set([
   "rag",
 ]);
 
-const featuredTools = toolRoutes.filter((tool) => featuredToolIds.has(tool.id));
+const featuredTools = toolRoutes.filter((tool) =>
+  featuredToolIds.has(tool.id),
+);
 
 export default function Home() {
   return (
@@ -39,9 +41,9 @@ export default function Home() {
           <Link className="hero-link" href="/api-cost-calculator">
             비용 계산 시작 <span aria-hidden="true">→</span>
           </Link>
-          <a className="home-secondary-link" href="#all-tools">
+          <Link className="home-secondary-link" href="#all-tools">
             모든 도구 보기
-          </a>
+          </Link>
         </div>
         <div className="trust-line">
           <span>로그인 없음</span>
