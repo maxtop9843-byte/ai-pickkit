@@ -2,33 +2,90 @@ import CostCalculator from "@/components/cost-calculator";
 import ModelComparison from "@/components/model-comparison";
 import ModelSelector from "@/components/model-selector";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
+import { toolRoutes } from "@/lib/tool-routes";
 import Link from "next/link";
+import "./home-discovery.css";
+
+const featuredToolIds = new Set([
+  "calculator",
+  "directComparison",
+  "selector",
+  "budgetCapacity",
+  "images",
+  "rag",
+]);
+
+const featuredTools = toolRoutes.filter((tool) => featuredToolIds.has(tool.id));
 
 export default function Home() {
   return (
     <main data-smoke="home">
       <SiteHeader />
 
-      <section className="hero">
+      <section className="hero home-hero" aria-labelledby="home-hero-title">
         <p className="eyebrow">
-          <span /> AI 선택을 쉽게
+          <span /> AI 비용·모델 의사결정 도구
         </p>
-        <h1>
-          내 AI 서비스,
+        <h1 id="home-hero-title">
+          AI 비용부터 모델 선택까지,
           <br />
-          <em>한 달에 얼마일까?</em>
+          <em>필요한 판단을 한곳에서.</em>
         </h1>
         <p className="lede">
-          어려운 토큰 계산 대신 사용자를 알려주세요. 실제 API 가격을 바탕으로
-          운영비와 절감 방법을 한눈에 보여드립니다.
+          API·이미지·음성·RAG 비용을 계산하고, 모델을 직접 비교하고, 월 예산에
+          맞는 선택을 찾으세요. 공식 가격 출처와 검증일도 함께 제공합니다.
         </p>
-        <Link className="hero-link" href="/api-cost-calculator">
-          비용 계산 시작 <span aria-hidden="true">→</span>
-        </Link>
+        <div className="home-hero-actions" aria-label="주요 시작 경로">
+          <Link className="hero-link" href="/api-cost-calculator">
+            비용 계산 시작 <span aria-hidden="true">→</span>
+          </Link>
+          <Link className="home-secondary-link" href="#all-tools">
+            모든 도구 보기
+          </Link>
+        </div>
         <div className="trust-line">
           <span>로그인 없음</span>
-          <span>입력값 저장 안 함</span>
+          <span>입력값 서버 저장 안 함</span>
           <span>공식 가격 출처 공개</span>
+        </div>
+      </section>
+
+      <section
+        className="home-tool-directory"
+        id="all-tools"
+        aria-labelledby="home-tools-title"
+      >
+        <div className="home-tool-directory-heading">
+          <div>
+            <p className="section-kicker">START WITH A DECISION</p>
+            <h2 id="home-tools-title">지금 필요한 작업부터 고르세요</h2>
+          </div>
+          <p>
+            계산, 비교, 추천, 예산 계획까지 대표 도구를 바로 열 수 있습니다.
+            아래 계산기는 첫 번째 시작점일 뿐입니다.
+          </p>
+        </div>
+        <div className="home-tool-grid">
+          {featuredTools.map((tool, index) => (
+            <Link href={tool.href} key={tool.id} className="home-tool-link">
+              <span className="home-tool-index" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="home-tool-copy">
+                <strong>{tool.navLabel}</strong>
+                <small>{tool.description}</small>
+              </span>
+              <span className="home-tool-arrow" aria-hidden="true">
+                →
+              </span>
+            </Link>
+          ))}
+        </div>
+        <div className="home-tool-directory-footer">
+          <p>Pickkit에는 현재 {toolRoutes.length}개의 독립 도구가 있습니다.</p>
+          <Link href="/api-cost-calculator">
+            가장 쉬운 계산기부터 시작하기 →
+          </Link>
         </div>
       </section>
 
