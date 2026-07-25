@@ -17,7 +17,9 @@ function readCurrentInput(): DirectComparisonInput | null {
   if (!section) return null;
 
   const selects = section.querySelectorAll<HTMLSelectElement>("select");
-  const numbers = section.querySelectorAll<HTMLInputElement>('input[type="number"]');
+  const numbers = section.querySelectorAll<HTMLInputElement>(
+    'input[type="number"]',
+  );
   if (selects.length < 2 || numbers.length < 3) return null;
 
   return {
@@ -59,7 +61,9 @@ export default function ComparisonExportPanel() {
     downloadFile(
       filename,
       content,
-      format === "csv" ? "text/csv;charset=utf-8" : "application/json;charset=utf-8",
+      format === "csv"
+        ? "text/csv;charset=utf-8"
+        : "application/json;charset=utf-8",
     );
     setMessage(`${format.toUpperCase()} 파일을 저장했습니다.`);
   }
