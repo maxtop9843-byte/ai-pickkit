@@ -22,7 +22,10 @@ export function calculateBudgetCapacity(input: BudgetCapacityInput) {
   const monthlyBudgetUsd = nonNegative(input.monthlyBudgetUsd);
   const inputTokensPerRequest = nonNegative(input.inputTokensPerRequest);
   const outputTokensPerRequest = nonNegative(input.outputTokensPerRequest);
-  const requestsPerUser = Math.max(1, Math.floor(nonNegative(input.requestsPerUser)));
+  const requestsPerUser = Math.max(
+    1,
+    Math.floor(nonNegative(input.requestsPerUser)),
+  );
 
   const rows: BudgetCapacityRow[] = catalogModels
     .map((model) => {
