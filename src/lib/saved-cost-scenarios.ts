@@ -1,4 +1,7 @@
-import type { DirectComparisonInput } from "@/lib/direct-model-comparison";
+import {
+  comparisonModels,
+  type DirectComparisonInput,
+} from "@/lib/direct-model-comparison";
 
 export const SAVED_COST_SCENARIOS_KEY = "pickkit.saved-cost-scenarios.v1";
 
@@ -9,6 +12,8 @@ export type SavedCostScenario = {
   updatedAt: string;
   input: DirectComparisonInput;
 };
+
+const comparisonModelIds = new Set(comparisonModels.map((model) => model.id));
 
 function isFiniteNonNegative(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value) && value >= 0;
@@ -29,7 +34,9 @@ function isScenario(value: unknown): value is SavedCostScenario {
     typeof scenario.updatedAt === "string" &&
     input &&
     typeof input.modelAId === "string" &&
+    comparisonModelIds.has(input.modelAId) &&
     typeof input.modelBId === "string" &&
+    comparisonModelIds.has(input.modelBId) &&
     isFiniteNonNegative(input.monthlyRequests) &&
     isFiniteNonNegative(input.inputTokensPerRequest) &&
     isFiniteNonNegative(input.outputTokensPerRequest),
