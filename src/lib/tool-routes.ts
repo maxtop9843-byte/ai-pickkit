@@ -13,7 +13,8 @@ export type ToolRoute = {
     | "providerBudget"
     | "freeCredit"
     | "compositeService"
-    | "directComparison";
+    | "directComparison"
+    | "budgetCapacity";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -28,7 +29,8 @@ export type ToolRoute = {
     | "/provider-budget-comparison"
     | "/free-credit-runway-calculator"
     | "/composite-service-cost-calculator"
-    | "/model-a-b-comparison";
+    | "/model-a-b-comparison"
+    | "/budget-capacity-calculator";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -161,6 +163,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "모델 A 대 B 직접 비교 도구",
     description:
       "두 AI 모델의 공식 가격, 컨텍스트, 기능, 추천 용도와 동일 워크로드의 월간 예상 비용을 한 화면에서 비교하세요.",
+  },
+  {
+    id: "budgetCapacity",
+    href: "/budget-capacity-calculator",
+    navLabel: "예산 역산",
+    eyebrow: "BUDGET CAPACITY PLANNER",
+    title: "AI 예산 한도 역산 계산기",
+    description:
+      "월 예산과 요청당 토큰을 입력하고 모델별 가능한 월 요청 수, 사용자 수와 최대 처리량 추천을 확인하세요.",
   },
 ];
 
