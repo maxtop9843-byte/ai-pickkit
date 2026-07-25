@@ -37,7 +37,8 @@
 | APK-025 | DONE    | 기능     | 계산 결과 CSV·JSON 내보내기          | true       | 현재 입력과 모델별 결과를 재사용 가능한 파일로 내보내기         |
 | APK-026 | DONE    | 기능     | 예산 한도 역산 추천                  | true       | 월 예산을 입력하면 가능한 사용자·요청량·추천 모델을 역산        |
 | APK-012 | DONE    | 기능기반 | 가격 데이터 신선도 자동 점검         | true       | 정기 점검이 변경 후보와 공식 근거를 보고하고 자동 덮어쓰지 않음 |
-| APK-013 | OPEN    | SEO      | SEO 신뢰·콘텐츠 품질 기반            | true       | About·방법론·출처·면책·Privacy·Terms와 구조화 데이터 완성       |
+| UX-001  | OPEN    | UX       | 홈 첫인상·멀티도구 포지셔닝 개선     | true       | 첫 화면에서 계산·비교·추천·예산 도구 존재와 전체 탐색 경로 인지 |
+| APK-013 | BLOCKED | SEO      | SEO 신뢰·콘텐츠 품질 기반            | true       | About·방법론·출처·면책·Privacy·Terms와 구조화 데이터 완성       |
 | APK-027 | BLOCKED | SEO      | 모델별 독립 상세 페이지 확장         | true       | 카탈로그 모든 모델에 고유 URL·메타·관련 도구·출처 제공          |
 | APK-028 | BLOCKED | SEO      | 공급자별 가격 허브                   | true       | OpenAI·Anthropic·Google별 가격·기능·변경일 허브 제공            |
 | APK-029 | BLOCKED | SEO      | 모델 비교 조합 랜딩                  | true       | 가치 있는 주요 A-vs-B 비교 조합에 고유 URL과 중복 방지 적용     |
