@@ -37,27 +37,46 @@ async function verifyViewport(browser, name, viewport) {
   await page.getByText("시나리오 이름을 변경했습니다.").waitFor();
 
   await page.getByRole("button", { name: "복제" }).click();
-  await page.getByText("“모바일 API 예산 v2 복사본”을 만들었습니다.").waitFor();
-  assert.equal(await page.getByRole("button", { name: "불러오기" }).count(), 2);
+  await page
+    .getByText("“모바일 API 예산 v2 복사본”을 만들었습니다.")
+    .waitFor();
+  assert.equal(
+    await page.getByRole("button", { name: "불러오기" }).count(),
+    2,
+  );
 
   await page.getByLabel("월간 요청 수").fill("1");
   await page.getByRole("button", { name: "불러오기" }).last().click();
-  assert.equal(await page.getByLabel("월간 요청 수").inputValue(), "42000");
+  assert.equal(
+    await page.getByLabel("월간 요청 수").inputValue(),
+    "42000",
+  );
 
   await page.getByRole("button", { name: "삭제" }).first().click();
-  assert.equal(await page.getByRole("button", { name: "불러오기" }).count(), 1);
+  assert.equal(
+    await page.getByRole("button", { name: "불러오기" }).count(),
+    1,
+  );
 
   const horizontalOverflow = await page.evaluate(
-    () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    () =>
+      document.documentElement.scrollWidth >
+      document.documentElement.clientWidth,
   );
-  assert.equal(horizontalOverflow, false, `${name}: page has horizontal overflow`);
+  assert.equal(
+    horizontalOverflow,
+    false,
+    `${name}: page has horizontal overflow`,
+  );
 
-  const touchTargets = await page.locator("button").evaluateAll((buttons) =>
-    buttons.map((button) => ({
-      text: button.textContent?.trim(),
-      height: button.getBoundingClientRect().height,
-    })),
-  );
+  const touchTargets = await page
+    .locator("button")
+    .evaluateAll((buttons) =>
+      buttons.map((button) => ({
+        text: button.textContent?.trim(),
+        height: button.getBoundingClientRect().height,
+      })),
+    );
   if (viewport.width < 768) {
     for (const target of touchTargets) {
       assert.ok(target.height >= 44, `${name}: ${target.text} is below 44px`);
@@ -77,7 +96,10 @@ async function verifyViewport(browser, name, viewport) {
   fs.mkdirSync(outputDir, { recursive: true });
   const browser = await chromium.launch({ headless: true });
   try {
-    await verifyViewport(browser, "desktop-1440", { width: 1440, height: 1000 });
+    await verifyViewport(browser, "desktop-1440", {
+      width: 1440,
+      height: 1000,
+    });
     await verifyViewport(browser, "mobile-390", { width: 390, height: 844 });
   } finally {
     await browser.close();
