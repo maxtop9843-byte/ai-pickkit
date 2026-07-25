@@ -40,8 +40,8 @@ describe("calculateBudgetCapacity", () => {
 
     expect(result.monthlyBudgetUsd).toBe(0);
     expect(result.requestsPerUser).toBe(1);
-    expect(result.rows.every((row) => Number.isFinite(row.maxMonthlyRequests))).toBe(
-      true,
-    );
+    expect(
+      result.rows.every((row) => Number.isFinite(row.maxMonthlyRequests)),
+    ).toBe(true);
   });
 });
