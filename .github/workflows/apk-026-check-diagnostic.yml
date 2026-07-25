@@ -1,0 +1,42 @@
+name: APK-026 Check Diagnostic
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Run checks separately
+        shell: bash
+        run: |
+          set +e
+          npm run format:check > /tmp/format.log 2>&1
+          echo "format=$?" > /tmp/status.txt
+          npm run lint > /tmp/lint.log 2>&1
+          echo "lint=$?" >> /tmp/status.txt
+          npm run typecheck > /tmp/typecheck.log 2>&1
+          echo "typecheck=$?" >> /tmp/status.txt
+          npm run test > /tmp/test.log 2>&1
+          echo "test=$?" >> /tmp/status.txt
+          exit 0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk-026-check-diagnostic
+          path: |
+            /tmp/status.txt
+            /tmp/format.log
+            /tmp/lint.log
+            /tmp/typecheck.log
+            /tmp/test.log
+          retention-days: 1
