@@ -1,7 +1,7 @@
 import {
   comparisonModels,
   type DirectComparisonInput,
-} from "@/lib/direct-model-comparison";
+} from "./direct-model-comparison";
 
 export const SAVED_COST_SCENARIOS_KEY = "pickkit.saved-cost-scenarios.v1";
 
