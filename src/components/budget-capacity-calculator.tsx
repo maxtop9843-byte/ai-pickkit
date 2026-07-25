@@ -46,7 +46,9 @@ export default function BudgetCapacityCalculator() {
                 inputMode="decimal"
                 type="number"
                 value={monthlyBudgetUsd}
-                onChange={(event) => setMonthlyBudgetUsd(Number(event.target.value))}
+                onChange={(event) =>
+                  setMonthlyBudgetUsd(Number(event.target.value))
+                }
               />
             </label>
             <label className={styles.field}>
@@ -56,7 +58,9 @@ export default function BudgetCapacityCalculator() {
                 inputMode="numeric"
                 type="number"
                 value={requestsPerUser}
-                onChange={(event) => setRequestsPerUser(Number(event.target.value))}
+                onChange={(event) =>
+                  setRequestsPerUser(Number(event.target.value))
+                }
               />
             </label>
           </div>
@@ -108,7 +112,9 @@ export default function BudgetCapacityCalculator() {
             <dl>
               <div>
                 <dt>가능한 월 요청</dt>
-                <dd>{integer.format(result.recommended.maxMonthlyRequests)}회</dd>
+                <dd>
+                  {integer.format(result.recommended.maxMonthlyRequests)}회
+                </dd>
               </div>
               <div>
                 <dt>가능한 월 사용자</dt>
@@ -134,13 +140,17 @@ export default function BudgetCapacityCalculator() {
               target="_blank"
               rel="noreferrer"
             >
-              {result.recommended.model.provider} 공식 출처 · {result.recommended.model.verifiedAt}
+              {result.recommended.model.provider} 공식 출처 ·{" "}
+              {result.recommended.model.verifiedAt}
             </a>
           ) : null}
         </aside>
       </section>
 
-      <section className={styles.scenarios} aria-labelledby="capacity-table-title">
+      <section
+        className={styles.scenarios}
+        aria-labelledby="capacity-table-title"
+      >
         <div className={styles.scenarioHeader}>
           <div>
             <p className={styles.kicker}>MODEL CAPACITY TABLE</p>
@@ -155,7 +165,8 @@ export default function BudgetCapacityCalculator() {
                 {row.model.provider} · {row.model.name}
               </strong>
               <span>
-                요청 {integer.format(row.maxMonthlyRequests)}회 · 사용자 {integer.format(row.maxMonthlyUsers)}명
+                요청 {integer.format(row.maxMonthlyRequests)}회 · 사용자{" "}
+                {integer.format(row.maxMonthlyUsers)}명
               </span>
               <div>
                 <a href={row.model.source} target="_blank" rel="noreferrer">
