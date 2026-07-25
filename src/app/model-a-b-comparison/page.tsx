@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ComparisonExportPanel from "@/components/comparison-export-panel";
 import DirectModelComparison from "@/components/direct-model-comparison";
 import ToolPage from "@/components/tool-page";
 import { getToolRoute } from "@/lib/tool-routes";
@@ -20,6 +21,7 @@ export default function DirectModelComparisonPage() {
   return (
     <ToolPage route={route} smoke="direct-model-comparison-page">
       <DirectModelComparison />
+      <ComparisonExportPanel />
     </ToolPage>
   );
 }
