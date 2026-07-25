@@ -29,8 +29,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - name: Install Chromium
-        run: npx --yes -p playwright@1.55.0 playwright install --with-deps chromium
+      - name: Install Playwright and Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
       - name: Start production server
         run: |
           npm run start -- --hostname 127.0.0.1 > /tmp/pickkit-next.log 2>&1 &
@@ -44,7 +46,7 @@ jobs:
           cat /tmp/pickkit-next.log
           exit 1
       - name: Run saved scenario browser flow
-        run: npx --yes -p playwright@1.55.0 node e2e/apk-024-saved-scenarios.cjs
+        run: node e2e/apk-024-saved-scenarios.cjs
       - name: Upload visual evidence
         if: always()
         uses: actions/upload-artifact@v4
