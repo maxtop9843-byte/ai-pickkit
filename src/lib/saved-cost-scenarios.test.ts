@@ -34,6 +34,20 @@ describe("saved cost scenarios", () => {
     ).toEqual([]);
   });
 
+  it("rejects scenarios that reference removed or unknown models", () => {
+    const staleScenario = {
+      ...scenario,
+      input: {
+        ...scenario.input,
+        modelAId: "retired-model",
+      },
+    };
+
+    expect(
+      parseSavedCostScenarios(JSON.stringify([staleScenario, scenario])),
+    ).toEqual([scenario]);
+  });
+
   it("duplicates without sharing the input object", () => {
     const copy = duplicateScenario(
       scenario,
