@@ -3,7 +3,7 @@ import { toolRoutes } from "@/lib/tool-routes";
 
 const primaryToolIds = new Set([
   "calculator",
-  "savings",
+  "prompt",
   "models",
   "selector",
   "directComparison",
@@ -28,10 +28,10 @@ export function SiteHeader() {
             {route.navLabel}
           </Link>
         ))}
-        <Link href="/">모든 도구</Link>
+        <Link href="/tools">모든 도구</Link>
       </nav>
-      <Link className="header-cta" href="/api-cost-calculator">
-        바로 계산하기
+      <Link className="header-cta" href="/tools">
+        도구 찾기
       </Link>
     </header>
   );
@@ -44,6 +44,7 @@ export function SiteFooter() {
         <span className="brand-mark">P</span>AI PickKit
       </Link>
       <p>비교하고, 계산하고, 나에게 맞는 AI를 고르세요.</p>
+      <Link href="/tools">전체 도구 {toolRoutes.length}개 보기</Link>
       <span>© 2026 AI PickKit · aipickkit.com</span>
     </footer>
   );
