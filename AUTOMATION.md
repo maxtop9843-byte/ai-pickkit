@@ -12,6 +12,10 @@
    - 열린 PR 본문에 독립된 줄 `AUTO_MERGE: true`가 있다.
    - 최신 `main`의 production smoke가 pending 또는 failed다.
    - 다른 자동화 실행이 GitHub concurrency lock을 보유한다.
+6. GitHub, Vercel 또는 작업에 필요한 연결 도구가 제공되면 불가능하다고 판단하기 전에 반드시 실제 도구 호출을 먼저 시도한다.
+7. GitHub 상태는 저장소 파일, PR, branch, checks와 workflow를 GitHub 연결 도구로 조회하고, Vercel 상태는 project, deployment, build log, Preview와 production URL을 Vercel 연결 도구로 조회한다.
+8. 첫 호출이 실패하거나 결과가 비어 있어도 즉시 불가 판정하지 않는다. 저장소명, project slug, team ID, deployment URL, 권한 범위와 대체 조회 경로를 확인해 합리적인 범위에서 재시도한다.
+9. 도구를 실제로 시도한 뒤에도 진행할 수 없을 때만 차단으로 보고하며, 사용한 도구, 호출 대상, 반환된 오류 또는 누락된 권한을 구체적으로 기록한다. 추측만으로 `접근할 수 없다`, `권한이 없다`, `검증할 수 없다`고 보고하지 않는다.
 
 ## 2. 작업 상태 판정
 
