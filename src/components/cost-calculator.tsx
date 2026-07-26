@@ -188,7 +188,7 @@ export default function CostCalculator({
       aria-labelledby="calculator-title"
     >
       <div className="calculator-intro">
-        <p className="section-kicker">API COST ESTIMATOR · APK-002</p>
+        <p className="section-kicker">API COST ESTIMATOR</p>
         <h2 id="calculator-title">토큰을 몰라도 계산할 수 있어요</h2>
         <p>
           서비스 모습과 이용량만 알려주세요. 같은 조건에서 세 가지 모델 비용을
