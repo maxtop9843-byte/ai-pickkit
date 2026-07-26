@@ -21,11 +21,7 @@ export default function ImageCostCalculator() {
     imagePriceOptions[0];
   const result = useMemo(
     () =>
-      calculateImageCost(
-        option.pricePerImageUsd,
-        Math.max(0, imagesPerDay),
-        Math.min(31, Math.max(1, daysPerMonth)),
-      ),
+      calculateImageCost(option.pricePerImageUsd, imagesPerDay, daysPerMonth),
     [daysPerMonth, imagesPerDay, option.pricePerImageUsd],
   );
 
@@ -63,7 +59,12 @@ export default function ImageCostCalculator() {
               inputMode="numeric"
               type="number"
               value={imagesPerDay}
-              onChange={(event) => setImagesPerDay(Number(event.target.value))}
+              onChange={(event) => {
+                const value = Number(event.target.value);
+                setImagesPerDay(
+                  Number.isFinite(value) ? Math.max(0, value) : 0,
+                );
+              }}
             />
           </label>
           <label className={styles.field}>
@@ -74,7 +75,12 @@ export default function ImageCostCalculator() {
               inputMode="numeric"
               type="number"
               value={daysPerMonth}
-              onChange={(event) => setDaysPerMonth(Number(event.target.value))}
+              onChange={(event) => {
+                const value = Number(event.target.value);
+                setDaysPerMonth(
+                  Number.isFinite(value) ? Math.min(31, Math.max(1, value)) : 1,
+                );
+              }}
             />
           </label>
         </div>
