@@ -50,9 +50,7 @@ export default function ToolsPage() {
         <p className="eyebrow">
           <span /> ALL PICKKIT TOOLS
         </p>
-        <h1 id="tools-title">
-          필요한 AI 비용·모델 도구를 한곳에서 찾으세요
-        </h1>
+        <h1 id="tools-title">필요한 AI 비용·모델 도구를 한곳에서 찾으세요</h1>
         <p>
           Pickkit에는 현재 {toolRoutes.length}개의 독립 도구가 있습니다. 하고 싶은
           작업을 기준으로 골라 바로 시작하세요.
