@@ -28,7 +28,7 @@ const initialInput: RagCostInput = {
   reindexEveryDays: 30,
 };
 
-function normalizeInputValue(key: keyof RagCostInput, value: number) {
+export function normalizeRagInputValue(key: keyof RagCostInput, value: number) {
   const finiteValue = Number.isFinite(value) ? value : 0;
 
   if (key === "overlapPercent") {
@@ -57,7 +57,7 @@ export default function RagCostCalculator() {
   function update<K extends keyof RagCostInput>(key: K, value: number) {
     setInput((current) => ({
       ...current,
-      [key]: normalizeInputValue(key, value),
+      [key]: normalizeRagInputValue(key, value),
     }));
   }
 
