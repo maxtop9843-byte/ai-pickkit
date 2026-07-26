@@ -16,7 +16,9 @@ const featuredToolIds = new Set([
   "rag",
 ]);
 
-const featuredTools = toolRoutes.filter((tool) => featuredToolIds.has(tool.id));
+const featuredTools = toolRoutes.filter((tool) =>
+  featuredToolIds.has(tool.id),
+);
 
 export default function Home() {
   return (
