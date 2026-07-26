@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   description:
     "목적에 맞는 AI 모델을 추천받고 OpenAI·Anthropic·Google의 공식 API 가격과 월 예상 비용을 비교하세요.",
   alternates: { canonical: "/" },
+  verification: {
+    other: {
+      "naver-site-verification": "43cfdf15b2fd881e68658f1f24e0a272ca51dece",
+    },
+  },
   openGraph: {
     title: "내 목적에 맞는 AI 모델을 찾고 비용까지 비교하세요",
     description:
