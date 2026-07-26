@@ -70,7 +70,7 @@ export default function SavingsSimulator() {
     >
       <div className="savings-heading">
         <div>
-          <p className="section-kicker">EFFICIENCY LEDGER · APK-009</p>
+          <p className="section-kicker">EFFICIENCY LEDGER</p>
           <h2 id="savings-title">할인율보다, 적용 가능한 요청부터 보세요</h2>
         </div>
         <p>
