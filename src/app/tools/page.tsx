@@ -52,8 +52,8 @@ export default function ToolsPage() {
         </p>
         <h1 id="tools-title">필요한 AI 비용·모델 도구를 한곳에서 찾으세요</h1>
         <p>
-          Pickkit에는 현재 {toolRoutes.length}개의 독립 도구가 있습니다. 하고 싶은
-          작업을 기준으로 골라 바로 시작하세요.
+          Pickkit에는 현재 {toolRoutes.length}개의 독립 도구가 있습니다. 하고
+          싶은 작업을 기준으로 골라 바로 시작하세요.
         </p>
       </section>
 
@@ -76,9 +76,7 @@ export default function ToolsPage() {
             <header>
               <p>{String(groupIndex + 1).padStart(2, "0")}</p>
               <div>
-                <h2 id={`tool-group-title-${groupIndex + 1}`}>
-                  {group.title}
-                </h2>
+                <h2 id={`tool-group-title-${groupIndex + 1}`}>{group.title}</h2>
                 <span>{group.description}</span>
               </div>
             </header>

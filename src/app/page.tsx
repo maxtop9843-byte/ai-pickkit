@@ -16,9 +16,7 @@ const featuredToolIds = new Set([
   "rag",
 ]);
 
-const featuredTools = toolRoutes.filter((tool) =>
-  featuredToolIds.has(tool.id),
-);
+const featuredTools = toolRoutes.filter((tool) => featuredToolIds.has(tool.id));
 
 export default function Home() {
   return (
@@ -36,8 +34,8 @@ export default function Home() {
         </h1>
         <p className="lede">
           프롬프트 토큰과 API·이미지·음성·RAG 비용을 계산하고, 모델을 직접
-          비교하고, 월 예산에 맞는 선택을 찾으세요. 공식 가격 출처와 검증일도 함께
-          제공합니다.
+          비교하고, 월 예산에 맞는 선택을 찾으세요. 공식 가격 출처와 검증일도
+          함께 제공합니다.
         </p>
         <div className="home-hero-actions" aria-label="주요 시작 경로">
           <Link className="hero-link" href="/prompt-token-calculator">
@@ -65,9 +63,9 @@ export default function Home() {
             <h2 id="home-tools-title">지금 필요한 작업부터 고르세요</h2>
           </div>
           <p>
-            프롬프트 사용량, 계산, 비교, 추천, 예산 계획까지 자주 찾는 도구를 바로
-            열 수 있습니다. 전체 목록에서는 {toolRoutes.length}개 도구를 목적별로
-            확인할 수 있습니다.
+            프롬프트 사용량, 계산, 비교, 추천, 예산 계획까지 자주 찾는 도구를
+            바로 열 수 있습니다. 전체 목록에서는 {toolRoutes.length}개 도구를
+            목적별로 확인할 수 있습니다.
           </p>
         </div>
         <div className="home-tool-grid">
