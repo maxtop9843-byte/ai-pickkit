@@ -4,13 +4,19 @@ import { providerSlugs } from "@/lib/model-guides";
 import { toolRoutes } from "@/lib/tool-routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-07-23");
+  const lastModified = new Date("2026-07-26");
   return [
     {
       url: "https://aipickkit.com",
       lastModified,
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: "https://aipickkit.com/tools",
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     ...toolRoutes.map((route) => ({
       url: `https://aipickkit.com${route.href}`,
