@@ -28,6 +28,24 @@ const initialInput: RagCostInput = {
   reindexEveryDays: 30,
 };
 
+function normalizeInputValue(key: keyof RagCostInput, value: number) {
+  const finiteValue = Number.isFinite(value) ? value : 0;
+
+  if (key === "overlapPercent") {
+    return Math.min(90, Math.max(0, finiteValue));
+  }
+
+  if (key === "daysPerMonth") {
+    return Math.min(31, Math.max(1, finiteValue));
+  }
+
+  if (key === "chunkTokens" || key === "reindexEveryDays") {
+    return Math.max(1, finiteValue);
+  }
+
+  return Math.max(0, finiteValue);
+}
+
 export default function RagCostCalculator() {
   const [optionId, setOptionId] = useState(embeddingPriceOptions[0].id);
   const [input, setInput] = useState(initialInput);
@@ -37,7 +55,10 @@ export default function RagCostCalculator() {
   const result = calculateRagCost(option, input);
 
   function update<K extends keyof RagCostInput>(key: K, value: number) {
-    setInput((current) => ({ ...current, [key]: value }));
+    setInput((current) => ({
+      ...current,
+      [key]: normalizeInputValue(key, value),
+    }));
   }
 
   return (
