@@ -102,7 +102,12 @@ export default function AudioCostCalculator() {
               inputMode="numeric"
               type="number"
               value={amountPerDay}
-              onChange={(event) => setAmountPerDay(Number(event.target.value))}
+              onChange={(event) => {
+                const value = Number(event.target.value);
+                setAmountPerDay(
+                  Number.isFinite(value) ? Math.max(0, value) : 0,
+                );
+              }}
             />
           </label>
         </div>
@@ -115,7 +120,12 @@ export default function AudioCostCalculator() {
             inputMode="numeric"
             type="number"
             value={daysPerMonth}
-            onChange={(event) => setDaysPerMonth(Number(event.target.value))}
+            onChange={(event) => {
+              const value = Number(event.target.value);
+              setDaysPerMonth(
+                Number.isFinite(value) ? Math.min(31, Math.max(1, value)) : 1,
+              );
+            }}
           />
         </label>
 
