@@ -8,6 +8,7 @@ import "./home-discovery.css";
 
 const featuredToolIds = new Set([
   "calculator",
+  "prompt",
   "directComparison",
   "selector",
   "budgetCapacity",
@@ -32,14 +33,15 @@ export default function Home() {
           <em>필요한 판단을 한곳에서.</em>
         </h1>
         <p className="lede">
-          API·이미지·음성·RAG 비용을 계산하고, 모델을 직접 비교하고, 월 예산에
-          맞는 선택을 찾으세요. 공식 가격 출처와 검증일도 함께 제공합니다.
+          프롬프트 토큰과 API·이미지·음성·RAG 비용을 계산하고, 모델을 직접
+          비교하고, 월 예산에 맞는 선택을 찾으세요. 공식 가격 출처와 검증일도 함께
+          제공합니다.
         </p>
         <div className="home-hero-actions" aria-label="주요 시작 경로">
-          <Link className="hero-link" href="/api-cost-calculator">
-            비용 계산 시작 <span aria-hidden="true">→</span>
+          <Link className="hero-link" href="/prompt-token-calculator">
+            프롬프트 사용량 확인 <span aria-hidden="true">→</span>
           </Link>
-          <Link className="home-secondary-link" href="#all-tools">
+          <Link className="home-secondary-link" href="/tools">
             모든 도구 보기
           </Link>
         </div>
@@ -61,8 +63,9 @@ export default function Home() {
             <h2 id="home-tools-title">지금 필요한 작업부터 고르세요</h2>
           </div>
           <p>
-            계산, 비교, 추천, 예산 계획까지 대표 도구를 바로 열 수 있습니다.
-            아래 계산기는 첫 번째 시작점일 뿐입니다.
+            프롬프트 사용량, 계산, 비교, 추천, 예산 계획까지 자주 찾는 도구를 바로
+            열 수 있습니다. 전체 목록에서는 {toolRoutes.length}개 도구를 목적별로
+            확인할 수 있습니다.
           </p>
         </div>
         <div className="home-tool-grid">
@@ -83,9 +86,7 @@ export default function Home() {
         </div>
         <div className="home-tool-directory-footer">
           <p>Pickkit에는 현재 {toolRoutes.length}개의 독립 도구가 있습니다.</p>
-          <Link href="/api-cost-calculator">
-            가장 쉬운 계산기부터 시작하기 →
-          </Link>
+          <Link href="/tools">전체 도구를 목적별로 보기 →</Link>
         </div>
       </section>
 
@@ -100,9 +101,9 @@ export default function Home() {
         aria-labelledby="prompt-tool-band-title"
       >
         <div>
-          <p className="section-kicker">NEW · PROMPT METER</p>
+          <p className="section-kicker">PROMPT USAGE · TOKEN · COST</p>
           <h2 id="prompt-tool-band-title">
-            이미 작성한 프롬프트도 바로 계산하세요
+            입력한 프롬프트가 모델별 사용량을 얼마나 쓰는지 확인하세요
           </h2>
         </div>
         <p>
@@ -110,7 +111,7 @@ export default function Home() {
           비용을 보여드립니다. 입력 내용은 브라우저 밖으로 보내지 않습니다.
         </p>
         <div className="prompt-tool-actions">
-          <Link href="/prompt-token-calculator">프롬프트 비용 추정 →</Link>
+          <Link href="/prompt-token-calculator">프롬프트 사용량 분석 →</Link>
           <Link href="/batch-cache-simulator">Batch·캐싱 절감 비교 →</Link>
         </div>
       </section>
