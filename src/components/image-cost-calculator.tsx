@@ -65,7 +65,9 @@ export default function ImageCostCalculator() {
               value={imagesPerDay}
               onChange={(event) => {
                 const value = Number(event.target.value);
-                setImagesPerDay(Number.isFinite(value) ? Math.max(0, value) : 0);
+                setImagesPerDay(
+                  Number.isFinite(value) ? Math.max(0, value) : 0,
+                );
               }}
             />
           </label>
