@@ -20,7 +20,12 @@ export default function ImageCostCalculator() {
     imagePriceOptions.find((item) => item.id === optionId) ??
     imagePriceOptions[0];
   const result = useMemo(
-    () => calculateImageCost(option.pricePerImageUsd, imagesPerDay, daysPerMonth),
+    () =>
+      calculateImageCost(
+        option.pricePerImageUsd,
+        imagesPerDay,
+        daysPerMonth,
+      ),
     [daysPerMonth, imagesPerDay, option.pricePerImageUsd],
   );
 
