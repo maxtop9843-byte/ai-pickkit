@@ -71,7 +71,7 @@ export default function PromptCostEstimator() {
     >
       <div className="prompt-estimator-heading">
         <div>
-          <p className="section-kicker">PROMPT METER · APK-008</p>
+          <p className="section-kicker">PROMPT METER</p>
           <h2 id="prompt-estimator-title">붙여넣고, 범위로 예산을 잡으세요</h2>
         </div>
         <p>
