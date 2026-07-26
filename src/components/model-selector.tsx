@@ -77,7 +77,7 @@ export default function ModelSelector() {
     >
       <div className="selector-heading">
         <div>
-          <p className="section-kicker">MODEL PATHFINDER · APK-004</p>
+          <p className="section-kicker">MODEL PATHFINDER</p>
           <h2 id="selector-title">네 가지만 고르면 후보를 좁혀드려요</h2>
         </div>
         <p>
