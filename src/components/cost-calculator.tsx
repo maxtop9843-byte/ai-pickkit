@@ -297,7 +297,7 @@ export default function CostCalculator({
             <p>균형형 모델 기준</p>
             <strong>{money(recommended.cost.monthly)}</strong>
             <span>
-              월 {recommended.cost.requestsPerDay.toLocaleString("ko-KR")}회 ×
+              하루 {recommended.cost.requestsPerDay.toLocaleString("ko-KR")}회 ×
               30일
             </span>
           </div>
