@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeRagInputValue } from "@/lib/rag-input";
+import { normalizeRagInputValue } from "../lib/rag-input";
 
 describe("RAG calculator input normalization", () => {
   it("clamps bounded fields to their visible limits", () => {
