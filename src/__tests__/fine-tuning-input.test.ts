@@ -23,11 +23,11 @@ describe("fine-tuning calculator input normalization", () => {
         Number.POSITIVE_INFINITY,
       ),
     ).toBe(0);
-    expect(
-      normalizeFineTuningInputValue(
-        "averageTokensPerExample",
-        Number.NEGATIVE_INFINITY,
-      ),
-    ).toBe(0);
+
+    const negativeInfinity = normalizeFineTuningInputValue(
+      "averageTokensPerExample",
+      Number.NEGATIVE_INFINITY,
+    );
+    expect(negativeInfinity).toBe(0);
   });
 });
