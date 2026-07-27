@@ -6,6 +6,12 @@ describe("fine-tuning calculator input normalization", () => {
     expect(normalizeFineTuningInputValue("trainingExamples", 12.8)).toBe(12);
     expect(normalizeFineTuningInputValue("monthlyRequests", 12.8)).toBe(12);
     expect(normalizeFineTuningInputValue("monthlyRequests", -5)).toBe(0);
+    expect(
+      normalizeFineTuningInputValue(
+        "monthlyRequests",
+        Number.POSITIVE_INFINITY,
+      ),
+    ).toBe(0);
   });
 
   it("keeps epochs at one or above", () => {
