@@ -1,9 +1,6 @@
 import type { RagCostInput } from "./rag-cost";
 
-export function normalizeRagInputValue(
-  key: keyof RagCostInput,
-  value: number,
-) {
+export function normalizeRagInputValue(key: keyof RagCostInput, value: number) {
   const finiteValue = Number.isFinite(value) ? value : 0;
 
   if (key === "overlapPercent") {
