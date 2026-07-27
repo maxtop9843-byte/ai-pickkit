@@ -50,16 +50,48 @@ function positive(value: number) {
   return Number.isFinite(value) ? Math.max(0, value) : 0;
 }
 
+export function normalizeFineTuningInputValue(
+  key: keyof FineTuningCostInput,
+  value: number,
+) {
+  const normalized = positive(value);
+
+  if (key === "epochs") {
+    return Math.max(1, Math.floor(normalized));
+  }
+
+  if (key === "trainingExamples" || key === "monthlyRequests") {
+    return Math.floor(normalized);
+  }
+
+  return normalized;
+}
+
 export function calculateFineTuningCost(
   option: FineTuningPriceOption,
   input: FineTuningCostInput,
 ) {
-  const trainingExamples = Math.floor(positive(input.trainingExamples));
-  const averageTokensPerExample = positive(input.averageTokensPerExample);
-  const epochs = Math.max(1, Math.floor(positive(input.epochs)));
-  const monthlyRequests = Math.floor(positive(input.monthlyRequests));
-  const averageInputTokens = positive(input.averageInputTokens);
-  const averageOutputTokens = positive(input.averageOutputTokens);
+  const trainingExamples = normalizeFineTuningInputValue(
+    "trainingExamples",
+    input.trainingExamples,
+  );
+  const averageTokensPerExample = normalizeFineTuningInputValue(
+    "averageTokensPerExample",
+    input.averageTokensPerExample,
+  );
+  const epochs = normalizeFineTuningInputValue("epochs", input.epochs);
+  const monthlyRequests = normalizeFineTuningInputValue(
+    "monthlyRequests",
+    input.monthlyRequests,
+  );
+  const averageInputTokens = normalizeFineTuningInputValue(
+    "averageInputTokens",
+    input.averageInputTokens,
+  );
+  const averageOutputTokens = normalizeFineTuningInputValue(
+    "averageOutputTokens",
+    input.averageOutputTokens,
+  );
 
   const datasetTokens = trainingExamples * averageTokensPerExample;
   const billableTrainingTokens = datasetTokens * epochs;
