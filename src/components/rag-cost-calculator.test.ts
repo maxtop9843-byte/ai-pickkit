@@ -20,5 +20,8 @@ describe("RAG calculator input normalization", () => {
     expect(
       normalizeRagInputValue("averageQueryTokens", Number.POSITIVE_INFINITY),
     ).toBe(0);
+    expect(
+      normalizeRagInputValue("queriesPerDay", Number.NEGATIVE_INFINITY),
+    ).toBe(0);
   });
 });
