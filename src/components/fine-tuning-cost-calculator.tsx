@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   calculateFineTuningCost,
   fineTuningPriceOptions,
+  normalizeFineTuningInputValue,
   type FineTuningCostInput,
 } from "@/lib/fine-tuning-cost";
 import styles from "./image-cost-calculator.module.css";
@@ -35,7 +36,10 @@ export default function FineTuningCostCalculator() {
   const result = calculateFineTuningCost(option, input);
 
   function update<K extends keyof FineTuningCostInput>(key: K, value: number) {
-    setInput((current) => ({ ...current, [key]: value }));
+    setInput((current) => ({
+      ...current,
+      [key]: normalizeFineTuningInputValue(key, value),
+    }));
   }
 
   return (
