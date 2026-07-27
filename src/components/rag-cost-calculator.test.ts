@@ -18,7 +18,7 @@ describe("RAG calculator input normalization", () => {
     expect(normalizeRagInputValue("documentCount", -1)).toBe(0);
     expect(normalizeRagInputValue("queriesPerDay", Number.NaN)).toBe(0);
     expect(
-      normalizeRagInputValue("queryInputTokens", Number.POSITIVE_INFINITY),
+      normalizeRagInputValue("averageQueryTokens", Number.POSITIVE_INFINITY),
     ).toBe(0);
   });
 });
