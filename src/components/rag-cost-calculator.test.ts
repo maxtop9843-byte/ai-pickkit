@@ -17,5 +17,6 @@ describe("RAG calculator input normalization", () => {
   it("normalizes negative and non-finite usage values", () => {
     expect(normalizeRagInputValue("documentCount", -1)).toBe(0);
     expect(normalizeRagInputValue("queriesPerDay", Number.NaN)).toBe(0);
+    expect(normalizeRagInputValue("queryInputTokens", Number.POSITIVE_INFINITY)).toBe(0);
   });
 });
