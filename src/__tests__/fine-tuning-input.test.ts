@@ -10,6 +10,7 @@ describe("fine-tuning calculator input normalization", () => {
   it("keeps epochs at one or above", () => {
     expect(normalizeFineTuningInputValue("epochs", 0)).toBe(1);
     expect(normalizeFineTuningInputValue("epochs", 3.9)).toBe(3);
+    expect(normalizeFineTuningInputValue("epochs", -Infinity)).toBe(1);
   });
 
   it("normalizes invalid and negative token values", () => {
@@ -23,11 +24,5 @@ describe("fine-tuning calculator input normalization", () => {
         Number.POSITIVE_INFINITY,
       ),
     ).toBe(0);
-
-    const negativeInfinity = normalizeFineTuningInputValue(
-      "averageTokensPerExample",
-      Number.NEGATIVE_INFINITY,
-    );
-    expect(negativeInfinity).toBe(0);
   });
 });
