@@ -14,7 +14,14 @@ describe("fine-tuning calculator input normalization", () => {
 
   it("normalizes invalid and negative token values", () => {
     expect(normalizeFineTuningInputValue("averageInputTokens", -1)).toBe(0);
-    expect(normalizeFineTuningInputValue("averageOutputTokens", Number.NaN)).toBe(0);
-    expect(normalizeFineTuningInputValue("averageTokensPerExample", Number.POSITIVE_INFINITY)).toBe(0);
+    expect(
+      normalizeFineTuningInputValue("averageOutputTokens", Number.NaN),
+    ).toBe(0);
+    expect(
+      normalizeFineTuningInputValue(
+        "averageTokensPerExample",
+        Number.POSITIVE_INFINITY,
+      ),
+    ).toBe(0);
   });
 });
