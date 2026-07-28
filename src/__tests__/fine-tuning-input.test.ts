@@ -4,7 +4,14 @@ import { normalizeFineTuningInputValue } from "../lib/fine-tuning-cost";
 describe("fine-tuning calculator input normalization", () => {
   it("keeps count fields as non-negative integers", () => {
     expect(normalizeFineTuningInputValue("trainingExamples", 12.8)).toBe(12);
+    expect(normalizeFineTuningInputValue("monthlyRequests", 12.8)).toBe(12);
     expect(normalizeFineTuningInputValue("monthlyRequests", -5)).toBe(0);
+    expect(
+      normalizeFineTuningInputValue(
+        "monthlyRequests",
+        Number.POSITIVE_INFINITY,
+      ),
+    ).toBe(0);
   });
 
   it("keeps epochs at one or above", () => {
