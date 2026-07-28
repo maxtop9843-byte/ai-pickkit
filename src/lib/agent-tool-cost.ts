@@ -54,22 +54,54 @@ export const agentModelPrices: AgentModelPrice[] = [
 export const WEB_SEARCH_COST_PER_CALL_USD = 0.01;
 export const CODE_INTERPRETER_COST_PER_SESSION_USD = 0.03;
 
-function positive(value: number) {
-  return Number.isFinite(value) ? Math.max(0, value) : 0;
+export function normalizeAgentToolCostInput(
+  key: keyof AgentToolCostInput,
+  value: number,
+) {
+  const finiteValue = Number.isFinite(value) ? value : 0;
+  const nonNegativeValue = Math.max(0, finiteValue);
+
+  return key === "monthlyTasks"
+    ? Math.floor(nonNegativeValue)
+    : nonNegativeValue;
 }
 
 export function calculateAgentToolCost(
   model: AgentModelPrice,
   input: AgentToolCostInput,
 ) {
-  const monthlyTasks = Math.floor(positive(input.monthlyTasks));
-  const modelCallsPerTask = positive(input.modelCallsPerTask);
-  const inputTokensPerCall = positive(input.inputTokensPerCall);
-  const outputTokensPerCall = positive(input.outputTokensPerCall);
-  const webSearchCallsPerTask = positive(input.webSearchCallsPerTask);
-  const codeSessionsPerTask = positive(input.codeSessionsPerTask);
-  const otherToolCallsPerTask = positive(input.otherToolCallsPerTask);
-  const otherToolCostPerCallUsd = positive(input.otherToolCostPerCallUsd);
+  const monthlyTasks = normalizeAgentToolCostInput(
+    "monthlyTasks",
+    input.monthlyTasks,
+  );
+  const modelCallsPerTask = normalizeAgentToolCostInput(
+    "modelCallsPerTask",
+    input.modelCallsPerTask,
+  );
+  const inputTokensPerCall = normalizeAgentToolCostInput(
+    "inputTokensPerCall",
+    input.inputTokensPerCall,
+  );
+  const outputTokensPerCall = normalizeAgentToolCostInput(
+    "outputTokensPerCall",
+    input.outputTokensPerCall,
+  );
+  const webSearchCallsPerTask = normalizeAgentToolCostInput(
+    "webSearchCallsPerTask",
+    input.webSearchCallsPerTask,
+  );
+  const codeSessionsPerTask = normalizeAgentToolCostInput(
+    "codeSessionsPerTask",
+    input.codeSessionsPerTask,
+  );
+  const otherToolCallsPerTask = normalizeAgentToolCostInput(
+    "otherToolCallsPerTask",
+    input.otherToolCallsPerTask,
+  );
+  const otherToolCostPerCallUsd = normalizeAgentToolCostInput(
+    "otherToolCostPerCallUsd",
+    input.otherToolCostPerCallUsd,
+  );
 
   const totalModelCalls = monthlyTasks * modelCallsPerTask;
   const inputTokens = totalModelCalls * inputTokensPerCall;

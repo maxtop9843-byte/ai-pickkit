@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   agentModelPrices,
   calculateAgentToolCost,
+  normalizeAgentToolCostInput,
   type AgentToolCostInput,
 } from "@/lib/agent-tool-cost";
 import styles from "./image-cost-calculator.module.css";
@@ -36,7 +37,10 @@ export default function AgentToolCostCalculator() {
   const result = calculateAgentToolCost(model, input);
 
   function update<K extends keyof AgentToolCostInput>(key: K, value: number) {
-    setInput((current) => ({ ...current, [key]: value }));
+    setInput((current) => ({
+      ...current,
+      [key]: normalizeAgentToolCostInput(key, value),
+    }));
   }
 
   return (
