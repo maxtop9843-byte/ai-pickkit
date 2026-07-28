@@ -10,15 +10,15 @@ describe("free credit runway input normalization", () => {
         Number.POSITIVE_INFINITY,
       ),
     ).toBe(0);
-    expect(normalizeFreeCreditRunwayInput("dailyGrowthPercent", Number.NaN)).toBe(
-      0,
-    );
+    expect(
+      normalizeFreeCreditRunwayInput("dailyGrowthPercent", Number.NaN),
+    ).toBe(0);
   });
 
   it("keeps the warning threshold as a positive whole day", () => {
     expect(normalizeFreeCreditRunwayInput("warningThresholdDays", 0)).toBe(1);
-    expect(normalizeFreeCreditRunwayInput("warningThresholdDays", 14.9)).toBe(
-      14,
-    );
+    expect(
+      normalizeFreeCreditRunwayInput("warningThresholdDays", 14.9),
+    ).toBe(14);
   });
 });
