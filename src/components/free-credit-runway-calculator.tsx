@@ -3,6 +3,7 @@
 import { useState } from "react";
 import {
   calculateFreeCreditRunway,
+  normalizeFreeCreditRunwayInput,
   type FreeCreditRunwayInput,
 } from "@/lib/free-credit-runway";
 import styles from "./image-cost-calculator.module.css";
@@ -30,7 +31,10 @@ export default function FreeCreditRunwayCalculator() {
     key: K,
     value: number,
   ) {
-    setInput((current) => ({ ...current, [key]: value }));
+    setInput((current) => ({
+      ...current,
+      [key]: normalizeFreeCreditRunwayInput(key, value),
+    }));
   }
 
   const exhaustedAt =
@@ -152,7 +156,7 @@ export default function FreeCreditRunwayCalculator() {
           </div>
           <div>
             <dt>현재 일일 사용액</dt>
-            <dd>{usd.format(Math.max(0, input.dailyUsageUsd))}</dd>
+            <dd>{usd.format(input.dailyUsageUsd)}</dd>
           </div>
         </dl>
         <p className={styles.caveat}>
