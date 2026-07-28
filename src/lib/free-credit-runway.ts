@@ -5,16 +5,17 @@ export type FreeCreditRunwayInput = {
   warningThresholdDays: number;
 };
 
-export function normalizeFreeCreditRunwayInput<
-  K extends keyof FreeCreditRunwayInput,
->(key: K, value: number): FreeCreditRunwayInput[K] {
+export function normalizeFreeCreditRunwayInput(
+  key: keyof FreeCreditRunwayInput,
+  value: number,
+): number {
   const finiteValue = Number.isFinite(value) ? value : 0;
 
   if (key === "warningThresholdDays") {
-    return Math.max(1, Math.floor(finiteValue)) as FreeCreditRunwayInput[K];
+    return Math.max(1, Math.floor(finiteValue));
   }
 
-  return Math.max(0, finiteValue) as FreeCreditRunwayInput[K];
+  return Math.max(0, finiteValue);
 }
 
 export function calculateFreeCreditRunway(input: FreeCreditRunwayInput) {
