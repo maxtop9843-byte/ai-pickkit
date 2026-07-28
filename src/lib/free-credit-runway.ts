@@ -5,15 +5,36 @@ export type FreeCreditRunwayInput = {
   warningThresholdDays: number;
 };
 
-const nonNegative = (value: number) =>
-  Number.isFinite(value) ? Math.max(0, value) : 0;
+export function normalizeFreeCreditRunwayInput(
+  key: keyof FreeCreditRunwayInput,
+  value: number,
+): number {
+  const finiteValue = Number.isFinite(value) ? value : 0;
+
+  if (key === "warningThresholdDays") {
+    return Math.max(1, Math.floor(finiteValue));
+  }
+
+  return Math.max(0, finiteValue);
+}
 
 export function calculateFreeCreditRunway(input: FreeCreditRunwayInput) {
-  const balanceUsd = nonNegative(input.balanceUsd);
-  const startingDailyUsageUsd = nonNegative(input.dailyUsageUsd);
-  const growthRate = nonNegative(input.dailyGrowthPercent) / 100;
-  const warningThresholdDays = Math.floor(
-    nonNegative(input.warningThresholdDays),
+  const balanceUsd = normalizeFreeCreditRunwayInput(
+    "balanceUsd",
+    input.balanceUsd,
+  );
+  const startingDailyUsageUsd = normalizeFreeCreditRunwayInput(
+    "dailyUsageUsd",
+    input.dailyUsageUsd,
+  );
+  const growthRate =
+    normalizeFreeCreditRunwayInput(
+      "dailyGrowthPercent",
+      input.dailyGrowthPercent,
+    ) / 100;
+  const warningThresholdDays = normalizeFreeCreditRunwayInput(
+    "warningThresholdDays",
+    input.warningThresholdDays,
   );
 
   if (balanceUsd === 0) {
