@@ -5,7 +5,10 @@ describe("free credit runway input normalization", () => {
   it("clamps monetary and growth inputs to finite non-negative values", () => {
     expect(normalizeFreeCreditRunwayInput("balanceUsd", -100)).toBe(0);
     expect(
-      normalizeFreeCreditRunwayInput("dailyUsageUsd", Number.POSITIVE_INFINITY),
+      normalizeFreeCreditRunwayInput(
+        "dailyUsageUsd",
+        Number.POSITIVE_INFINITY,
+      ),
     ).toBe(0);
     expect(normalizeFreeCreditRunwayInput("dailyGrowthPercent", Number.NaN)).toBe(
       0,
