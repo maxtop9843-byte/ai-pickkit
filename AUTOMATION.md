@@ -78,7 +78,18 @@ UI 또는 공개 경로 변경 시 다음 퇴행도 확인한다.
 AUTO_MERGE: true
 ```
 
-자동 병합은 base가 `main`, 동일 저장소의 non-draft 기능 브랜치, 정확한 opt-in, 같은 head SHA의 GitHub CI 및 Vercel Preview 성공, 충돌 없음, 보호 규칙 차단 없음이 모두 확인된 경우에만 squash 방식으로 수행한다.
+기본 자동 병합 조건은 base가 `main`, 동일 저장소의 non-draft 기능 브랜치, 정확한 opt-in, 같은 head SHA의 GitHub CI 및 Vercel Preview 성공, 충돌 없음, 보호 규칙 차단 없음이다. 조건이 충족되면 squash 방식으로 병합한다.
+
+Preview 브라우저 검증은 우선 수행하되 외부 사유로 불가능한 경우 절대 병합 차단 조건으로 고정하지 않는다. 다음 조건을 모두 충족하면 Preview 실패 도구, 대상, 오류와 재시도 결과를 기록한 뒤 squash 병합을 계속한다.
+
+- exact-head GitHub CI/checks가 성공했다.
+- `npm run check`, `npm run build`, `git diff --check`가 모두 성공했다.
+- 변경 diff와 테스트에서 보안, 계산, 경로, 데이터 손실 또는 치명적 UX 문제가 발견되지 않았다.
+- Preview 불가 원인이 Vercel 무료 배포 한도, 보호 정책, 관리자 차단, DNS, timeout, connection reset, 실행 환경 네트워크 또는 브라우저 도구 제한이다.
+
+Preview build가 애플리케이션 코드 오류로 실패한 경우에는 이 예외를 적용하지 않는다.
+
+Preview 예외로 병합한 경우 병합 직후 Production deployment READY 확인과 canonical 웹 직접 검증을 최우선으로 수행한다. 홈페이지와 대상 경로에서 핵심 입력, 계산, 결과, 공유·저장·URL 복원, 모바일, 접근성, 시각적 일관성을 확인한다. Production에서 실제 결함이 발견되면 다음 작업을 시작하지 말고 같은 작업의 수정 PR 또는 최소 롤백으로 복구한다.
 
 ## 7. 병합 후 게이트와 복구
 
