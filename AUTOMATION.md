@@ -78,11 +78,24 @@ UI 또는 공개 경로 변경 시 다음 퇴행도 확인한다.
 AUTO_MERGE: true
 ```
 
-자동 병합은 base가 `main`, 동일 저장소의 non-draft 기능 브랜치, 정확한 opt-in, 같은 head SHA의 GitHub CI 및 Vercel Preview 성공, 충돌 없음, 보호 규칙 차단 없음이 모두 확인된 경우에만 squash 방식으로 수행한다.
+기본 병합 조건은 base가 `main`, 동일 저장소의 non-draft 기능 브랜치, 정확한 opt-in, 같은 head SHA의 GitHub CI 및 Vercel Preview 성공, 충돌 없음, 보호 규칙 차단 없음이다.
+
+Preview는 우선 검증하지만 절대적인 병합 조건으로 고정하지 않는다. 다음 조건을 모두 충족하면 Preview를 볼 수 없거나 같은 head SHA의 Preview가 생성되지 않아도 squash 병합을 계속할 수 있다.
+
+- exact-head GitHub CI/checks가 모두 성공했다.
+- `npm run check`, `npm run build`, `git diff --check`가 성공했다.
+- 변경 diff와 테스트에서 보안, 계산, 경로, 데이터 손실 또는 치명적 UX 문제가 발견되지 않았다.
+- Preview 불가 원인이 Vercel 무료 배포 한도, 보호 정책, 관리자 차단, DNS, timeout, connection reset, 실행 환경 네트워크 또는 브라우저 도구 제한 등 외부 검증 환경에 있다.
+- Preview build가 애플리케이션 코드 오류로 실패한 것이 아니다.
+- 실패한 도구, 대상, 오류와 재시도 결과를 PR 또는 실행 보고에 기록했다.
+
+이 예외를 적용해 병합한 경우에는 병합 직후 Production deployment를 최우선으로 기다리고 공개 웹에서 직접 검증한다. Production에서 실제 결함이 발견되면 다음 작업을 시작하지 말고 같은 작업의 수정 PR 또는 최소 롤백으로 복구한다.
 
 ## 7. 병합 후 게이트와 복구
 
 병합 후 production 배포 완료를 기다린 뒤 canonical domain에서 홈페이지, 주요 공개 경로, sitemap, robots, 핵심 기능, 404와 서버 오류를 검사한다. production smoke 성공 전에는 다음 작업을 시작하지 않는다.
+
+Preview 예외 병합을 사용한 경우 Production 검증은 선택 사항이 아니다. `aipickkit.com`과 대상 경로를 실제 브라우저 또는 동등한 도구로 열어 핵심 입력, 계산, 결과, 공유·저장·URL 복원, 모바일, 접근성과 시각적 일관성을 확인한다. 브라우저가 제한되면 Vercel fetch, 렌더된 HTML, CSS 반응형 규칙과 접근성 속성으로 대체 검증하고 한계를 기록한다.
 
 배포 후 새로 발생한 치명적 오류, 잘못된 계산, 데이터 손실, 핵심 흐름 차단, 전체 페이지 5xx, 심각한 모바일·접근성 퇴행이 확인되면 다음 작업을 열지 않는다. 원인이 명확하고 안전하면 같은 작업에서 수정 PR을 만들고, 즉시 복구가 필요하면 마지막 정상 main으로 되돌리는 최소 롤백을 우선한다. 롤백과 후속 수정 모두 원인, 영향 경로와 검증 결과를 기록한다.
 
