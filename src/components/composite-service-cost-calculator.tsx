@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   calculateCompositeServiceCost,
   compositePricing,
+  normalizeCompositeServiceCostInput,
   type CompositeServiceCostInput,
 } from "@/lib/composite-service-cost";
 import styles from "./image-cost-calculator.module.css";
@@ -34,7 +35,10 @@ export default function CompositeServiceCostCalculator() {
     key: K,
     value: number,
   ) {
-    setInput((current) => ({ ...current, [key]: value }));
+    setInput((current) => ({
+      ...current,
+      [key]: normalizeCompositeServiceCostInput(key, value),
+    }));
   }
 
   return (

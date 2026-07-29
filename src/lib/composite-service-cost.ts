@@ -18,21 +18,60 @@ export const compositePricing = {
   verifiedAt: "2026-07-24",
 } as const;
 
-const nonNegative = (value: number) =>
-  Number.isFinite(value) ? Math.max(0, value) : 0;
+const wholeNumberFields = new Set<keyof CompositeServiceCostInput>([
+  "monthlyRequests",
+  "inputTokensPerRequest",
+  "outputTokensPerRequest",
+]);
+
+export function normalizeCompositeServiceCostInput(
+  key: keyof CompositeServiceCostInput,
+  value: number,
+): number {
+  if (!Number.isFinite(value)) {
+    return 0;
+  }
+
+  if (key === "targetMarginPercent") {
+    return Math.min(95, Math.max(0, value));
+  }
+
+  const nonNegativeValue = Math.max(0, value);
+  return wholeNumberFields.has(key)
+    ? Math.floor(nonNegativeValue)
+    : nonNegativeValue;
+}
 
 export function calculateCompositeServiceCost(
   input: CompositeServiceCostInput,
 ) {
-  const monthlyRequests = Math.floor(nonNegative(input.monthlyRequests));
-  const inputTokensPerRequest = nonNegative(input.inputTokensPerRequest);
-  const outputTokensPerRequest = nonNegative(input.outputTokensPerRequest);
-  const imagesPerRequest = nonNegative(input.imagesPerRequest);
-  const audioMinutesPerRequest = nonNegative(input.audioMinutesPerRequest);
-  const searchesPerRequest = nonNegative(input.searchesPerRequest);
-  const targetMarginPercent = Math.min(
-    95,
-    nonNegative(input.targetMarginPercent),
+  const monthlyRequests = normalizeCompositeServiceCostInput(
+    "monthlyRequests",
+    input.monthlyRequests,
+  );
+  const inputTokensPerRequest = normalizeCompositeServiceCostInput(
+    "inputTokensPerRequest",
+    input.inputTokensPerRequest,
+  );
+  const outputTokensPerRequest = normalizeCompositeServiceCostInput(
+    "outputTokensPerRequest",
+    input.outputTokensPerRequest,
+  );
+  const imagesPerRequest = normalizeCompositeServiceCostInput(
+    "imagesPerRequest",
+    input.imagesPerRequest,
+  );
+  const audioMinutesPerRequest = normalizeCompositeServiceCostInput(
+    "audioMinutesPerRequest",
+    input.audioMinutesPerRequest,
+  );
+  const searchesPerRequest = normalizeCompositeServiceCostInput(
+    "searchesPerRequest",
+    input.searchesPerRequest,
+  );
+  const targetMarginPercent = normalizeCompositeServiceCostInput(
+    "targetMarginPercent",
+    input.targetMarginPercent,
   );
 
   const textInputCostPerRequestUsd =
