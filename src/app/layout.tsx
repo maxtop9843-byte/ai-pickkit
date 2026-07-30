@@ -67,7 +67,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
+        <script
+          dangerouslySetInnerHTML={{ __html: themeInitializationScript }}
+        />
       </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
