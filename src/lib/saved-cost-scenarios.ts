@@ -19,6 +19,14 @@ function isFiniteNonNegative(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value) && value >= 0;
 }
 
+function isValidIsoDate(value: unknown): value is string {
+  return (
+    typeof value === "string" &&
+    value.length > 0 &&
+    Number.isFinite(Date.parse(value))
+  );
+}
+
 function isScenario(value: unknown): value is SavedCostScenario {
   if (!value || typeof value !== "object") return false;
 
@@ -27,11 +35,11 @@ function isScenario(value: unknown): value is SavedCostScenario {
 
   return Boolean(
     typeof scenario.id === "string" &&
-    scenario.id.length > 0 &&
+    scenario.id.trim().length > 0 &&
     typeof scenario.name === "string" &&
     scenario.name.trim().length > 0 &&
-    typeof scenario.createdAt === "string" &&
-    typeof scenario.updatedAt === "string" &&
+    isValidIsoDate(scenario.createdAt) &&
+    isValidIsoDate(scenario.updatedAt) &&
     input &&
     typeof input.modelAId === "string" &&
     comparisonModelIds.has(input.modelAId) &&
@@ -51,7 +59,28 @@ export function parseSavedCostScenarios(
   try {
     const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter(isScenario).slice(0, 20);
+
+    const seenIds = new Set<string>();
+    const scenarios: SavedCostScenario[] = [];
+
+    for (const value of parsed) {
+      if (!isScenario(value)) continue;
+
+      const id = value.id.trim();
+      if (seenIds.has(id)) continue;
+
+      seenIds.add(id);
+      scenarios.push({
+        ...value,
+        id,
+        name: value.name.trim(),
+        input: { ...value.input },
+      });
+
+      if (scenarios.length === 20) break;
+    }
+
+    return scenarios;
   } catch {
     return [];
   }
