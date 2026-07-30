@@ -1,20 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
 import styles from "./recovery.module.css";
 
-export default function ErrorPage({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  useEffect(() => {
-    console.error("Pickkit route error", error);
-  }, [error]);
-
+export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
     <main className={styles.main}>
       <section aria-labelledby="route-error-title" className={styles.panel}>
@@ -38,11 +27,6 @@ export default function ErrorPage({
             홈으로 돌아가기
           </Link>
         </div>
-        {error.digest ? (
-          <p className={styles.reference}>
-            오류 참조: <code>{error.digest}</code>
-          </p>
-        ) : null}
       </section>
     </main>
   );
