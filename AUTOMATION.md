@@ -95,6 +95,15 @@ Preview 예외로 병합한 경우 병합 직후 Production deployment READY 확
 
 병합 후 production 배포 완료를 기다린 뒤 canonical domain에서 홈페이지, 주요 공개 경로, sitemap, robots, 핵심 기능, 404와 서버 오류를 검사한다. production smoke 성공 전에는 다음 작업을 시작하지 않는다.
 
+Production 배포가 무료 배포 한도나 외부 플랫폼 제한으로 생성되지 않았고 애플리케이션 코드 오류가 아닌 경우, 아래 조건을 모두 만족하면 동일 애플리케이션 아티팩트의 READY Preview를 제한적 대체 게이트로 사용할 수 있다.
+
+- READY Preview의 커밋과 최신 `main` 사이 변경 파일이 `docs/`, `reports/`, `TASK_QUEUE.md`, `AUTOMATION.md` 등 런타임 비영향 파일뿐임을 commit compare로 확인한다.
+- Preview에서 홈페이지와 대상 경로 HTTP 200, canonical, 핵심 입력·결과·공유·저장·URL 복원, 모바일·접근성·시각 일관성을 직접 확인한다.
+- 현재 canonical Production이 HTTP 200이며 최근 runtime error 또는 fatal cluster가 없다.
+- 사용한 Preview deployment ID·SHA, 최신 main SHA, 변경 파일 비교, Production 미생성 원인과 검증 한계를 기록한다.
+
+이 대체 게이트는 런타임 코드, 의존성, 빌드 설정, 환경 변수, 공개 경로, 가격·정책 데이터가 Preview 이후 변경된 경우 적용하지 않는다. 이후 최신 main Production이 생성되면 다음 실행에서 다시 canonical smoke를 수행하며, 결함이 발견되면 새 작업보다 수정 또는 최소 롤백을 우선한다.
+
 배포 후 새로 발생한 치명적 오류, 잘못된 계산, 데이터 손실, 핵심 흐름 차단, 전체 페이지 5xx, 심각한 모바일·접근성 퇴행이 확인되면 다음 작업을 열지 않는다. 원인이 명확하고 안전하면 같은 작업에서 수정 PR을 만들고, 즉시 복구가 필요하면 마지막 정상 main으로 되돌리는 최소 롤백을 우선한다. 롤백과 후속 수정 모두 원인, 영향 경로와 검증 결과를 기록한다.
 
 진행 중이라는 보고만 남기고 종료하지 않는다. 성공 상태 또는 진짜 차단 사유를 근거와 함께 남긴다.
