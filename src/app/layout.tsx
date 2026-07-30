@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./accessibility.css";
+import "./theme.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,6 +13,25 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const themeInitializationScript = `
+(() => {
+  try {
+    const preference = localStorage.getItem("pickkit-theme") || "system";
+    const validPreference = ["system", "light", "dark"].includes(preference)
+      ? preference
+      : "system";
+    const resolved = validPreference === "system"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : validPreference;
+    const root = document.documentElement;
+    root.dataset.theme = resolved;
+    root.dataset.themePreference = validPreference;
+    root.style.colorScheme = resolved;
+  } catch {
+    document.documentElement.dataset.theme = "light";
+  }
+})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://aipickkit.com"),
@@ -43,8 +63,12 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
