@@ -12,8 +12,8 @@ export default function ErrorPage({ reset }: { reset: () => void }) {
           페이지를 불러오는 중 문제가 생겼습니다.
         </h1>
         <p className={`lede ${styles.copy}`}>
-          입력값은 가능한 한 브라우저에 그대로 남아 있습니다. 먼저 다시 시도하고,
-          문제가 계속되면 홈에서 도구를 다시 열어주세요.
+          입력값은 가능한 한 브라우저에 그대로 남아 있습니다. 먼저 다시
+          시도하고, 문제가 계속되면 홈에서 도구를 다시 열어주세요.
         </p>
         <div className={styles.actions}>
           <button
