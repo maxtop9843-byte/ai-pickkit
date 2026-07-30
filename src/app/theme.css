@@ -110,11 +110,7 @@ footer,
 }
 
 .catalog-row.selected {
-  background: color-mix(
-    in srgb,
-    var(--color-accent) 9%,
-    var(--color-surface)
-  );
+  background: color-mix(in srgb, var(--color-accent) 9%, var(--color-surface));
 }
 
 .capability-tags span {
