@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { toolRoutes } from "@/lib/tool-routes";
+import ThemeToggle from "@/components/theme-toggle";
 
 const primaryToolIds = new Set([
   "calculator",
@@ -30,9 +31,12 @@ export function SiteHeader() {
         ))}
         <Link href="/tools">모든 도구</Link>
       </nav>
-      <Link className="header-cta" href="/tools">
-        도구 찾기
-      </Link>
+      <div className="site-header-actions">
+        <ThemeToggle />
+        <Link className="header-cta" href="/tools">
+          도구 찾기
+        </Link>
+      </div>
     </header>
   );
 }
