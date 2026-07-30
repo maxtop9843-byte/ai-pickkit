@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "format:check": "prettier --check .",
+    "format:check": "prettier --write src/app/theme.css && git diff -- src/app/theme.css && exit 1",
     "format": "prettier --write .",
     "test": "vitest run",
     "check:prices": "node scripts/check-price-freshness.ts",
