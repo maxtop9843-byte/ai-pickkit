@@ -1,0 +1,21 @@
+name: UX-002D format preview
+
+on:
+  push:
+    branches:
+      - ux-002d-route-error-recovery
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prettier src/app/error.tsx
