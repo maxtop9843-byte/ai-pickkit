@@ -16,13 +16,20 @@ export default function ErrorPage({
 
   return (
     <main className="mx-auto flex min-h-[70vh] w-[min(760px,calc(100%-40px))] items-center py-20">
-      <section aria-labelledby="route-error-title" className="w-full border-y border-[var(--border)] py-14">
+      <section
+        aria-labelledby="route-error-title"
+        className="w-full border-y border-[var(--border)] py-14"
+      >
         <p className="section-kicker">RECOVERY MODE</p>
-        <h1 id="route-error-title" className="max-w-3xl text-[clamp(42px,8vw,72px)]">
+        <h1
+          id="route-error-title"
+          className="max-w-3xl text-[clamp(42px,8vw,72px)]"
+        >
           페이지를 불러오는 중 문제가 생겼습니다.
         </h1>
         <p className="lede mx-0 max-w-2xl">
-          입력값은 가능한 한 브라우저에 그대로 남아 있습니다. 먼저 다시 시도하고, 문제가 계속되면 홈에서 도구를 다시 열어주세요.
+          입력값은 가능한 한 브라우저에 그대로 남아 있습니다. 먼저 다시 시도하고,
+          문제가 계속되면 홈에서 도구를 다시 열어주세요.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <button
