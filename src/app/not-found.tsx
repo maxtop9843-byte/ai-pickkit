@@ -17,7 +17,7 @@ export default function NotFound() {
           <Link className={`hero-link ${styles.primaryAction}`} href="/">
             홈으로 돌아가기 <span aria-hidden="true">→</span>
           </Link>
-          <Link className={styles.secondaryAction} href="/#tools">
+          <Link className={styles.secondaryAction} href="/#all-tools">
             전체 도구 보기
           </Link>
         </nav>
