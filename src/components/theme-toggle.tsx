@@ -34,9 +34,11 @@ export default function ThemeToggle() {
     const initial = preferences.includes(stored as ThemePreference)
       ? (stored as ThemePreference)
       : "system";
-    setPreference(initial);
     applyTheme(initial);
 
+    const animationFrame = window.requestAnimationFrame(() => {
+      setPreference(initial);
+    });
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const handleSystemChange = () => {
       if ((window.localStorage.getItem(STORAGE_KEY) ?? "system") === "system") {
@@ -45,7 +47,10 @@ export default function ThemeToggle() {
     };
 
     media.addEventListener("change", handleSystemChange);
-    return () => media.removeEventListener("change", handleSystemChange);
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      media.removeEventListener("change", handleSystemChange);
+    };
   }, []);
 
   function selectTheme(next: ThemePreference) {
