@@ -48,6 +48,38 @@ describe("saved cost scenarios", () => {
     ).toEqual([scenario]);
   });
 
+  it("rejects invalid timestamps and duplicate stored ids", () => {
+    const invalidDateScenario = {
+      ...scenario,
+      id: "invalid-date",
+      updatedAt: "not-a-date",
+    };
+    const duplicateScenario = {
+      ...scenario,
+      name: "중복 비교",
+    };
+
+    expect(
+      parseSavedCostScenarios(
+        JSON.stringify([invalidDateScenario, scenario, duplicateScenario]),
+      ),
+    ).toEqual([scenario]);
+  });
+
+  it("normalizes harmless whitespace during restoration", () => {
+    expect(
+      parseSavedCostScenarios(
+        JSON.stringify([
+          {
+            ...scenario,
+            id: "  scenario-1  ",
+            name: "  기본 비교  ",
+          },
+        ]),
+      ),
+    ).toEqual([scenario]);
+  });
+
   it("duplicates without sharing the input object", () => {
     const copy = duplicateScenario(
       scenario,
