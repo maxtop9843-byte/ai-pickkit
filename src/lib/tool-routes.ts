@@ -14,7 +14,8 @@ export type ToolRoute = {
     | "freeCredit"
     | "compositeService"
     | "directComparison"
-    | "budgetCapacity";
+    | "budgetCapacity"
+    | "subscriptionApi";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -30,7 +31,8 @@ export type ToolRoute = {
     | "/free-credit-runway-calculator"
     | "/composite-service-cost-calculator"
     | "/model-a-b-comparison"
-    | "/budget-capacity-calculator";
+    | "/budget-capacity-calculator"
+    | "/subscription-vs-api";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -172,6 +174,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "AI 예산 한도 역산 계산기",
     description:
       "월 예산과 요청당 토큰을 입력하고 모델별 가능한 월 요청 수, 사용자 수와 최대 처리량 추천을 확인하세요.",
+  },
+  {
+    id: "subscriptionApi",
+    href: "/subscription-vs-api",
+    navLabel: "구독 vs API",
+    eyebrow: "SUBSCRIPTION OR API",
+    title: "AI 구독 플랜 vs API 비용 비교",
+    description:
+      "공식 구독료와 텍스트 API 단가를 바탕으로 월 사용량별 비용과 금액상 손익분기점을 비교하세요.",
   },
 ];
 

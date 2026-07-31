@@ -7,8 +7,8 @@ describe("AI PickKit project", () => {
   });
 
   it("defines unique, indexable routes for every public tool", () => {
-    expect(toolRoutes).toHaveLength(15);
-    expect(new Set(toolRoutes.map((route) => route.href)).size).toBe(15);
+    expect(toolRoutes).toHaveLength(16);
+    expect(new Set(toolRoutes.map((route) => route.href)).size).toBe(16);
     expect(toolRoutes.every((route) => route.href.startsWith("/"))).toBe(true);
     expect(getToolRoute("calculator").href).toBe("/api-cost-calculator");
     expect(getToolRoute("prompt").href).toBe("/prompt-token-calculator");
@@ -37,5 +37,6 @@ describe("AI PickKit project", () => {
     expect(getToolRoute("budgetCapacity").href).toBe(
       "/budget-capacity-calculator",
     );
+    expect(getToolRoute("subscriptionApi").href).toBe("/subscription-vs-api");
   });
 });
