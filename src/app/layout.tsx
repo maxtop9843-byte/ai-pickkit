@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./accessibility.css";
 import "./theme.css";
+import { allToolsUiCss } from "./all-tools-ui";
 import { motionUiCss } from "./motion-ui";
 import { toolUiCss } from "./tool-ui";
 
@@ -73,6 +74,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: themeInitializationScript }}
         />
         <style dangerouslySetInnerHTML={{ __html: toolUiCss }} />
+        <style dangerouslySetInnerHTML={{ __html: allToolsUiCss }} />
         <style dangerouslySetInnerHTML={{ __html: motionUiCss }} />
       </head>
       <body className="min-h-full flex flex-col">{children}</body>
