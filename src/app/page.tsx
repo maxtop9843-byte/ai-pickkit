@@ -5,6 +5,7 @@ import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { toolRoutes } from "@/lib/tool-routes";
 import Link from "next/link";
 import "./home-discovery.css";
+import "./home-dot-hero.css";
 
 const featuredToolIds = new Set([
   "calculator",
@@ -63,7 +64,9 @@ export default function Home() {
           </div>
           <div className="home-dot-label home-dot-label-cost">COST</div>
           <div className="home-dot-label home-dot-label-model">MODEL</div>
-          <div className="home-dot-label home-dot-label-budget">BUDGET</div>
+          <div className="home-dot-label home-dot-label-budget">
+            BUDGET
+          </div>
         </div>
       </section>
 
