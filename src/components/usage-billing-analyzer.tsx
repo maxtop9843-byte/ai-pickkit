@@ -59,6 +59,7 @@ const usd = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
+// prettier-ignore
 export default function UsageBillingAnalyzer() {
   const [rows, setRows] = useState<UsageRow[]>([]);
   const [error, setError] = useState("");
