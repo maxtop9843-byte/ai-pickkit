@@ -25,7 +25,12 @@
   background: var(--color-surface);
 }
 
-:where(.result-panel, .selector-result, .compare-tray, .prompt-token-panel) {
+:where(
+  .result-panel,
+  .selector-result,
+  .compare-tray,
+  .prompt-token-panel
+) {
   background: var(--color-surface-raised);
   color: var(--color-text-primary);
 }
@@ -41,7 +46,8 @@
   border-radius: var(--radius-control);
   background: var(--color-surface-recessed);
   color: var(--color-text-primary);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 4%, transparent);
+  box-shadow: inset 0 1px 0
+    color-mix(in srgb, var(--color-text-primary) 4%, transparent);
   transition:
     border-color 160ms ease,
     background-color 160ms ease,
@@ -59,11 +65,19 @@
 
 :where(input, select, textarea):focus-visible,
 :where(button, a, summary, [tabindex]):focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--focus-ring) 72%, transparent);
+  outline: 3px solid
+    color-mix(in srgb, var(--focus-ring) 72%, transparent);
   outline-offset: 2px;
 }
 
-:where(button, .button, .hero-link, .header-cta, .compare-pick, .preset) {
+:where(
+  button,
+  .button,
+  .hero-link,
+  .header-cta,
+  .compare-pick,
+  .preset
+) {
   min-height: 40px;
   border-radius: var(--radius-control);
   font-weight: 680;
@@ -74,7 +88,14 @@
     transform 120ms ease;
 }
 
-:where(button, .button, .hero-link, .header-cta, .compare-pick, .preset):active:not(:disabled) {
+:where(
+  button,
+  .button,
+  .hero-link,
+  .header-cta,
+  .compare-pick,
+  .preset
+):active:not(:disabled) {
   transform: translateY(1px);
 }
 
@@ -83,47 +104,94 @@
   cursor: not-allowed;
 }
 
-:where(.preset, .provider-tabs button, .compare-pick, .theme-control-option) {
+:where(
+  .preset,
+  .provider-tabs button,
+  .compare-pick,
+  .theme-control-option
+) {
   border: 1px solid var(--color-border-subtle);
   background: var(--color-surface);
   color: var(--color-text-secondary);
   box-shadow: none;
 }
 
-:where(.preset.active, .provider-tabs button.active, .compare-pick[aria-pressed="true"]) {
-  border-color: color-mix(in srgb, var(--color-accent) 58%, var(--color-border-strong));
-  background: color-mix(in srgb, var(--color-accent) 11%, var(--color-surface));
+:where(
+  .preset.active,
+  .provider-tabs button.active,
+  .compare-pick[aria-pressed="true"]
+) {
+  border-color: color-mix(
+    in srgb,
+    var(--color-accent) 58%,
+    var(--color-border-strong)
+  );
+  background: color-mix(
+    in srgb,
+    var(--color-accent) 11%,
+    var(--color-surface)
+  );
   color: var(--color-text-primary);
   box-shadow: inset 3px 0 var(--color-accent);
 }
 
-:where(.numeric-field > span:first-child, .input-panel legend, .selector-fieldset legend) {
+:where(
+  .numeric-field > span:first-child,
+  .input-panel legend,
+  .selector-fieldset legend
+) {
   color: var(--color-text-primary);
   font-size: var(--font-label-size);
   font-weight: 680;
 }
 
-:where(.numeric-field small, .field-help, .helper-text, .catalog-note, .model-price span) {
+:where(
+  .numeric-field small,
+  .field-help,
+  .helper-text,
+  .catalog-note,
+  .model-price span
+) {
   color: var(--color-text-tertiary);
 }
 
-:where(.result-panel, .selector-result, .compare-tray, .prompt-token-panel)
+:where(
+  .result-panel,
+  .selector-result,
+  .compare-tray,
+  .prompt-token-panel
+)
   :where(p, small, span) {
   color: var(--color-text-secondary);
 }
 
-:where(.result-panel, .selector-result, .compare-tray, .prompt-token-panel)
+:where(
+  .result-panel,
+  .selector-result,
+  .compare-tray,
+  .prompt-token-panel
+)
   :where(h2, h3, strong, b) {
   color: var(--color-text-primary);
 }
 
-:where(.result-panel, .selector-result, .compare-tray, .prompt-token-panel)
+:where(
+  .result-panel,
+  .selector-result,
+  .compare-tray,
+  .prompt-token-panel
+)
   :where(input, select, textarea, .number-control) {
   background: var(--color-surface-recessed);
   color: var(--color-text-primary);
 }
 
-:where(.catalog-row, .result-row, .comparison-row, .prompt-volume-fields label) {
+:where(
+  .catalog-row,
+  .result-row,
+  .comparison-row,
+  .prompt-volume-fields label
+) {
   border-color: var(--color-border-subtle);
 }
 
@@ -132,11 +200,19 @@
 }
 
 :where(.catalog-row, .result-row, .comparison-row):hover {
-  background: color-mix(in srgb, var(--color-text-primary) 3%, var(--color-surface));
+  background: color-mix(
+    in srgb,
+    var(--color-text-primary) 3%,
+    var(--color-surface)
+  );
 }
 
 :where(.catalog-row.selected, .result-row.selected, .comparison-row.selected) {
-  background: color-mix(in srgb, var(--color-accent) 9%, var(--color-surface));
+  background: color-mix(
+    in srgb,
+    var(--color-accent) 9%,
+    var(--color-surface)
+  );
 }
 
 :where(.capability-tags span, .status-chip, .badge) {
@@ -159,11 +235,24 @@
 }
 
 @media (max-width: 720px) {
-  :where(button, .button, .hero-link, .header-cta, .compare-pick, .preset) {
+  :where(
+    button,
+    .button,
+    .hero-link,
+    .header-cta,
+    .compare-pick,
+    .preset
+  ) {
     min-height: 44px;
   }
 
-  :where(.input-panel, .result-panel, .selector-form, .selector-result, .savings-workbench) {
+  :where(
+    .input-panel,
+    .result-panel,
+    .selector-form,
+    .selector-result,
+    .savings-workbench
+  ) {
     padding-inline: var(--space-5);
   }
 
