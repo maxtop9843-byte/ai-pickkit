@@ -26,7 +26,13 @@ const toolGroups: ToolGroup[] = [
   {
     title: "모델 비교와 선택",
     description: "가격, 기능, 목적과 예산을 기준으로 모델을 고릅니다.",
-    ids: ["models", "directComparison", "selector", "providerBudget"],
+    ids: [
+      "models",
+      "directComparison",
+      "selector",
+      "providerBudget",
+      "subscriptionApi",
+    ],
   },
   {
     title: "서비스 유형별 비용",
