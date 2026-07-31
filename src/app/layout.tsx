@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./accessibility.css";
 import "./theme.css";
+import { toolUiCss } from "./tool-ui";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -70,6 +71,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{ __html: themeInitializationScript }}
         />
+        <style dangerouslySetInnerHTML={{ __html: toolUiCss }} />
       </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
