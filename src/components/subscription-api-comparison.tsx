@@ -8,8 +8,10 @@ type Plan = {
   provider: string;
   name: string;
   monthlyUsd: number;
+  apiModel: string;
   apiInputPerMillion: number;
   apiOutputPerMillion: number;
+  pricingNote: string;
   sourceUrl: string;
   apiSourceUrl: string;
   verifiedAt: string;
@@ -21,8 +23,10 @@ const plans: Plan[] = [
     provider: "OpenAI",
     name: "ChatGPT Plus",
     monthlyUsd: 20,
+    apiModel: "GPT-5.6 Terra",
     apiInputPerMillion: 2.5,
     apiOutputPerMillion: 15,
+    pricingNote: "표준 처리 기준",
     sourceUrl:
       "https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus",
     apiSourceUrl: "https://developers.openai.com/api/docs/pricing",
@@ -33,8 +37,10 @@ const plans: Plan[] = [
     provider: "Anthropic",
     name: "Claude Pro",
     monthlyUsd: 20,
+    apiModel: "Claude Sonnet 5",
     apiInputPerMillion: 2,
     apiOutputPerMillion: 10,
+    pricingNote: "2026-08-31까지 적용되는 표준 가격",
     sourceUrl:
       "https://support.anthropic.com/en/articles/8325610-how-much-does-claude-pro-cost",
     apiSourceUrl: "https://platform.claude.com/docs/en/about-claude/pricing",
@@ -59,14 +65,12 @@ export default function SubscriptionApiComparison() {
     const safeRequests = Math.max(0, monthlyRequests || 0);
     const safeInput = Math.max(0, inputTokens || 0);
     const safeOutput = Math.max(0, outputTokens || 0);
-    const apiMonthly =
-      safeRequests *
-      ((safeInput / 1_000_000) * plan.apiInputPerMillion +
-        (safeOutput / 1_000_000) * plan.apiOutputPerMillion);
+    const costPerRequest =
+      (safeInput / 1_000_000) * plan.apiInputPerMillion +
+      (safeOutput / 1_000_000) * plan.apiOutputPerMillion;
+    const apiMonthly = safeRequests * costPerRequest;
     const breakEvenRequests =
-      plan.monthlyUsd /
-      ((safeInput / 1_000_000) * plan.apiInputPerMillion +
-        (safeOutput / 1_000_000) * plan.apiOutputPerMillion || 1);
+      costPerRequest > 0 ? plan.monthlyUsd / costPerRequest : null;
 
     return {
       apiMonthly,
@@ -145,7 +149,9 @@ export default function SubscriptionApiComparison() {
 
         <div className={styles.selection}>
           <strong>비교 전 확인</strong>
-          <span>표준 텍스트 API 단가 · 캐시·Batch·도구 호출·세금 제외</span>
+          <span>
+            {plan.apiModel} · {plan.pricingNote} · 캐시·Batch·도구 호출·세금 제외
+          </span>
           <p>
             구독의 메시지 한도, 기능, 모델 접근권과 API의 자동화·제품 통합
             가치는 별도로 판단해야 합니다.
@@ -173,7 +179,7 @@ export default function SubscriptionApiComparison() {
             <dd>{usd.format(plan.monthlyUsd)}</dd>
           </div>
           <div>
-            <dt>같은 사용량의 API 예상 비용</dt>
+            <dt>{plan.apiModel} API 예상 비용</dt>
             <dd>{usd.format(result.apiMonthly)}</dd>
           </div>
           <div>
@@ -183,7 +189,9 @@ export default function SubscriptionApiComparison() {
           <div>
             <dt>금액상 손익분기 요청 수</dt>
             <dd>
-              {Math.round(result.breakEvenRequests).toLocaleString("ko-KR")}회
+              {result.breakEvenRequests === null
+                ? "토큰을 입력하세요"
+                : `${Math.round(result.breakEvenRequests).toLocaleString("ko-KR")}회`}
             </dd>
           </div>
         </dl>
@@ -195,7 +203,7 @@ export default function SubscriptionApiComparison() {
           {plan.name} 공식 가격 · {plan.verifiedAt}
         </a>
         <a href={plan.apiSourceUrl} target="_blank" rel="noreferrer">
-          {plan.provider} 공식 API 가격 · {plan.verifiedAt}
+          {plan.apiModel} 공식 API 가격 · {plan.verifiedAt}
         </a>
       </aside>
     </section>
