@@ -150,7 +150,8 @@ export default function SubscriptionApiComparison() {
         <div className={styles.selection}>
           <strong>비교 전 확인</strong>
           <span>
-            {plan.apiModel} · {plan.pricingNote} · 캐시·Batch·도구 호출·세금 제외
+            {plan.apiModel} · {plan.pricingNote} ·
+            캐시·Batch·도구 호출·세금 제외
           </span>
           <p>
             구독의 메시지 한도, 기능, 모델 접근권과 API의 자동화·제품 통합
@@ -191,7 +192,9 @@ export default function SubscriptionApiComparison() {
             <dd>
               {result.breakEvenRequests === null
                 ? "토큰을 입력하세요"
-                : `${Math.round(result.breakEvenRequests).toLocaleString("ko-KR")}회`}
+                : `${Math.round(result.breakEvenRequests).toLocaleString(
+                    "ko-KR",
+                  )}회`}
             </dd>
           </div>
         </dl>
