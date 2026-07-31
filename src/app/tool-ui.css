@@ -1,0 +1,197 @@
+/* UX-003B: shared tool UI refresh.
+ * Loaded after the legacy stylesheet and theme tokens so all public tools share
+ * the same control, panel, table, and state language while markup migrates.
+ */
+
+:where(
+  .input-panel,
+  .result-panel,
+  .selector-form,
+  .selector-result,
+  .savings-workbench,
+  .prompt-token-panel,
+  .compare-tray,
+  .tool-card,
+  .result-card
+) {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  box-shadow: none;
+}
+
+:where(.input-panel, .selector-form, .savings-workbench) {
+  background: var(--color-surface);
+}
+
+:where(.result-panel, .selector-result, .compare-tray, .prompt-token-panel) {
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
+}
+
+:where(
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea,
+  .number-control
+) {
+  min-height: 44px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-recessed);
+  color: var(--color-text-primary);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 4%, transparent);
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+:where(input, select, textarea)::placeholder {
+  color: var(--color-text-tertiary);
+  opacity: 1;
+}
+
+:where(input, select, textarea):hover {
+  border-color: var(--color-border-strong);
+}
+
+:where(input, select, textarea):focus-visible,
+:where(button, a, summary, [tabindex]):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--focus-ring) 72%, transparent);
+  outline-offset: 2px;
+}
+
+:where(button, .button, .hero-link, .header-cta, .compare-pick, .preset) {
+  min-height: 40px;
+  border-radius: var(--radius-control);
+  font-weight: 680;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 120ms ease;
+}
+
+:where(button, .button, .hero-link, .header-cta, .compare-pick, .preset):active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+:where(button, .button, .compare-pick, .preset):disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+:where(.preset, .provider-tabs button, .compare-pick, .theme-control-option) {
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  box-shadow: none;
+}
+
+:where(.preset.active, .provider-tabs button.active, .compare-pick[aria-pressed="true"]) {
+  border-color: color-mix(in srgb, var(--color-accent) 58%, var(--color-border-strong));
+  background: color-mix(in srgb, var(--color-accent) 11%, var(--color-surface));
+  color: var(--color-text-primary);
+  box-shadow: inset 3px 0 var(--color-accent);
+}
+
+:where(.numeric-field > span:first-child, .input-panel legend, .selector-fieldset legend) {
+  color: var(--color-text-primary);
+  font-size: var(--font-label-size);
+  font-weight: 680;
+}
+
+:where(.numeric-field small, .field-help, .helper-text, .catalog-note, .model-price span) {
+  color: var(--color-text-tertiary);
+}
+
+:where(.result-panel, .selector-result, .compare-tray, .prompt-token-panel)
+  :where(p, small, span) {
+  color: var(--color-text-secondary);
+}
+
+:where(.result-panel, .selector-result, .compare-tray, .prompt-token-panel)
+  :where(h2, h3, strong, b) {
+  color: var(--color-text-primary);
+}
+
+:where(.result-panel, .selector-result, .compare-tray, .prompt-token-panel)
+  :where(input, select, textarea, .number-control) {
+  background: var(--color-surface-recessed);
+  color: var(--color-text-primary);
+}
+
+:where(.catalog-row, .result-row, .comparison-row, .prompt-volume-fields label) {
+  border-color: var(--color-border-subtle);
+}
+
+:where(.catalog-row, .result-row, .comparison-row) {
+  transition: background-color 150ms ease;
+}
+
+:where(.catalog-row, .result-row, .comparison-row):hover {
+  background: color-mix(in srgb, var(--color-text-primary) 3%, var(--color-surface));
+}
+
+:where(.catalog-row.selected, .result-row.selected, .comparison-row.selected) {
+  background: color-mix(in srgb, var(--color-accent) 9%, var(--color-surface));
+}
+
+:where(.capability-tags span, .status-chip, .badge) {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 6px;
+  background: var(--color-surface-raised);
+  color: var(--color-text-secondary);
+}
+
+:where(.error-message, [role="alert"]) {
+  color: var(--color-danger);
+}
+
+:where(.success-message, [data-status="success"]) {
+  color: var(--color-success);
+}
+
+:where(.warning-message, [data-status="warning"]) {
+  color: var(--color-warning);
+}
+
+@media (max-width: 720px) {
+  :where(button, .button, .hero-link, .header-cta, .compare-pick, .preset) {
+    min-height: 44px;
+  }
+
+  :where(.input-panel, .result-panel, .selector-form, .selector-result, .savings-workbench) {
+    padding-inline: var(--space-5);
+  }
+
+  :where(.field-grid, .advanced-fields, .model-selects) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  :where(input, select, textarea, .number-control) {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(
+    input,
+    select,
+    textarea,
+    button,
+    .button,
+    .hero-link,
+    .header-cta,
+    .compare-pick,
+    .preset,
+    .catalog-row,
+    .result-row,
+    .comparison-row
+  ) {
+    transition: none;
+  }
+}
