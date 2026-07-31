@@ -24,31 +24,46 @@ export default function Home() {
       <SiteHeader />
 
       <section className="hero home-hero" aria-labelledby="home-hero-title">
-        <p className="eyebrow">
-          <span /> AI 비용·모델 의사결정 도구
-        </p>
-        <h1 id="home-hero-title">
-          AI 비용부터 모델 선택까지,
-          <br />
-          <em>필요한 판단을 한곳에서.</em>
-        </h1>
-        <p className="lede">
-          프롬프트 토큰과 API·이미지·음성·RAG 비용을 계산하고, 모델을 직접
-          비교하고, 월 예산에 맞는 선택을 찾으세요. 공식 가격 출처와 검증일도
-          함께 제공합니다.
-        </p>
-        <div className="home-hero-actions" aria-label="주요 시작 경로">
-          <Link className="hero-link" href="/prompt-token-calculator">
-            프롬프트 사용량 확인 <span aria-hidden="true">→</span>
-          </Link>
-          <Link className="home-secondary-link" href="/tools">
-            모든 도구 보기
-          </Link>
+        <div className="home-hero-copy">
+          <p className="eyebrow">
+            <span /> AI 비용·모델 의사결정 도구
+          </p>
+          <h1 id="home-hero-title">
+            AI 비용부터 모델 선택까지,
+            <br />
+            <em>필요한 판단을 한곳에서.</em>
+          </h1>
+          <p className="lede">
+            프롬프트 토큰과 API·이미지·음성·RAG 비용을 계산하고, 모델을 직접
+            비교하고, 월 예산에 맞는 선택을 찾으세요. 공식 가격 출처와 검증일도
+            함께 제공합니다.
+          </p>
+          <div className="home-hero-actions" aria-label="주요 시작 경로">
+            <Link className="hero-link" href="/prompt-token-calculator">
+              프롬프트 사용량 확인 <span aria-hidden="true">→</span>
+            </Link>
+            <Link className="home-secondary-link" href="/tools">
+              모든 도구 보기
+            </Link>
+          </div>
+          <div className="trust-line">
+            <span>로그인 없음</span>
+            <span>입력값 서버 저장 안 함</span>
+            <span>공식 가격 출처 공개</span>
+          </div>
         </div>
-        <div className="trust-line">
-          <span>로그인 없음</span>
-          <span>입력값 서버 저장 안 함</span>
-          <span>공식 가격 출처 공개</span>
+
+        <div className="home-dot-visual" aria-hidden="true">
+          <div className="home-dot-field" />
+          <div className="home-dot-orbit home-dot-orbit-a" />
+          <div className="home-dot-orbit home-dot-orbit-b" />
+          <div className="home-dot-core">
+            <span>15</span>
+            <small>decision tools</small>
+          </div>
+          <div className="home-dot-label home-dot-label-cost">COST</div>
+          <div className="home-dot-label home-dot-label-model">MODEL</div>
+          <div className="home-dot-label home-dot-label-budget">BUDGET</div>
         </div>
       </section>
 
