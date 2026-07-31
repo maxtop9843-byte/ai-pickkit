@@ -77,10 +77,7 @@ export default function SubscriptionApiComparison() {
   }, [inputTokens, monthlyRequests, outputTokens, plan]);
 
   return (
-    <section
-      className={styles.shell}
-      data-smoke="subscription-api-comparison"
-    >
+    <section className={styles.shell} data-smoke="subscription-api-comparison">
       <div className={styles.controls}>
         <div className={styles.heading}>
           <p>SUBSCRIPTION OR API</p>
