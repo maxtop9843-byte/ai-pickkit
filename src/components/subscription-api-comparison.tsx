@@ -105,8 +105,7 @@ export default function SubscriptionApiComparison() {
           >
             {plans.map((item) => (
               <option value={item.id} key={item.id}>
-                {item.provider} · {item.name} ({usd.format(item.monthlyUsd)}
-                /월)
+                {`${item.provider} · ${item.name} (${usd.format(item.monthlyUsd)}/월)`}
               </option>
             ))}
           </select>
@@ -150,8 +149,7 @@ export default function SubscriptionApiComparison() {
         <div className={styles.selection}>
           <strong>비교 전 확인</strong>
           <span>
-            {plan.apiModel} · {plan.pricingNote} ·
-            캐시·Batch·도구 호출·세금 제외
+            {`${plan.apiModel} · ${plan.pricingNote} · 캐시·Batch·도구 호출·세금 제외`}
           </span>
           <p>
             구독의 메시지 한도, 기능, 모델 접근권과 API의 자동화·제품 통합
