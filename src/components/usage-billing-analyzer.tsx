@@ -108,8 +108,7 @@ export default function UsageBillingAnalyzer() {
           <p>LOCAL BILLING ANALYSIS</p>
           <h2>CSV·JSON 청구 내역을 브라우저에서 바로 분석하세요</h2>
           <span>
-            파일은 서버로 전송하지 않습니다. date, provider, model, cost 열을
-            권장합니다.
+            파일은 서버로 전송하지 않습니다. date, provider, model, cost 열을 권장합니다.
           </span>
         </div>
         <label className={styles.field}>
@@ -125,8 +124,7 @@ export default function UsageBillingAnalyzer() {
           <strong>지원 형식</strong>
           <span>CSV: date,provider,model,cost</span>
           <p>
-            JSON은 같은 필드를 가진 객체 배열을 지원하며
-            amount·usd·vendor·service도 자동 인식합니다.
+            JSON은 같은 필드를 가진 객체 배열을 지원하며 amount·usd·vendor·service도 자동 인식합니다.
           </p>
         </div>
       </div>
@@ -165,8 +163,7 @@ export default function UsageBillingAnalyzer() {
           </div>
         ) : null}
         <p className={styles.caveat}>
-          월말 예상은 파일의 최초·최종 날짜 범위를 기준으로 단순 환산한
-          참고값입니다.
+          월말 예상은 파일의 최초·최종 날짜 범위를 기준으로 단순 환산한 참고값입니다.
         </p>
       </aside>
     </section>
