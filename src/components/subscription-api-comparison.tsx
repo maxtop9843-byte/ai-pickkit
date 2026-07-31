@@ -23,7 +23,8 @@ const plans: Plan[] = [
     monthlyUsd: 20,
     apiInputPerMillion: 2.5,
     apiOutputPerMillion: 15,
-    sourceUrl: "https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus",
+    sourceUrl:
+      "https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus",
     apiSourceUrl: "https://developers.openai.com/api/docs/pricing",
     verifiedAt: "2026-07-31",
   },
@@ -34,7 +35,8 @@ const plans: Plan[] = [
     monthlyUsd: 20,
     apiInputPerMillion: 2,
     apiOutputPerMillion: 10,
-    sourceUrl: "https://support.anthropic.com/en/articles/8325610-how-much-does-claude-pro-cost",
+    sourceUrl:
+      "https://support.anthropic.com/en/articles/8325610-how-much-does-claude-pro-cost",
     apiSourceUrl: "https://platform.claude.com/docs/en/about-claude/pricing",
     verifiedAt: "2026-07-31",
   },
@@ -65,6 +67,7 @@ export default function SubscriptionApiComparison() {
       plan.monthlyUsd /
       ((safeInput / 1_000_000) * plan.apiInputPerMillion +
         (safeOutput / 1_000_000) * plan.apiOutputPerMillion || 1);
+
     return {
       apiMonthly,
       difference: Math.abs(plan.monthlyUsd - apiMonthly),
@@ -74,23 +77,35 @@ export default function SubscriptionApiComparison() {
   }, [inputTokens, monthlyRequests, outputTokens, plan]);
 
   return (
-    <section className={styles.shell} data-smoke="subscription-api-comparison">
+    <section
+      className={styles.shell}
+      data-smoke="subscription-api-comparison"
+    >
       <div className={styles.controls}>
         <div className={styles.heading}>
           <p>SUBSCRIPTION OR API</p>
-          <h2>고정 구독료와 사용량 기반 API 비용을 같은 달 기준으로 비교하세요</h2>
+          <h2>
+            고정 구독료와 사용량 기반 API 비용을 같은 달 기준으로 비교하세요
+          </h2>
           <span>
-            구독은 웹앱 기능과 사용 한도를 포함하고, API는 실제 토큰 사용량만 과금됩니다.
-            이 계산은 금액 기준선이며 두 상품의 기능이 같다는 뜻은 아닙니다.
+            구독은 웹앱 기능과 사용 한도를 포함하고, API는 실제 토큰 사용량만
+            과금됩니다. 이 계산은 금액 기준선이며 두 상품의 기능이 같다는 뜻은
+            아닙니다.
           </span>
         </div>
 
         <label className={styles.field}>
           <span>비교할 구독 플랜</span>
-          <select value={planId} onChange={(event) => setPlanId(event.target.value as Plan["id"])}>
+          <select
+            value={planId}
+            onChange={(event) =>
+              setPlanId(event.target.value as Plan["id"])
+            }
+          >
             {plans.map((item) => (
               <option value={item.id} key={item.id}>
-                {item.provider} · {item.name} ({usd.format(item.monthlyUsd)}/월)
+                {item.provider} · {item.name} ({usd.format(item.monthlyUsd)}
+                /월)
               </option>
             ))}
           </select>
@@ -99,40 +114,92 @@ export default function SubscriptionApiComparison() {
         <div className={styles.row}>
           <label className={styles.field}>
             <span>월간 요청 수</span>
-            <input type="number" min="0" inputMode="numeric" value={monthlyRequests} onChange={(event) => setMonthlyRequests(Number(event.target.value))} />
+            <input
+              type="number"
+              min="0"
+              inputMode="numeric"
+              value={monthlyRequests}
+              onChange={(event) =>
+                setMonthlyRequests(Number(event.target.value))
+              }
+            />
           </label>
           <label className={styles.field}>
             <span>요청당 입력 토큰</span>
-            <input type="number" min="0" inputMode="numeric" value={inputTokens} onChange={(event) => setInputTokens(Number(event.target.value))} />
+            <input
+              type="number"
+              min="0"
+              inputMode="numeric"
+              value={inputTokens}
+              onChange={(event) => setInputTokens(Number(event.target.value))}
+            />
           </label>
           <label className={styles.field}>
             <span>요청당 출력 토큰</span>
-            <input type="number" min="0" inputMode="numeric" value={outputTokens} onChange={(event) => setOutputTokens(Number(event.target.value))} />
+            <input
+              type="number"
+              min="0"
+              inputMode="numeric"
+              value={outputTokens}
+              onChange={(event) => setOutputTokens(Number(event.target.value))}
+            />
           </label>
         </div>
 
         <div className={styles.selection}>
           <strong>비교 전 확인</strong>
           <span>표준 텍스트 API 단가 · 캐시·Batch·도구 호출·세금 제외</span>
-          <p>구독의 메시지 한도, 기능, 모델 접근권과 API의 자동화·제품 통합 가치는 별도로 판단해야 합니다.</p>
+          <p>
+            구독의 메시지 한도, 기능, 모델 접근권과 API의 자동화·제품 통합
+            가치는 별도로 판단해야 합니다.
+          </p>
         </div>
       </div>
 
       <aside className={styles.result} aria-live="polite">
         <p className={styles.kicker}>MONTHLY DECISION</p>
         <div className={styles.primary}>
-          <span>{result.apiIsCheaper ? "API 예상 비용이 더 낮습니다" : `${plan.name} 구독료가 더 낮습니다`}</span>
-          <strong>{usd.format(result.apiIsCheaper ? result.apiMonthly : plan.monthlyUsd)}</strong>
+          <span>
+            {result.apiIsCheaper
+              ? "API 예상 비용이 더 낮습니다"
+              : `${plan.name} 구독료가 더 낮습니다`}
+          </span>
+          <strong>
+            {usd.format(
+              result.apiIsCheaper ? result.apiMonthly : plan.monthlyUsd,
+            )}
+          </strong>
         </div>
         <dl>
-          <div><dt>{plan.name} 월 구독료</dt><dd>{usd.format(plan.monthlyUsd)}</dd></div>
-          <div><dt>같은 사용량의 API 예상 비용</dt><dd>{usd.format(result.apiMonthly)}</dd></div>
-          <div><dt>월 차이</dt><dd>{usd.format(result.difference)}</dd></div>
-          <div><dt>금액상 손익분기 요청 수</dt><dd>{Math.round(result.breakEvenRequests).toLocaleString("ko-KR")}회</dd></div>
+          <div>
+            <dt>{plan.name} 월 구독료</dt>
+            <dd>{usd.format(plan.monthlyUsd)}</dd>
+          </div>
+          <div>
+            <dt>같은 사용량의 API 예상 비용</dt>
+            <dd>{usd.format(result.apiMonthly)}</dd>
+          </div>
+          <div>
+            <dt>월 차이</dt>
+            <dd>{usd.format(result.difference)}</dd>
+          </div>
+          <div>
+            <dt>금액상 손익분기 요청 수</dt>
+            <dd>
+              {Math.round(result.breakEvenRequests).toLocaleString("ko-KR")}회
+            </dd>
+          </div>
         </dl>
-        <p className={styles.caveat}>구독 사용 한도는 고정 토큰 보장이 아니며 정책과 모델에 따라 달라질 수 있습니다. 결과를 보장값으로 사용하지 마세요.</p>
-        <a href={plan.sourceUrl} target="_blank" rel="noreferrer">{plan.name} 공식 가격 · {plan.verifiedAt}</a>
-        <a href={plan.apiSourceUrl} target="_blank" rel="noreferrer">{plan.provider} 공식 API 가격 · {plan.verifiedAt}</a>
+        <p className={styles.caveat}>
+          구독 사용 한도는 고정 토큰 보장이 아니며 정책과 모델에 따라 달라질
+          수 있습니다. 결과를 보장값으로 사용하지 마세요.
+        </p>
+        <a href={plan.sourceUrl} target="_blank" rel="noreferrer">
+          {plan.name} 공식 가격 · {plan.verifiedAt}
+        </a>
+        <a href={plan.apiSourceUrl} target="_blank" rel="noreferrer">
+          {plan.provider} 공식 API 가격 · {plan.verifiedAt}
+        </a>
       </aside>
     </section>
   );
