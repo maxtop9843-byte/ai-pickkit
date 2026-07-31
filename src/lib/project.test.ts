@@ -37,8 +37,6 @@ describe("AI PickKit project", () => {
     expect(getToolRoute("budgetCapacity").href).toBe(
       "/budget-capacity-calculator",
     );
-    expect(getToolRoute("subscriptionApi").href).toBe(
-      "/subscription-vs-api",
-    );
+    expect(getToolRoute("subscriptionApi").href).toBe("/subscription-vs-api");
   });
 });
