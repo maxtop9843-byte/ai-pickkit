@@ -18,13 +18,17 @@ function parseRows(text: string, fileName: string): UsageRow[] {
   }
 
   const [headerLine = "", ...lines] = text.trim().split(/\r?\n/);
-  const headers = headerLine.split(",").map((item) => item.trim().toLowerCase());
+  const headers = headerLine
+    .split(",")
+    .map((item) => item.trim().toLowerCase());
   return lines
     .filter(Boolean)
     .map((line, index) => {
       const values = line.split(",").map((item) => item.trim());
       return normalizeRow(
-        Object.fromEntries(headers.map((header, column) => [header, values[column]])),
+        Object.fromEntries(
+          headers.map((header, column) => [header, values[column]]),
+        ),
         index,
       );
     });
@@ -40,7 +44,9 @@ function normalizeRow(value: unknown, index: number): UsageRow {
     throw new Error(`${index + 1}번째 행의 비용이 올바르지 않습니다.`);
   }
   return {
-    date: String(record.date ?? record.created_at ?? record.timestamp ?? "날짜 없음"),
+    date: String(
+      record.date ?? record.created_at ?? record.timestamp ?? "날짜 없음",
+    ),
     provider: String(record.provider ?? record.vendor ?? "기타"),
     model: String(record.model ?? record.service ?? "미분류"),
     cost,
@@ -60,11 +66,22 @@ export default function UsageBillingAnalyzer() {
   const result = useMemo(() => {
     const total = rows.reduce((sum, row) => sum + row.cost, 0);
     const byProvider = new Map<string, number>();
-    rows.forEach((row) => byProvider.set(row.provider, (byProvider.get(row.provider) ?? 0) + row.cost));
+    rows.forEach((row) =>
+      byProvider.set(
+        row.provider,
+        (byProvider.get(row.provider) ?? 0) + row.cost,
+      ),
+    );
     const sorted = [...byProvider.entries()].sort((a, b) => b[1] - a[1]);
     const datedRows = rows.filter((row) => !Number.isNaN(Date.parse(row.date)));
     const dates = datedRows.map((row) => Date.parse(row.date));
-    const spanDays = dates.length > 1 ? Math.max(1, (Math.max(...dates) - Math.min(...dates)) / 86_400_000 + 1) : 1;
+    const spanDays =
+      dates.length > 1
+        ? Math.max(
+            1,
+            (Math.max(...dates) - Math.min(...dates)) / 86_400_000 + 1,
+          )
+        : 1;
     const projected = total > 0 ? (total / spanDays) * 30 : 0;
     return { total, projected, sorted };
   }, [rows]);
@@ -78,7 +95,9 @@ export default function UsageBillingAnalyzer() {
       setRows(parsed);
     } catch (caught) {
       setRows([]);
-      setError(caught instanceof Error ? caught.message : "파일을 읽지 못했습니다.");
+      setError(
+        caught instanceof Error ? caught.message : "파일을 읽지 못했습니다.",
+      );
     }
   }
 
@@ -88,39 +107,67 @@ export default function UsageBillingAnalyzer() {
         <div className={styles.heading}>
           <p>LOCAL BILLING ANALYSIS</p>
           <h2>CSV·JSON 청구 내역을 브라우저에서 바로 분석하세요</h2>
-          <span>파일은 서버로 전송하지 않습니다. date, provider, model, cost 열을 권장합니다.</span>
+          <span>
+            파일은 서버로 전송하지 않습니다. date, provider, model, cost 열을
+            권장합니다.
+          </span>
         </div>
         <label className={styles.field}>
           <span>청구 내역 파일</span>
-          <input type="file" accept=".csv,.json,text/csv,application/json" onChange={(event) => void handleFile(event.target.files?.[0])} />
+          <input
+            type="file"
+            accept=".csv,.json,text/csv,application/json"
+            onChange={(event) => void handleFile(event.target.files?.[0])}
+          />
         </label>
         {error ? <p role="alert">{error}</p> : null}
         <div className={styles.selection}>
           <strong>지원 형식</strong>
           <span>CSV: date,provider,model,cost</span>
-          <p>JSON은 같은 필드를 가진 객체 배열을 지원하며 amount·usd·vendor·service도 자동 인식합니다.</p>
+          <p>
+            JSON은 같은 필드를 가진 객체 배열을 지원하며
+            amount·usd·vendor·service도 자동 인식합니다.
+          </p>
         </div>
       </div>
 
       <aside className={styles.result} aria-live="polite">
         <p className={styles.kicker}>SPEND SUMMARY</p>
         <div className={styles.primary}>
-          <span>{rows.length ? `${rows.length.toLocaleString("ko-KR")}개 사용 기록` : "파일을 가져오세요"}</span>
+          <span>
+            {rows.length
+              ? `${rows.length.toLocaleString("ko-KR")}개 사용 기록`
+              : "파일을 가져오세요"}
+          </span>
           <strong>{usd.format(result.total)}</strong>
         </div>
         <dl>
-          <div><dt>가져온 지출 합계</dt><dd>{usd.format(result.total)}</dd></div>
-          <div><dt>현재 속도 기준 30일 예상</dt><dd>{usd.format(result.projected)}</dd></div>
-          <div><dt>가장 큰 공급자</dt><dd>{result.sorted[0]?.[0] ?? "없음"}</dd></div>
+          <div>
+            <dt>가져온 지출 합계</dt>
+            <dd>{usd.format(result.total)}</dd>
+          </div>
+          <div>
+            <dt>현재 속도 기준 30일 예상</dt>
+            <dd>{usd.format(result.projected)}</dd>
+          </div>
+          <div>
+            <dt>가장 큰 공급자</dt>
+            <dd>{result.sorted[0]?.[0] ?? "없음"}</dd>
+          </div>
         </dl>
         {result.sorted.length ? (
           <div>
             {result.sorted.slice(0, 5).map(([provider, cost]) => (
-              <p key={provider}>{provider}: <strong>{usd.format(cost)}</strong></p>
+              <p key={provider}>
+                {provider}: <strong>{usd.format(cost)}</strong>
+              </p>
             ))}
           </div>
         ) : null}
-        <p className={styles.caveat}>월말 예상은 파일의 최초·최종 날짜 범위를 기준으로 단순 환산한 참고값입니다.</p>
+        <p className={styles.caveat}>
+          월말 예상은 파일의 최초·최종 날짜 범위를 기준으로 단순 환산한
+          참고값입니다.
+        </p>
       </aside>
     </section>
   );
