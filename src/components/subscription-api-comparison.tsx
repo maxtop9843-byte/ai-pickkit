@@ -99,9 +99,7 @@ export default function SubscriptionApiComparison() {
           <span>비교할 구독 플랜</span>
           <select
             value={planId}
-            onChange={(event) =>
-              setPlanId(event.target.value as Plan["id"])
-            }
+            onChange={(event) => setPlanId(event.target.value as Plan["id"])}
           >
             {plans.map((item) => (
               <option value={item.id} key={item.id}>
@@ -197,8 +195,8 @@ export default function SubscriptionApiComparison() {
           </div>
         </dl>
         <p className={styles.caveat}>
-          구독 사용 한도는 고정 토큰 보장이 아니며 정책과 모델에 따라 달라질
-          수 있습니다. 결과를 보장값으로 사용하지 마세요.
+          구독 사용 한도는 고정 토큰 보장이 아니며 정책과 모델에 따라 달라질 수
+          있습니다. 결과를 보장값으로 사용하지 마세요.
         </p>
         <a href={plan.sourceUrl} target="_blank" rel="noreferrer">
           {plan.name} 공식 가격 · {plan.verifiedAt}
