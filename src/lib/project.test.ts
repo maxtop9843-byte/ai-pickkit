@@ -7,36 +7,25 @@ describe("AI PickKit project", () => {
   });
 
   it("defines unique, indexable routes for every public tool", () => {
-    expect(toolRoutes).toHaveLength(16);
-    expect(new Set(toolRoutes.map((route) => route.href)).size).toBe(16);
+    expect(toolRoutes).toHaveLength(17);
+    expect(new Set(toolRoutes.map((route) => route.href)).size).toBe(17);
     expect(toolRoutes.every((route) => route.href.startsWith("/"))).toBe(true);
     expect(getToolRoute("calculator").href).toBe("/api-cost-calculator");
     expect(getToolRoute("prompt").href).toBe("/prompt-token-calculator");
     expect(getToolRoute("savings").href).toBe("/batch-cache-simulator");
     expect(getToolRoute("models").href).toBe("/models");
     expect(getToolRoute("selector").href).toBe("/model-selector");
-    expect(getToolRoute("images").href).toBe(
-      "/image-generation-cost-calculator",
-    );
+    expect(getToolRoute("images").href).toBe("/image-generation-cost-calculator");
     expect(getToolRoute("audio").href).toBe("/audio-cost-calculator");
     expect(getToolRoute("rag").href).toBe("/rag-cost-calculator");
-    expect(getToolRoute("fineTuning").href).toBe(
-      "/fine-tuning-cost-calculator",
-    );
+    expect(getToolRoute("fineTuning").href).toBe("/fine-tuning-cost-calculator");
     expect(getToolRoute("agentTools").href).toBe("/agent-tool-cost-calculator");
-    expect(getToolRoute("providerBudget").href).toBe(
-      "/provider-budget-comparison",
-    );
-    expect(getToolRoute("freeCredit").href).toBe(
-      "/free-credit-runway-calculator",
-    );
-    expect(getToolRoute("compositeService").href).toBe(
-      "/composite-service-cost-calculator",
-    );
+    expect(getToolRoute("providerBudget").href).toBe("/provider-budget-comparison");
+    expect(getToolRoute("freeCredit").href).toBe("/free-credit-runway-calculator");
+    expect(getToolRoute("compositeService").href).toBe("/composite-service-cost-calculator");
     expect(getToolRoute("directComparison").href).toBe("/model-a-b-comparison");
-    expect(getToolRoute("budgetCapacity").href).toBe(
-      "/budget-capacity-calculator",
-    );
+    expect(getToolRoute("budgetCapacity").href).toBe("/budget-capacity-calculator");
     expect(getToolRoute("subscriptionApi").href).toBe("/subscription-vs-api");
+    expect(getToolRoute("usageBilling").href).toBe("/usage-billing-analyzer");
   });
 });
