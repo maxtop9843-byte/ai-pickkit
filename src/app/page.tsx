@@ -64,9 +64,7 @@ export default function Home() {
           </div>
           <div className="home-dot-label home-dot-label-cost">COST</div>
           <div className="home-dot-label home-dot-label-model">MODEL</div>
-          <div className="home-dot-label home-dot-label-budget">
-            BUDGET
-          </div>
+          <div className="home-dot-label home-dot-label-budget">BUDGET</div>
         </div>
       </section>
 
