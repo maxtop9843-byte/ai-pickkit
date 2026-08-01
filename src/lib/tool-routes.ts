@@ -15,7 +15,8 @@ export type ToolRoute = {
     | "compositeService"
     | "directComparison"
     | "budgetCapacity"
-    | "subscriptionApi";
+    | "subscriptionApi"
+    | "usageBilling";
   href:
     | "/api-cost-calculator"
     | "/prompt-token-calculator"
@@ -32,7 +33,8 @@ export type ToolRoute = {
     | "/composite-service-cost-calculator"
     | "/model-a-b-comparison"
     | "/budget-capacity-calculator"
-    | "/subscription-vs-api";
+    | "/subscription-vs-api"
+    | "/usage-billing-analyzer";
   navLabel: string;
   eyebrow: string;
   title: string;
@@ -183,6 +185,15 @@ export const toolRoutes: ToolRoute[] = [
     title: "AI 구독 플랜 vs API 비용 비교",
     description:
       "공식 구독료와 텍스트 API 단가를 바탕으로 월 사용량별 비용과 금액상 손익분기점을 비교하세요.",
+  },
+  {
+    id: "usageBilling",
+    href: "/usage-billing-analyzer",
+    navLabel: "청구 내역 분석",
+    eyebrow: "LOCAL BILLING ANALYSIS",
+    title: "AI 사용량·청구 내역 분석",
+    description:
+      "CSV·JSON 청구 내역을 브라우저에서 분석해 지출 구성과 30일 예상 비용을 확인하세요.",
   },
 ];
 

@@ -21,7 +21,7 @@ const toolGroups: ToolGroup[] = [
   {
     title: "프롬프트와 API 사용량",
     description: "내 입력이 토큰과 비용을 얼마나 사용하는지 계산합니다.",
-    ids: ["prompt", "calculator", "savings"],
+    ids: ["prompt", "calculator", "savings", "usageBilling"],
   },
   {
     title: "모델 비교와 선택",
