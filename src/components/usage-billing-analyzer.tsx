@@ -59,14 +59,13 @@ const usd = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
-// prettier-ignore
-const billingIntro = "파일은 서버로 전송하지 않습니다. date, provider, model, cost 열을 권장합니다.";
-// prettier-ignore
-const jsonSupport = "JSON은 같은 필드를 가진 객체 배열을 지원하며 amount·usd·vendor·service도 자동 인식합니다.";
-// prettier-ignore
-const projectionCaveat = "월말 예상은 파일의 최초·최종 날짜 범위를 기준으로 단순 환산한 참고값입니다.";
+const billingIntro =
+  "파일은 서버로 전송하지 않습니다. date, provider, model, cost 열을 권장합니다.";
+const jsonSupport =
+  "JSON은 같은 필드를 가진 객체 배열을 지원하며 amount·usd·vendor·service도 자동 인식합니다.";
+const projectionCaveat =
+  "월말 예상은 파일의 최초·최종 날짜 범위를 기준으로 단순 환산한 참고값입니다.";
 
-// prettier-ignore
 export default function UsageBillingAnalyzer() {
   const [rows, setRows] = useState<UsageRow[]>([]);
   const [error, setError] = useState("");
