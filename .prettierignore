@@ -1,7 +1,3 @@
 # Canonical planning documents intentionally preserve manually aligned Markdown tables and prose layout.
 TASK_QUEUE.md
 docs/PICKKIT_DESIGN.md
-
-# APK-042 is generated through the connector runtime, which cannot execute the repository's pinned formatter.
-# Keep CI focused on lint, types, tests, and build until a formatter-capable run normalizes this file.
-src/components/usage-billing-analyzer.tsx
