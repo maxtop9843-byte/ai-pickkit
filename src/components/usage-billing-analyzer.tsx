@@ -10,39 +10,18 @@ type UsageRow = {
   cost: number;
 };
 
-function parseRows(text: string, fileName: string): UsageRow[] {
-  if (fileName.toLowerCase().endsWith(".json")) {
-    const parsed = JSON.parse(text) as unknown;
-    const values = Array.isArray(parsed) ? parsed : [parsed];
-    return values.map((value, index) => normalizeRow(value, index));
-  }
-
-  const [headerLine = "", ...lines] = text.trim().split(/\r?\n/);
-  const headers = headerLine
-    .split(",")
-    .map((item) => item.trim().toLowerCase());
-  return lines
-    .filter(Boolean)
-    .map((line, index) => {
-      const values = line.split(",").map((item) => item.trim());
-      return normalizeRow(
-        Object.fromEntries(
-          headers.map((header, column) => [header, values[column]]),
-        ),
-        index,
-      );
-    });
-}
-
 function normalizeRow(value: unknown, index: number): UsageRow {
   if (!value || typeof value !== "object") {
     throw new Error(`${index + 1}번째 행을 읽을 수 없습니다.`);
   }
+
   const record = value as Record<string, unknown>;
   const cost = Number(record.cost ?? record.amount ?? record.usd ?? 0);
+
   if (!Number.isFinite(cost) || cost < 0) {
     throw new Error(`${index + 1}번째 행의 비용이 올바르지 않습니다.`);
   }
+
   return {
     date: String(
       record.date ?? record.created_at ?? record.timestamp ?? "날짜 없음",
@@ -53,18 +32,34 @@ function normalizeRow(value: unknown, index: number): UsageRow {
   };
 }
 
+function parseRows(text: string, fileName: string): UsageRow[] {
+  if (fileName.toLowerCase().endsWith(".json")) {
+    const parsed = JSON.parse(text) as unknown;
+    const values = Array.isArray(parsed) ? parsed : [parsed];
+
+    return values.map((value, index) => normalizeRow(value, index));
+  }
+
+  const [headerLine = "", ...lines] = text.trim().split(/\r?\n/);
+  const headers = headerLine
+    .split(",")
+    .map((item) => item.trim().toLowerCase());
+
+  return lines.filter(Boolean).map((line, index) => {
+    const values = line.split(",").map((item) => item.trim());
+    const record = Object.fromEntries(
+      headers.map((header, column) => [header, values[column]]),
+    );
+
+    return normalizeRow(record, index);
+  });
+}
+
 const usd = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
   maximumFractionDigits: 2,
 });
-
-const billingIntro =
-  "파일은 서버로 전송하지 않습니다. date, provider, model, cost 열을 권장합니다.";
-const jsonSupport =
-  "JSON은 같은 필드를 가진 객체 배열을 지원하며 amount·usd·vendor·service도 자동 인식합니다.";
-const projectionCaveat =
-  "월말 예상은 파일의 최초·최종 날짜 범위를 기준으로 단순 환산한 참고값입니다.";
 
 export default function UsageBillingAnalyzer() {
   const [rows, setRows] = useState<UsageRow[]>([]);
@@ -73,14 +68,18 @@ export default function UsageBillingAnalyzer() {
   const result = useMemo(() => {
     const total = rows.reduce((sum, row) => sum + row.cost, 0);
     const byProvider = new Map<string, number>();
-    rows.forEach((row) =>
-      byProvider.set(
-        row.provider,
-        (byProvider.get(row.provider) ?? 0) + row.cost,
-      ),
+
+    rows.forEach((row) => {
+      const current = byProvider.get(row.provider) ?? 0;
+      byProvider.set(row.provider, current + row.cost);
+    });
+
+    const sorted = [...byProvider.entries()].sort(
+      (left, right) => right[1] - left[1],
     );
-    const sorted = [...byProvider.entries()].sort((a, b) => b[1] - a[1]);
-    const datedRows = rows.filter((row) => !Number.isNaN(Date.parse(row.date)));
+    const datedRows = rows.filter((row) => {
+      return !Number.isNaN(Date.parse(row.date));
+    });
     const dates = datedRows.map((row) => Date.parse(row.date));
     const spanDays =
       dates.length > 1
@@ -90,15 +89,24 @@ export default function UsageBillingAnalyzer() {
           )
         : 1;
     const projected = total > 0 ? (total / spanDays) * 30 : 0;
+
     return { total, projected, sorted };
   }, [rows]);
 
   async function handleFile(file: File | undefined) {
-    if (!file) return;
+    if (!file) {
+      return;
+    }
+
     setError("");
+
     try {
       const parsed = parseRows(await file.text(), file.name);
-      if (parsed.length === 0) throw new Error("분석할 행이 없습니다.");
+
+      if (parsed.length === 0) {
+        throw new Error("분석할 행이 없습니다.");
+      }
+
       setRows(parsed);
     } catch (caught) {
       setRows([]);
@@ -113,8 +121,11 @@ export default function UsageBillingAnalyzer() {
       <div className={styles.controls}>
         <div className={styles.heading}>
           <p>LOCAL BILLING ANALYSIS</p>
-          <h2>CSV·JSON 청구 내역을 브라우저에서 바로 분석하세요</h2>
-          <span>{billingIntro}</span>
+          <h2>CSV·JSON 청구 내역을 브라우저에서 분석하세요</h2>
+          <span>
+            파일은 서버로 전송하지 않습니다. date, provider, model, cost 열을
+            권장합니다.
+          </span>
         </div>
         <label className={styles.field}>
           <span>청구 내역 파일</span>
@@ -128,7 +139,9 @@ export default function UsageBillingAnalyzer() {
         <div className={styles.selection}>
           <strong>지원 형식</strong>
           <span>CSV: date,provider,model,cost</span>
-          <p>{jsonSupport}</p>
+          <p>
+            JSON 객체 배열과 amount, usd, vendor, service 별칭을 지원합니다.
+          </p>
         </div>
       </div>
 
@@ -165,7 +178,9 @@ export default function UsageBillingAnalyzer() {
             ))}
           </div>
         ) : null}
-        <p className={styles.caveat}>{projectionCaveat}</p>
+        <p className={styles.caveat}>
+          월말 예상은 최초·최종 날짜 범위를 단순 환산한 참고값입니다.
+        </p>
       </aside>
     </section>
   );
