@@ -66,7 +66,6 @@ const jsonSupport =
 const projectionCaveat =
   "월말 예상은 파일의 최초·최종 날짜 범위를 기준으로 단순 환산한 참고값입니다.";
 
-// prettier-ignore
 export default function UsageBillingAnalyzer() {
   const [rows, setRows] = useState<UsageRow[]>([]);
   const [error, setError] = useState("");
