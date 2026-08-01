@@ -202,9 +202,7 @@ export default function ApiSelfHostedTcoCalculator() {
           </div>
           <div>
             <dt>월 처리 가능 용량</dt>
-            <dd>
-              {Math.round(result.monthlyCapacity).toLocaleString("ko-KR")}회
-            </dd>
+            <dd>{Math.round(result.monthlyCapacity).toLocaleString("ko-KR")}회</dd>
           </div>
           <div>
             <dt>예상 용량 사용률</dt>
