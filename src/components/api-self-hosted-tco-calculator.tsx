@@ -32,7 +32,8 @@ export default function ApiSelfHostedTcoCalculator() {
     const selfHostedMonthly = gpuMonthly + safeOps;
     const monthlyCapacity =
       safeRps * 60 * 60 * 730 * safeGpuCount * (safeUtilization / 100);
-    const capacityUsage = monthlyCapacity > 0 ? safeRequests / monthlyCapacity : 0;
+    const capacityUsage =
+      monthlyCapacity > 0 ? safeRequests / monthlyCapacity : 0;
     const breakEvenRequests =
       safeApiRate > 0 ? (selfHostedMonthly / safeApiRate) * 1000 : null;
 
@@ -70,37 +71,93 @@ export default function ApiSelfHostedTcoCalculator() {
         <div className={styles.row}>
           <label className={styles.field}>
             <span>월간 요청 수</span>
-            <input type="number" min="0" inputMode="numeric" value={monthlyRequests} onChange={(event) => setMonthlyRequests(Number(event.target.value))} />
+            <input
+              type="number"
+              min="0"
+              inputMode="numeric"
+              value={monthlyRequests}
+              onChange={(event) =>
+                setMonthlyRequests(Number(event.target.value))
+              }
+            />
           </label>
           <label className={styles.field}>
             <span>API 1,000회당 비용 (USD)</span>
-            <input type="number" min="0" step="0.01" inputMode="decimal" value={apiCostPerThousand} onChange={(event) => setApiCostPerThousand(Number(event.target.value))} />
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              value={apiCostPerThousand}
+              onChange={(event) =>
+                setApiCostPerThousand(Number(event.target.value))
+              }
+            />
           </label>
         </div>
 
         <div className={styles.row}>
           <label className={styles.field}>
             <span>GPU 시간당 비용 (USD)</span>
-            <input type="number" min="0" step="0.01" inputMode="decimal" value={gpuHourlyCost} onChange={(event) => setGpuHourlyCost(Number(event.target.value))} />
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              value={gpuHourlyCost}
+              onChange={(event) =>
+                setGpuHourlyCost(Number(event.target.value))
+              }
+            />
           </label>
           <label className={styles.field}>
             <span>GPU 수</span>
-            <input type="number" min="0" step="1" inputMode="numeric" value={gpuCount} onChange={(event) => setGpuCount(Number(event.target.value))} />
+            <input
+              type="number"
+              min="0"
+              step="1"
+              inputMode="numeric"
+              value={gpuCount}
+              onChange={(event) => setGpuCount(Number(event.target.value))}
+            />
           </label>
           <label className={styles.field}>
             <span>목표 이용률 (%)</span>
-            <input type="number" min="1" max="100" inputMode="numeric" value={utilization} onChange={(event) => setUtilization(Number(event.target.value))} />
+            <input
+              type="number"
+              min="1"
+              max="100"
+              inputMode="numeric"
+              value={utilization}
+              onChange={(event) => setUtilization(Number(event.target.value))}
+            />
           </label>
         </div>
 
         <div className={styles.row}>
           <label className={styles.field}>
             <span>GPU 1대당 처리량 (req/s)</span>
-            <input type="number" min="0.01" step="0.01" inputMode="decimal" value={requestsPerSecond} onChange={(event) => setRequestsPerSecond(Number(event.target.value))} />
+            <input
+              type="number"
+              min="0.01"
+              step="0.01"
+              inputMode="decimal"
+              value={requestsPerSecond}
+              onChange={(event) =>
+                setRequestsPerSecond(Number(event.target.value))
+              }
+            />
           </label>
           <label className={styles.field}>
             <span>월 운영·스토리지 비용 (USD)</span>
-            <input type="number" min="0" step="1" inputMode="numeric" value={opsMonthly} onChange={(event) => setOpsMonthly(Number(event.target.value))} />
+            <input
+              type="number"
+              min="0"
+              step="1"
+              inputMode="numeric"
+              value={opsMonthly}
+              onChange={(event) => setOpsMonthly(Number(event.target.value))}
+            />
           </label>
         </div>
 
@@ -117,16 +174,52 @@ export default function ApiSelfHostedTcoCalculator() {
       <aside className={styles.result} aria-live="polite">
         <p className={styles.kicker}>MONTHLY TCO</p>
         <div className={styles.primary}>
-          <span>{result.selfHostedIsCheaper ? "자체 호스팅 예상 비용이 더 낮습니다" : "API 예상 비용이 더 낮습니다"}</span>
-          <strong>{usd.format(result.selfHostedIsCheaper ? result.selfHostedMonthly : result.apiMonthly)}</strong>
+          <span>
+            {result.selfHostedIsCheaper
+              ? "자체 호스팅 예상 비용이 더 낮습니다"
+              : "API 예상 비용이 더 낮습니다"}
+          </span>
+          <strong>
+            {usd.format(
+              result.selfHostedIsCheaper
+                ? result.selfHostedMonthly
+                : result.apiMonthly,
+            )}
+          </strong>
         </div>
         <dl>
-          <div><dt>API 월 예상 비용</dt><dd>{usd.format(result.apiMonthly)}</dd></div>
-          <div><dt>자체 호스팅 월 TCO</dt><dd>{usd.format(result.selfHostedMonthly)}</dd></div>
-          <div><dt>월 차이</dt><dd>{usd.format(result.difference)}</dd></div>
-          <div><dt>월 처리 가능 용량</dt><dd>{Math.round(result.monthlyCapacity).toLocaleString("ko-KR")}회</dd></div>
-          <div><dt>예상 용량 사용률</dt><dd>{(result.capacityUsage * 100).toFixed(1)}%</dd></div>
-          <div><dt>금액상 손익분기 요청 수</dt><dd>{result.breakEvenRequests === null ? "API 단가를 입력하세요" : `${Math.round(result.breakEvenRequests).toLocaleString("ko-KR")}회`}</dd></div>
+          <div>
+            <dt>API 월 예상 비용</dt>
+            <dd>{usd.format(result.apiMonthly)}</dd>
+          </div>
+          <div>
+            <dt>자체 호스팅 월 TCO</dt>
+            <dd>{usd.format(result.selfHostedMonthly)}</dd>
+          </div>
+          <div>
+            <dt>월 차이</dt>
+            <dd>{usd.format(result.difference)}</dd>
+          </div>
+          <div>
+            <dt>월 처리 가능 용량</dt>
+            <dd>
+              {Math.round(result.monthlyCapacity).toLocaleString("ko-KR")}회
+            </dd>
+          </div>
+          <div>
+            <dt>예상 용량 사용률</dt>
+            <dd>{(result.capacityUsage * 100).toFixed(1)}%</dd>
+          </div>
+          <div>
+            <dt>금액상 손익분기 요청 수</dt>
+            <dd>
+              {result.breakEvenRequests === null
+                ? "API 단가를 입력하세요"
+                : `${Math.round(result.breakEvenRequests).toLocaleString(
+                    "ko-KR",
+                  )}회`}
+            </dd>
+          </div>
         </dl>
         <p className={styles.caveat}>
           기본값은 예시일 뿐이며 특정 GPU나 모델의 공식 가격을 의미하지 않습니다.
