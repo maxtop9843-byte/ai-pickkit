@@ -22,10 +22,7 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-family:
-    "Pretendard Variable",
-    var(--font-geist-sans),
-    "Noto Sans KR",
-    sans-serif;
+    "Pretendard Variable", var(--font-geist-sans), "Noto Sans KR", sans-serif;
   font-feature-settings: "cv11" 1;
 }
 button,
@@ -304,7 +301,8 @@ h1 em {
   height: 10px;
   border-radius: 50%;
   background: var(--color-text-primary);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-text-primary) 6%, var(--color-surface));
+  box-shadow: 0 0 0 5px
+    color-mix(in srgb, var(--color-text-primary) 6%, var(--color-surface));
 }
 .provider-dot.anthropic {
   background: #c66545;
@@ -327,7 +325,11 @@ h1 em {
 .model-name-line small {
   padding: 3px 6px;
   border-radius: 5px;
-  background: color-mix(in srgb, var(--color-warning) 22%, var(--color-surface));
+  background: color-mix(
+    in srgb,
+    var(--color-warning) 22%,
+    var(--color-surface)
+  );
   color: var(--color-warning);
   font-size: 9px;
   font-weight: 750;
