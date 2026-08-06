@@ -38,7 +38,7 @@
   padding: 9px 13px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--color-surface);
   color: var(--ink);
   font-size: 13px;
   font-weight: 700;
@@ -118,13 +118,14 @@
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   border-left: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.75);
+  background: color-mix(in srgb, var(--color-surface) 75%, transparent);
   color: var(--ink);
   text-decoration: none;
 }
 
 .tool-directory-link:hover {
-  background: #f7fbf9;
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
 }
 
 .tool-directory-link strong,

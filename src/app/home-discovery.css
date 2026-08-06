@@ -21,9 +21,9 @@
   justify-content: center;
   min-height: 44px;
   padding: 12px 17px;
-  border: 1px solid #cdd5d1;
+  border: 1px solid var(--color-border-subtle);
   border-radius: 9px;
-  background: rgba(255, 255, 255, 0.8);
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
   color: var(--ink);
   font-size: 14px;
   font-weight: 720;
@@ -94,7 +94,7 @@
   padding: 22px 24px;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.72);
+  background: color-mix(in srgb, var(--color-surface) 75%, transparent);
   color: var(--ink);
   text-decoration: none;
   transition:
@@ -103,7 +103,8 @@
 }
 
 .home-tool-link:hover {
-  background: #f7fbf9;
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
 }
 
 .home-tool-index {
@@ -160,7 +161,7 @@
   padding: 11px 13px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--color-surface);
   color: var(--ink);
   font-weight: 700;
   text-decoration: none;
