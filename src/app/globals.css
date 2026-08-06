@@ -21,7 +21,9 @@ body {
   margin: 0;
   background: var(--canvas);
   color: var(--ink);
-  font-family: var(--font-geist-sans), Pretendard, "Noto Sans KR", sans-serif;
+  font-family:
+    "Pretendard Variable", var(--font-geist-sans), "Noto Sans KR", sans-serif;
+  font-feature-settings: "cv11" 1;
 }
 button,
 input,
@@ -57,7 +59,7 @@ a {
   place-items: center;
   border-radius: 9px;
   background: var(--brand);
-  color: #fff;
+  color: var(--color-accent-contrast);
   font-size: 15px;
   font-weight: 800;
 }
@@ -78,15 +80,15 @@ a {
   margin-left: 5px;
   padding: 3px 6px;
   border-radius: 99px;
-  background: #e3e8e5;
+  background: var(--color-surface-recessed);
   font-size: 9px;
 }
 .header-cta {
   justify-self: end;
   padding: 10px 15px;
-  border: 1px solid #cdd5d1;
+  border: 1px solid var(--color-border-subtle);
   border-radius: 9px;
-  background: #fff;
+  background: var(--color-surface);
   font-size: 13px;
   font-weight: 720;
   text-decoration: none;
@@ -108,10 +110,11 @@ a {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    #d9f0e7 0,
-    rgba(217, 240, 231, 0.35) 42%,
+    color-mix(in srgb, var(--color-accent) 26%, transparent) 0,
+    color-mix(in srgb, var(--color-accent) 10%, transparent) 42%,
     transparent 72%
   );
+  filter: blur(2px);
   content: "";
 }
 .eyebrow,
@@ -176,7 +179,7 @@ h1 em {
 }
 .trust-line span:before {
   margin-right: 7px;
-  color: var(--brand);
+  color: var(--brand-dark);
   content: "✓";
 }
 .calculator-shell {
@@ -235,8 +238,8 @@ h1 em {
   cursor: pointer;
 }
 .provider-tabs button.active {
-  border-color: #cad6d1;
-  background: white;
+  border-color: var(--color-border-subtle);
+  background: var(--color-surface);
   color: var(--ink);
   box-shadow: 0 4px 15px rgba(20, 34, 29, 0.05);
 }
@@ -254,9 +257,9 @@ h1 em {
 }
 .model-selects select {
   padding: 8px 28px 8px 10px;
-  border: 1px solid #d3dcd8;
+  border: 1px solid var(--color-border-subtle);
   border-radius: 8px;
-  background: white;
+  background: var(--color-surface);
   color: var(--ink);
   font-size: 12px;
 }
@@ -297,16 +300,17 @@ h1 em {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #111;
-  box-shadow: 0 0 0 5px #eef0ef;
+  background: var(--color-text-primary);
+  box-shadow: 0 0 0 5px
+    color-mix(in srgb, var(--color-text-primary) 6%, var(--color-surface));
 }
 .provider-dot.anthropic {
   background: #c66545;
-  box-shadow: 0 0 0 5px #f8eae5;
+  box-shadow: 0 0 0 5px color-mix(in srgb, #c66545 14%, var(--color-surface));
 }
 .provider-dot.google {
   background: #3f75d6;
-  box-shadow: 0 0 0 5px #e8effb;
+  box-shadow: 0 0 0 5px color-mix(in srgb, #3f75d6 14%, var(--color-surface));
 }
 .model-name-line {
   display: flex;
@@ -321,8 +325,12 @@ h1 em {
 .model-name-line small {
   padding: 3px 6px;
   border-radius: 5px;
-  background: #fff0c9;
-  color: #7a5611;
+  background: color-mix(
+    in srgb,
+    var(--color-warning) 22%,
+    var(--color-surface)
+  );
+  color: var(--color-warning);
   font-size: 9px;
   font-weight: 750;
 }
@@ -358,18 +366,18 @@ h1 em {
 }
 .capability-tags span {
   padding: 4px 6px;
-  border: 1px solid #dce3e0;
+  border: 1px solid var(--color-border-subtle);
   border-radius: 5px;
-  background: #fafcfb;
+  background: var(--color-surface-recessed);
   color: #606a65;
   font-size: 9px;
   font-weight: 680;
 }
 .compare-pick {
   padding: 8px 9px;
-  border: 1px solid #cbd5d0;
+  border: 1px solid var(--color-border-subtle);
   border-radius: 8px;
-  background: white;
+  background: var(--color-surface);
   color: var(--ink);
   font-size: 11px;
   font-weight: 740;
@@ -529,10 +537,10 @@ h1 em {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(330px, 0.55fr);
   overflow: hidden;
-  border: 1px solid #cad5d0;
+  border: 1px solid var(--color-border-strong);
   border-radius: 18px;
-  background: white;
-  box-shadow: 0 24px 70px rgba(24, 54, 42, 0.08);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
 }
 .selector-form {
   padding: 34px 38px;
@@ -557,7 +565,7 @@ h1 em {
   padding: 13px;
   border: 1px solid var(--border);
   border-radius: 9px;
-  background: #fbfcfb;
+  background: var(--color-surface-recessed);
   color: var(--ink);
   text-align: left;
   cursor: pointer;
@@ -577,7 +585,7 @@ h1 em {
 }
 .selector-choice.active {
   border-color: var(--brand);
-  background: #edf8f3;
+  background: color-mix(in srgb, var(--color-accent) 9%, var(--color-surface));
   box-shadow: inset 3px 0 var(--brand);
 }
 .selector-choice:focus-visible,
@@ -723,7 +731,7 @@ h1 em {
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   border-left: 1px solid var(--border);
-  background: #f9fbfa;
+  background: var(--color-surface-recessed);
 }
 .selector-alternatives > div,
 .selector-alternatives article {
@@ -815,10 +823,10 @@ h1 em {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(330px, 0.65fr);
   overflow: hidden;
-  border: 1px solid #d5ddda;
+  border: 1px solid var(--color-border-strong);
   border-radius: 18px;
-  background: white;
-  box-shadow: 0 24px 70px rgba(24, 54, 42, 0.08);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
 }
 .input-panel {
   padding: 35px 38px;
@@ -837,7 +845,7 @@ h1 em {
 .input-panel legend span,
 .advanced-toggle b {
   margin-right: 9px;
-  color: var(--brand);
+  color: var(--brand-dark);
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
 }
@@ -851,7 +859,7 @@ h1 em {
   padding: 16px;
   border: 1px solid var(--border);
   border-radius: 11px;
-  background: white;
+  background: var(--color-surface);
   color: var(--ink);
   text-align: left;
   cursor: pointer;
@@ -871,7 +879,7 @@ h1 em {
 }
 .preset.active {
   border-color: var(--brand);
-  background: #f0faf6;
+  background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface));
   box-shadow: inset 3px 0 var(--brand);
 }
 .field-grid,
@@ -883,7 +891,7 @@ h1 em {
 .numeric-field > span:first-child {
   display: block;
   margin-bottom: 8px;
-  color: #4f5955;
+  color: var(--color-text-primary);
   font-size: 12px;
   font-weight: 650;
 }
@@ -893,7 +901,7 @@ h1 em {
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 10px;
-  background: #fbfcfb;
+  background: var(--color-surface-recessed);
 }
 .number-control:focus-within {
   border-color: var(--brand);
@@ -910,13 +918,13 @@ h1 em {
 }
 .number-control > span {
   padding-right: 13px;
-  color: #84908a;
+  color: var(--color-text-secondary);
   font-size: 12px;
 }
 .numeric-field small {
   display: block;
   margin-top: 6px;
-  color: #8a938f;
+  color: var(--color-text-secondary);
   font-size: 10px;
 }
 .volume-note {
@@ -935,7 +943,7 @@ h1 em {
   padding: 17px 0;
   border: 0;
   border-top: 1px solid var(--border);
-  background: white;
+  background: var(--color-surface);
   color: var(--ink);
   font-size: 13px;
   font-weight: 700;
@@ -1040,12 +1048,12 @@ h1 em {
   font-size: 19px;
 }
 .saving-box small {
-  color: #708078;
+  color: var(--color-on-inverse-muted);
   font-size: 8px;
 }
 .result-caveat {
   margin: 22px 0 0;
-  color: #788880;
+  color: var(--color-on-inverse-muted);
   font-size: 9px;
   line-height: 1.6;
 }
@@ -1088,7 +1096,7 @@ h1 em {
   padding: 30px 34px;
   border: 1px solid var(--border);
   border-radius: 16px;
-  background: #fff;
+  background: var(--color-surface);
 }
 .comparison-head {
   display: flex;
@@ -1102,7 +1110,7 @@ h1 em {
   letter-spacing: -0.035em;
 }
 .comparison-head > span {
-  color: #87918c;
+  color: var(--color-text-secondary);
   font-size: 10px;
 }
 .model-list {
@@ -1118,23 +1126,23 @@ h1 em {
 .model-row.recommended {
   margin: 0 -12px;
   padding: 0 12px;
-  background: #f3faf7;
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-surface));
 }
 .tier-marker span {
   padding: 6px 9px;
   border-radius: 99px;
-  background: #edf1ef;
-  color: #52605a;
+  background: var(--color-surface-recessed);
+  color: var(--color-text-secondary);
   font-size: 10px;
   font-weight: 720;
 }
 .tier-marker.balanced span {
-  background: #dff4eb;
+  background: color-mix(in srgb, var(--color-accent) 16%, var(--color-surface));
   color: var(--brand-dark);
 }
 .tier-marker.quality span {
-  background: #eeece8;
-  color: #62594a;
+  background: var(--color-surface-recessed);
+  color: var(--color-text-secondary);
 }
 .model-name strong,
 .model-name span,
@@ -1170,7 +1178,7 @@ h1 em {
   flex-wrap: wrap;
   gap: 16px;
   margin-top: 17px;
-  color: #85908a;
+  color: var(--color-text-secondary);
   font-size: 9px;
 }
 .source-note a {
@@ -1195,7 +1203,7 @@ h1 em {
 }
 .explain-grid article > span {
   font-family: var(--font-geist-mono), monospace;
-  color: var(--brand);
+  color: var(--brand-dark);
   font-size: 11px;
 }
 .explain-grid h3 {
@@ -1215,7 +1223,7 @@ footer {
   align-items: center;
   padding: 40px max(24px, calc((100vw - 1180px) / 2));
   border-top: 1px solid var(--border);
-  background: #eef3f0;
+  background: var(--color-surface-recessed);
   color: #78827d;
   font-size: 11px;
 }
@@ -1292,10 +1300,10 @@ footer > span {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(330px, 0.65fr);
   overflow: hidden;
-  border: 1px solid #d5ddda;
+  border: 1px solid var(--color-border-strong);
   border-radius: 16px;
-  background: white;
-  box-shadow: 0 24px 70px rgba(24, 54, 42, 0.07);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
 }
 .prompt-input-panel {
   padding: 32px 36px;
@@ -1318,7 +1326,7 @@ footer > span {
   padding: 6px 9px;
   border: 1px solid var(--border);
   border-radius: 7px;
-  background: #f8faf9;
+  background: var(--color-surface-recessed);
   color: #59635e;
   font-size: 10px;
   cursor: pointer;
@@ -1328,10 +1336,10 @@ footer > span {
   min-height: 290px;
   resize: vertical;
   padding: 18px;
-  border: 1px solid #cfd8d4;
+  border: 1px solid var(--color-border-subtle);
   border-radius: 10px;
   outline: 0;
-  background: #fbfcfb;
+  background: var(--color-surface-recessed);
   color: var(--ink);
   font-family: var(--font-geist-mono), monospace;
   font-size: 13px;
@@ -1356,7 +1364,7 @@ footer > span {
   border-right: 0;
 }
 .prompt-diagnostics dt {
-  color: #84908a;
+  color: var(--color-text-secondary);
   font-size: 9px;
 }
 .prompt-diagnostics dd {
@@ -1454,13 +1462,13 @@ footer > span {
   border: 0;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  background: white;
+  background: var(--color-surface);
   color: var(--ink);
   text-align: left;
   cursor: pointer;
 }
 .prompt-model-options button.selected {
-  background: #edf8f3;
+  background: color-mix(in srgb, var(--color-accent) 9%, var(--color-surface));
   box-shadow: inset 3px 0 var(--brand);
 }
 .prompt-model-options button:disabled {
@@ -1598,7 +1606,7 @@ footer > span {
   white-space: nowrap;
 }
 .prompt-tool-actions a:last-child {
-  background: white;
+  background: var(--color-surface);
   color: var(--ink);
   box-shadow: inset 0 0 0 1px var(--border);
 }
@@ -1631,10 +1639,10 @@ footer > span {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(330px, 0.65fr);
   overflow: hidden;
-  border: 1px solid #d5ddda;
+  border: 1px solid var(--color-border-strong);
   border-radius: 16px;
-  background: white;
-  box-shadow: 0 24px 70px rgba(24, 54, 42, 0.07);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
 }
 .savings-workbench form {
   padding: 32px 36px;
@@ -1647,7 +1655,7 @@ footer > span {
 }
 .savings-model-select > span,
 .savings-workbench legend {
-  color: #4f5955;
+  color: var(--color-text-primary);
   font-size: 12px;
   font-weight: 750;
 }
@@ -1656,7 +1664,7 @@ footer > span {
   padding: 11px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: #fbfcfb;
+  background: var(--color-surface-recessed);
   color: var(--ink);
   font-weight: 650;
 }
@@ -1688,7 +1696,7 @@ footer > span {
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: #fbfcfb;
+  background: var(--color-surface-recessed);
   color: #87908c;
   font-size: 9px;
 }
@@ -1801,7 +1809,7 @@ footer > span {
   text-transform: uppercase;
 }
 .savings-row.best {
-  background: #edf8f3;
+  background: color-mix(in srgb, var(--color-accent) 9%, var(--color-surface));
   box-shadow: inset 3px 0 var(--brand);
 }
 .savings-row > div span,
@@ -1833,7 +1841,7 @@ footer > span {
   display: block;
   overflow: hidden;
   height: 7px;
-  background: #dfe7e3;
+  background: var(--color-border-subtle);
 }
 .savings-bar i {
   display: block;

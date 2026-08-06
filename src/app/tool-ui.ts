@@ -1,7 +1,7 @@
 export const toolUiCss = String.raw`
 :where(.input-panel,.result-panel,.selector-form,.selector-result,.savings-workbench,.prompt-token-panel,.compare-tray,.tool-card,.result-card){border:1px solid var(--color-border-subtle);border-radius:var(--radius-panel);background:var(--color-surface);color:var(--color-text-primary);box-shadow:none}
 :where(.input-panel,.selector-form,.savings-workbench){background:var(--color-surface)}
-:where(.result-panel,.selector-result,.compare-tray,.prompt-token-panel){background:var(--color-surface-raised);color:var(--color-text-primary)}
+:where(.result-panel,.selector-result,.compare-tray,.prompt-token-panel){background:var(--color-inverse-surface);color:var(--color-on-inverse);border-color:var(--color-inverse-border)}
 :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea,.number-control){min-height:44px;border:1px solid var(--color-border-subtle);border-radius:var(--radius-control);background:var(--color-surface-recessed);color:var(--color-text-primary);box-shadow:inset 0 1px 0 color-mix(in srgb,var(--color-text-primary) 4%,transparent);transition:border-color 160ms ease,background-color 160ms ease,box-shadow 160ms ease}
 :where(input,select,textarea)::placeholder{color:var(--color-text-tertiary);opacity:1}
 :where(input,select,textarea):hover{border-color:var(--color-border-strong)}
@@ -13,8 +13,8 @@ export const toolUiCss = String.raw`
 :where(.preset.active,.provider-tabs button.active,.compare-pick[aria-pressed="true"]){border-color:color-mix(in srgb,var(--color-accent) 58%,var(--color-border-strong));background:color-mix(in srgb,var(--color-accent) 11%,var(--color-surface));color:var(--color-text-primary);box-shadow:inset 3px 0 var(--color-accent)}
 :where(.numeric-field>span:first-child,.input-panel legend,.selector-fieldset legend){color:var(--color-text-primary);font-size:var(--font-label-size);font-weight:680}
 :where(.numeric-field small,.field-help,.helper-text,.catalog-note,.model-price span){color:var(--color-text-tertiary)}
-:where(.result-panel,.selector-result,.compare-tray,.prompt-token-panel) :where(p,small,span){color:var(--color-text-secondary)}
-:where(.result-panel,.selector-result,.compare-tray,.prompt-token-panel) :where(h2,h3,strong,b){color:var(--color-text-primary)}
+:where(.result-panel,.selector-result,.compare-tray,.prompt-token-panel) :where(p,small,span){color:var(--color-on-inverse-muted)}
+:where(.result-panel,.selector-result,.compare-tray,.prompt-token-panel) :where(h2,h3,strong,b){color:var(--color-on-inverse)}
 :where(.result-panel,.selector-result,.compare-tray,.prompt-token-panel) :where(input,select,textarea,.number-control){background:var(--color-surface-recessed);color:var(--color-text-primary)}
 :where(.catalog-row,.result-row,.comparison-row,.prompt-volume-fields label){border-color:var(--color-border-subtle)}
 :where(.catalog-row,.result-row,.comparison-row){transition:background-color 150ms ease}
@@ -40,16 +40,16 @@ export const toolUiCss = String.raw`
 .calculator-shell .preset{min-height:76px;text-align:left}
 .calculator-shell .preset strong{font-size:.92rem}
 .calculator-shell .preset span{line-height:1.45}
-.calculator-shell .result-panel{position:relative;background:var(--color-surface-raised)}
+.calculator-shell .result-panel{position:relative;background:var(--color-inverse-surface);color:var(--color-on-inverse)}
 .calculator-shell .result-panel:before{position:absolute;top:0;right:0;left:0;height:2px;background:var(--color-accent);content:""}
-.calculator-shell .result-heading{padding-bottom:var(--space-4);border-bottom:1px solid var(--color-border-subtle)}
+.calculator-shell .result-heading{padding-bottom:var(--space-4);border-bottom:1px solid var(--color-inverse-border)}
 .calculator-shell .headline-result{padding:var(--space-7) 0}
 .calculator-shell .headline-result>strong{font-family:var(--font-geist-mono),monospace;font-size:clamp(2.6rem,5vw,4.4rem);font-weight:520;line-height:1;letter-spacing:-.065em;font-variant-numeric:tabular-nums}
-.calculator-shell .mini-metrics{border-top:1px solid var(--color-border-subtle);border-bottom:1px solid var(--color-border-subtle)}
-.calculator-shell .mini-metrics>div+div{border-left:1px solid var(--color-border-subtle)}
+.calculator-shell .mini-metrics{border-top:1px solid var(--color-inverse-border);border-bottom:1px solid var(--color-inverse-border)}
+.calculator-shell .mini-metrics>div+div{border-left:1px solid var(--color-inverse-border)}
 .calculator-shell .mini-metrics dd,.calculator-shell .saving-box strong,.calculator-shell .model-total strong{font-family:var(--font-geist-mono),monospace;font-variant-numeric:tabular-nums}
-.calculator-shell .saving-box{border:1px solid var(--color-border-subtle);border-radius:var(--radius-control);background:var(--color-surface-recessed)}
-.calculator-shell .result-actions{padding-top:var(--space-5);border-top:1px solid var(--color-border-subtle)}
+.calculator-shell .saving-box{border:0;border-radius:var(--radius-control);background:transparent}
+.calculator-shell .result-actions{padding-top:var(--space-5);border-top:1px solid var(--color-inverse-border)}
 .calculator-shell .result-actions button:first-child{border-color:var(--color-accent);background:var(--color-accent);color:var(--color-accent-contrast)}
 .calculator-shell .comparison{margin-top:var(--space-7);border-top:1px solid var(--color-border-strong)}
 .calculator-shell .model-row{border-color:var(--color-border-subtle)}

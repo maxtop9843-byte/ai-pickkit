@@ -36,6 +36,57 @@ const themeInitializationScript = `
   }
 })();`;
 
+// Reuses the same section-shell class list all-tools-ui.ts already styles as one
+// design-system layer, so every tool page gets scroll-reveal with zero per-page markup.
+const REVEAL_SELECTOR = [
+  ".calculator-shell",
+  ".compare-shell",
+  ".selector-shell",
+  ".prompt-estimator-shell",
+  ".savings-shell",
+  ".home-tool-directory",
+  ".prompt-tool-band",
+  ".explain-section",
+  ".tools-directory .tool-group",
+  ".tool-shell",
+  ".prompt-tool-shell",
+  ".batch-cache-shell",
+  ".image-cost-shell",
+  ".speech-cost-shell",
+  ".rag-cost-shell",
+  ".fine-tuning-shell",
+  ".agent-cost-shell",
+  ".provider-budget-shell",
+  ".credit-runway-shell",
+  ".composite-cost-shell",
+  ".direct-comparison-shell",
+  ".scenario-shell",
+  ".budget-capacity-shell",
+  ".models-shell",
+].join(",");
+
+const scrollRevealScript = `
+(() => {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-revealed");
+        io.unobserve(entry.target);
+      }
+    }
+  }, { rootMargin: "0px 0px -10% 0px", threshold: 0.1 });
+  const scan = () => document.querySelectorAll("${REVEAL_SELECTOR}").forEach((el) => {
+    if (!el.classList.contains("is-revealed")) io.observe(el);
+  });
+  const start = () => {
+    scan();
+    // Client-side route transitions swap content without firing DOMContentLoaded again.
+    new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
+  };
+  document.body ? start() : document.addEventListener("DOMContentLoaded", start);
+})();`;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://aipickkit.com"),
   title: "AI 모델 추천·가격 비교·API 비용 계산기 | AI PickKit",
@@ -70,9 +121,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
         <script
           dangerouslySetInnerHTML={{ __html: themeInitializationScript }}
         />
+        <script dangerouslySetInnerHTML={{ __html: scrollRevealScript }} />
         <style dangerouslySetInnerHTML={{ __html: toolUiCss }} />
         <style dangerouslySetInnerHTML={{ __html: allToolsUiCss }} />
         <style dangerouslySetInnerHTML={{ __html: motionUiCss }} />

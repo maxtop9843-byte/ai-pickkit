@@ -106,7 +106,8 @@ export const allToolsUiCss = String.raw`
 ) {
   position: relative;
   min-width: 0;
-  background: var(--color-surface-raised);
+  background: var(--color-inverse-surface);
+  color: var(--color-on-inverse);
 }
 
 :where(
