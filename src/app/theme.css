@@ -14,7 +14,9 @@
      accents) depends on this staying the actual brand color. */
   --color-accent: #16a37a;
   --color-accent-strong: #0d7a5b;
-  --color-accent-contrast: #ffffff;
+  /* Dark ink, not white: white on mint is only 3.2:1 and fails AA on the small button labels
+     that sit on an accent background. */
+  --color-accent-contrast: #06241a;
   --color-success: #147a58;
   --color-warning: #9a6400;
   --color-danger: #b3261e;
@@ -49,6 +51,15 @@
   --shadow-lg: 0 24px 70px rgba(var(--shadow-color), 0.1);
   --shadow-glow: 0 0 0 3px rgba(22, 163, 122, 0.14);
 
+  /* Inverse surface: the dark "receipt" panel used for results/summaries. It is a fixed dark
+     surface in BOTH themes, so its foreground must come from these on-inverse tokens and never
+     from --color-text-primary (which flips with the theme and would go dark-on-dark). */
+  --color-inverse-surface: #1a2b23;
+  --color-inverse-raised: #21362c;
+  --color-inverse-border: #35473f;
+  --color-on-inverse: #f2f5f3;
+  --color-on-inverse-muted: #a9b8b1;
+
   /* Compatibility aliases while components migrate in UX-003B–F. */
   --brand: var(--color-accent);
   --brand-dark: var(--color-accent-strong);
@@ -58,9 +69,7 @@
   --surface: var(--color-surface);
   --canvas: var(--color-canvas);
   --soft: var(--color-surface-recessed);
-  /* Fixed dark "receipt" surface for result/summary panels — intentionally stays dark in both
-     themes (a deliberate inverse-surface pattern), never tracks --color-text-primary. */
-  --navy: #1a2b23;
+  --navy: var(--color-inverse-surface);
 }
 
 :root[data-theme="dark"] {
@@ -85,9 +94,10 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.32);
   --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.38);
   --shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.44);
-  /* Slightly brighter than the light-mode navy so it still reads as an elevated panel
-     against an already-dark canvas — but stays a genuine dark navy, never inverts to white. */
-  --navy: #21362c;
+  /* Lifted slightly so the inverse panel still separates from an already-dark canvas.
+     Stays a genuine dark surface — it must never invert to a light color. */
+  --color-inverse-surface: #1e3229;
+  --color-inverse-raised: #26402f;
 }
 
 html {

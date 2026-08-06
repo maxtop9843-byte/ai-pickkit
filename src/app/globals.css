@@ -59,7 +59,7 @@ a {
   place-items: center;
   border-radius: 9px;
   background: var(--brand);
-  color: #fff;
+  color: var(--color-accent-contrast);
   font-size: 15px;
   font-weight: 800;
 }
@@ -179,7 +179,7 @@ h1 em {
 }
 .trust-line span:before {
   margin-right: 7px;
-  color: var(--brand);
+  color: var(--brand-dark);
   content: "✓";
 }
 .calculator-shell {
@@ -845,7 +845,7 @@ h1 em {
 .input-panel legend span,
 .advanced-toggle b {
   margin-right: 9px;
-  color: var(--brand);
+  color: var(--brand-dark);
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
 }
@@ -891,7 +891,7 @@ h1 em {
 .numeric-field > span:first-child {
   display: block;
   margin-bottom: 8px;
-  color: #4f5955;
+  color: var(--color-text-primary);
   font-size: 12px;
   font-weight: 650;
 }
@@ -918,13 +918,13 @@ h1 em {
 }
 .number-control > span {
   padding-right: 13px;
-  color: #84908a;
+  color: var(--color-text-secondary);
   font-size: 12px;
 }
 .numeric-field small {
   display: block;
   margin-top: 6px;
-  color: #8a938f;
+  color: var(--color-text-secondary);
   font-size: 10px;
 }
 .volume-note {
@@ -1048,12 +1048,12 @@ h1 em {
   font-size: 19px;
 }
 .saving-box small {
-  color: #708078;
+  color: var(--color-on-inverse-muted);
   font-size: 8px;
 }
 .result-caveat {
   margin: 22px 0 0;
-  color: #788880;
+  color: var(--color-on-inverse-muted);
   font-size: 9px;
   line-height: 1.6;
 }
@@ -1110,7 +1110,7 @@ h1 em {
   letter-spacing: -0.035em;
 }
 .comparison-head > span {
-  color: #87918c;
+  color: var(--color-text-secondary);
   font-size: 10px;
 }
 .model-list {
@@ -1132,7 +1132,7 @@ h1 em {
   padding: 6px 9px;
   border-radius: 99px;
   background: var(--color-surface-recessed);
-  color: #52605a;
+  color: var(--color-text-secondary);
   font-size: 10px;
   font-weight: 720;
 }
@@ -1142,7 +1142,7 @@ h1 em {
 }
 .tier-marker.quality span {
   background: var(--color-surface-recessed);
-  color: #62594a;
+  color: var(--color-text-secondary);
 }
 .model-name strong,
 .model-name span,
@@ -1178,7 +1178,7 @@ h1 em {
   flex-wrap: wrap;
   gap: 16px;
   margin-top: 17px;
-  color: #85908a;
+  color: var(--color-text-secondary);
   font-size: 9px;
 }
 .source-note a {
@@ -1203,7 +1203,7 @@ h1 em {
 }
 .explain-grid article > span {
   font-family: var(--font-geist-mono), monospace;
-  color: var(--brand);
+  color: var(--brand-dark);
   font-size: 11px;
 }
 .explain-grid h3 {
@@ -1364,7 +1364,7 @@ footer > span {
   border-right: 0;
 }
 .prompt-diagnostics dt {
-  color: #84908a;
+  color: var(--color-text-secondary);
   font-size: 9px;
 }
 .prompt-diagnostics dd {
@@ -1655,7 +1655,7 @@ footer > span {
 }
 .savings-model-select > span,
 .savings-workbench legend {
-  color: #4f5955;
+  color: var(--color-text-primary);
   font-size: 12px;
   font-weight: 750;
 }
